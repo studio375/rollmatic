@@ -1,0 +1,35 @@
+#site-footer{
+    width: calc(100% - 80px); margin: 0 auto; background: var(--sfumatura-1); border-radius: 5px; padding-top: 310px; padding-bottom: 10px; position: relative;
+    .top{
+        padding: 0 169px; display: flex; align-items: flex-start; width: 100%;
+        .singleCol{
+            width: auto;
+            &:first-child{width: 50%;}
+            &:last-child{margin-left: auto;}
+            .textwidget{
+                display: flex; flex-direction: column; align-items: flex-start;
+                .name{
+                    font-weight: 700;
+                }
+                .tel{
+                    margin-top: 50px;
+                }
+                .contact{
+                    a{
+                        display: flex; align-items: center; justify-content: flex-start; gap: 5px;
+                        span:first-child{color: var(--main-color);}
+                        span:last-child{text-transform: lowercase;}
+                    }
+                }
+            }
+        }
+    }
+    .footer-bottom{
+        padding: 0 20px; margin-top: 250px; width: 100%; 
+        .textwidget{
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
+            .right{display: flex; align-items: center; justify-content: flex-end; gap: 10px;}
+        }
+    }
+    a{text-transform: uppercase;}
+}

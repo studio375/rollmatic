@@ -1,26 +1,20 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --font-size: 10px;
+  --background: #1B1B19;
+  --foreground: #fff;
   --spacing: 1rem;
+  --main-color: #00A2AD;
+  --sfumatura-1: linear-gradient(90deg,#00A2AD, #005157, #000000 70%);
 }
+
+*{box-sizing: border-box;}
+
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-neue: var(--font-neue);
   --font-hatton: var(--font-hatton);
-  --font-size: var(--font-size);
   --spacing: var(--spacing);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 .font-hatton {
@@ -32,5 +26,12 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-neue);
-  line-height: 1.2;
+  font-size: 20px;
+  line-height: 30px;
 }
+
+main{min-height: 100vh;}
+
+
+//utils
+a{text-decoration: none; color: var(--foreground);}

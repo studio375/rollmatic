@@ -7,6 +7,7 @@ export async function fetchAPI(path = "", urlParamsObject = {}) {
       cache: "force-cache",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Basic " + btoa("studio375:" + process.env.APPLICATION_PASSWORD),
       },
     };
 
