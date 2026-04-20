@@ -17,7 +17,7 @@
                 .contact{
                     a{
                         display: flex; align-items: center; justify-content: flex-start; gap: 5px;
-                        span:first-child{color: var(--main-color);}
+                        span:first-child{color: var(--main-color); font-weight: 700;}
                         span:last-child{text-transform: lowercase;}
                     }
                 }

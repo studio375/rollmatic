@@ -12,20 +12,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-neue: var(--font-neue);
-  --font-hatton: var(--font-hatton);
+  --font-aspekta: var(--font-aspekta);
   --spacing: var(--spacing);
-}
-
-.font-hatton {
-  font-family: var(--font-hatton);
-  font-weight: 300;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-neue);
+  font-family: var(--font-aspekta);
   font-size: 20px;
   line-height: 30px;
 }
