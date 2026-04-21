@@ -4,6 +4,7 @@
   --spacing: 1rem;
   --main-color: #00A2AD;
   --sfumatura-1: linear-gradient(90deg,#00A2AD, #005157, #000000 70%);
+  --sfumatura-2: linear-gradient(#1B1B1900, #1B1B19);
 }
 
 *{box-sizing: border-box;}
@@ -29,3 +30,18 @@ main{min-height: 100vh;}
 
 //utils
 a{text-decoration: none; color: var(--foreground);}
+h1, .h1{font-size: 80px; line-height: 90px; color: var(--main-color); text-transform: uppercase; margin: 0;}
+h2, .h2{font-size: 38px; line-height: 100%; text-transform: uppercase; margin: 0;}
+h3, .h3{font-size: 30px; line-height: 35px; text-transform: unset; margin: 0; font-weight: 600; &.sub{font-weight: 400;}}
+p{margin: 0;}
+.boxed{padding-left: 76px; padding-right: 76px;}
+.big-boxed{padding-left: 210px; padding-right: 210px;}
+.shaded{
+  position: relative; margin-bottom: -250px;
+  &::before{content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 250px; background: var(--sfumatura-2); z-index: 1;}
+  &.reverse::before{transform: rotate(180deg);}
+}
+.custom-button{
+  display: inline-flex; border: 2px solid #fff; border-radius: 50px; padding: 0 16px; text-transform: uppercase; cursor: pointer;
+}
+.divisor{width: 100%; height: 1px; background-color: #fff; display: block;}
