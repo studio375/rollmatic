@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image"
 import style from './scrollGallery.module.scss';
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
+
 
 export default function ScrollGallery({images, ...props}){
     //var aspectRatio = `${images[0].width}/${images[0].height}`;
@@ -29,7 +32,7 @@ export default function ScrollGallery({images, ...props}){
         return <Image key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
     })
 
-    useEffect(() => {
+    useGSAP(() => {
         if(!galleryRef) return;
         var slides = galleryRef.current.querySelectorAll('img'); //array con tutte le slide (immagini) della galleria
         var totalSlides = slides.length;
@@ -73,7 +76,7 @@ export default function ScrollGallery({images, ...props}){
         return () => {
             if(tml) tml.kill();
         };
-    }, [])
+    }, [galleryRef])
     
     return <div ref={galleryRef} {...props} className={`${props.className || ''} ${style.scrollGallery}`}>
         <div className={style.slidesContainer}>{images}</div>

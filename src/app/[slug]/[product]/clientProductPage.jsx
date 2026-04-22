@@ -6,6 +6,8 @@ import BigText from "@/components/Library/Big Text/bigText";
 import CustomButton from "@/components/Library/Custom Button/customButton";
 import { useEffect, useRef, useState } from 'react';
 import ScrollGallery from '@/components/Library/Scroll Gallery/scrollGallery';
+import VideoCarousel from '@/components/Library/Video Carousel/videoCarousel';
+import VideoPlayer from '@/components/Library/video Player/videoPlayer';
 
 export default function ProductPage({prodotto, cat}){
     
@@ -22,6 +24,9 @@ export default function ProductPage({prodotto, cat}){
     var dettagliProd = prodotto.acf.dettagli_prodotto;
     var col1Dettagli = dettagliProd?.filter((elem, i) => {return (i < dettagliProd.length / 2)});
     var col2Dettagli = dettagliProd?.filter((elem, i) => {return (i >= dettagliProd.length / 2)});
+
+    var videoIds = prodotto.acf.galleria_video.map(elem => {return elem.id_video_yt});
+
 
     return <>
         <section id={style.heading} className="shaded">
@@ -50,7 +55,9 @@ export default function ProductPage({prodotto, cat}){
         </section>
         <section id={style.first} className="boxed">
             <div className={style.left}><Paragraph>{prodotto.acf.paragrafo}</Paragraph></div>
-            <div className={style.right}><ScrollGallery images={prodotto.acf.galleria}/></div>
+            <div className={style.right}>
+                <ScrollGallery images={prodotto.acf.galleria}/>
+                </div>
         </section>
         <section id={style.second} className="shaded shaded-before">
             <Image src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
@@ -100,7 +107,7 @@ export default function ProductPage({prodotto, cat}){
             </div>
         </section>
         <section id={style.fourth} className="big-boxed">
-            galleria video
+            <VideoCarousel videoIds={videoIds} />
         </section>
     </>;
 }
