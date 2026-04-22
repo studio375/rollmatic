@@ -15,8 +15,8 @@
 #first{
     display: flex; align-items: flex-start; min-height: 500px;
     .right, .left{z-index: 10; position: relative;}
-    .left{width: 45%; padding-right: 200px;}
-    .right{width: 55%;}
+    .left{width: calc(100% - 1050px); padding-right: 200px;}
+    .right{width: 1050px;}
 }
 #second{
     position: relative; width: 100%;
@@ -45,6 +45,13 @@
                     }
                 }
                 &.open .title .actions::after{opacity: 0;}
+            }
+            .text{
+                display: flex; align-items: flex-start; justify-content: flex-start; gap: 180px; width: 100%;
+                .singleCol{
+                    width: calc(50% - 90px);
+                    li:not(:first-child){margin-top: 5px;}
+                }
             }
         }
     }

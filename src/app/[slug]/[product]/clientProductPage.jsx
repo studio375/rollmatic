@@ -19,6 +19,10 @@ export default function ProductPage({prodotto, cat}){
         setDrawsHeight((isOpen)?height:'0');
     }
     
+    var dettagliProd = prodotto.acf.dettagli_prodotto;
+    var col1Dettagli = dettagliProd?.filter((elem, i) => {return (i < dettagliProd.length / 2)});
+    var col2Dettagli = dettagliProd?.filter((elem, i) => {return (i >= dettagliProd.length / 2)});
+
     return <>
         <section id={style.heading} className="shaded">
             <Image src={prodotto.acf.immagine_testata.url} width={prodotto.acf.immagine_testata.width} height={prodotto.acf.immagine_testata.height} alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}/>
@@ -44,11 +48,11 @@ export default function ProductPage({prodotto, cat}){
                 </div>
             </div>
         </section>
-        <section id={style.first} className="boxed shaded reverse">
+        <section id={style.first} className="boxed">
             <div className={style.left}><Paragraph>{prodotto.acf.paragrafo}</Paragraph></div>
             <div className={style.right}><ScrollGallery images={prodotto.acf.galleria}/></div>
         </section>
-        <section id={style.second} className="shaded">
+        <section id={style.second} className="shaded shaded-before">
             <Image src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
             <div className={`${style.container} big-boxed`}>
                 <div className={style.title}><BigText Tag="h3">{cat.acf.testo_gamma}</BigText></div>
@@ -66,7 +70,26 @@ export default function ProductPage({prodotto, cat}){
                             </div>
                         </div>
                     </div>
-                    <div className={style.text}>dettagli tecnici</div>
+                    <div className={`${style.text}`}>
+                        <div className={`${style.leftCol} ${style.singleCol}`}>
+                            <ul>
+                            {
+                                col1Dettagli.map((elem,i) => {
+                                    return <Paragraph key={i} Tag='li'>{elem.testo}</Paragraph>;
+                                })
+                            }
+                            </ul>
+                        </div>
+                        <div className={`${style.rightCol} ${style.singleCol}`}>
+                            <ul>
+                            {
+                                col2Dettagli.map((elem,i) => {
+                                    return <Paragraph key={i} Tag='li'>{elem.testo}</Paragraph>;
+                                })
+                            }
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
