@@ -1,3 +1,4 @@
+
 :root {
   --background: #1B1B19;
   --foreground: #fff;
@@ -8,7 +9,6 @@
 }
 
 *{box-sizing: border-box;}
-
 
 @theme inline {
   --color-background: var(--background);
@@ -23,6 +23,7 @@ body {
   font-family: var(--font-aspekta);
   font-size: 20px;
   line-height: 30px;
+  overflow-x: hidden;
 }
 
 main{min-height: 100vh;}

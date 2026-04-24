@@ -1,18 +1,13 @@
 "use client";
 import dynamic from "next/dynamic";
 import "plyr-react/plyr.css";
-import { useEffect, useState } from "react";
 const Plyr = dynamic(() => import('plyr-react').then((fun) => ({default: fun.Plyr})), { ssr: false });
 
 
 
 export default function VideoPlayer({videoId}){
-    const [loaded, setLoaded] = useState(false);
-    useEffect(() => {
-        setLoaded(true);
-    },[]);
-    if(!loaded) return null;
     const plyrProps = {
+        id:{videoId},
         source: {
             type: "video",
             sources: [
@@ -20,7 +15,13 @@ export default function VideoPlayer({videoId}){
                     src: videoId,
                     provider: 'youtube',
                 },
+                // {
+                //     src: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4',
+                //     type: "video/mp4",
+                //     size: 720,
+                // }
             ],
+            poster: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg",
         },
         options: {
             // Full list of options: https://github.com/sampotts/plyr#options
@@ -37,6 +38,7 @@ export default function VideoPlayer({videoId}){
                 "airplay",
                 "fullscreen",
             ],
+            youtube: { noCookie: true },
         },
     }
     return <Plyr {...plyrProps} />;

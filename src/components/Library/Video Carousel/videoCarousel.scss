@@ -1,0 +1,12 @@
+.video-carousel{
+    min-width: 200%;
+    .swiper-slide{
+        .plyr{
+            &.plyr--paused .plyr__controls{display: none;}
+        }
+    }
+}
+.carousel-actions{
+    width: calc(200% / 3); display: flex; align-items: center; justify-content: space-between; margin-top: 15px;
+    .next{cursor: pointer;}
+}
