@@ -1,6 +1,6 @@
 import { getBackendURL } from "./api-helpers";
 import qs from "qs";
-export async function fetchAPI(path = "", urlParamsObject = {}) {
+export async function fetchAPI(path = "", urlParamsObject = {}, isGravity = false) {
   try {
     const options = {
       next: { tags: ["all"] },
@@ -13,9 +13,13 @@ export async function fetchAPI(path = "", urlParamsObject = {}) {
 
     // Build request URL
     const queryString = qs.stringify(urlParamsObject);
-    const requestUrl = `${getBackendURL(
+    var requestUrl = `${getBackendURL(
       `/${path}${queryString ? `?${queryString}` : ""}`,
     )}`;
+    if(isGravity){
+      requestUrl = `${process.env.GRAVITY_ENDPOINT}/${path}${queryString ? `?${queryString}` : ""}`;
+    }
+    console.log(path);
     // Trigger API call
     const response = await fetch(requestUrl, options);
     const r = await response.json();

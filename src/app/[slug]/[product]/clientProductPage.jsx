@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import ScrollGallery from '@/components/Library/Scroll Gallery/scrollGallery';
 import VideoCarousel from '@/components/Library/Video Carousel/videoCarousel';
 import VideoPlayer from '@/components/Library/video Player/videoPlayer';
+import GravityForm from '@/components/Library/Gravity Form/gravityForm';
 
 export default function ProductPage({prodotto, cat}){
     

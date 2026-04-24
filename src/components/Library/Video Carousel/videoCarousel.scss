@@ -4,6 +4,7 @@
         max-width: calc(200% / 3); margin-left: 0 !important; position: relative;
         .swiper-wrapper{
             align-items: stretch; 
+            .swiper-slide{border-radius: 5px; overflow: hidden;}
             .plyr{
                 &.plyr--paused .plyr__controls{display: none;}
             }
