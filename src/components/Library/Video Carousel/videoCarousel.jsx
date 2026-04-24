@@ -1,12 +1,12 @@
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import VideoPlayer from '../video Player/videoPlayer';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import './videoCarousel.scss';
-import EffectCarousel from '@/lib/EffectCarousel/effect-carousel.esm.js';
-import '@/lib/EffectCarousel/effect-carousel.scss';
 import { useState } from 'react';
 import CarouselActions from './carouselActions';
+
+import 'swiper/css/effect-cards';
+import { EffectCards } from 'swiper/modules';
 
 
 export default function VideoCarousel({videoIds}){
@@ -15,20 +15,14 @@ export default function VideoCarousel({videoIds}){
     return <div className='video-carousel-section'>
                 <Swiper 
                     onSwiper={(swiper) => (setSwiperInstance(swiper))} 
-                    // autoplay={{delay: 2500,disableOnInteraction: true}} 
-                    slidesPerView={3} 
-                    loop={false} 
-                    effect='carousel' 
-                    modules={[EffectCarousel, Autoplay, Navigation, Pagination]} 
-                    className='video-carousel'
+                    slidesPerView={1} 
+                    effect='cards' 
+                    modules={[EffectCards]} 
+                    className={'video-carousel-cards'}
+                    cardsEffect={{rotate: false, perSlideOffset: 30}}
                 >
                     {
                         videoIds.map(elem => {
-                            return <SwiperSlide key={elem}><VideoPlayer videoId={elem} /></SwiperSlide>
-                        })
-                    }
-                    {
-                        (videoIds.length <= 3) && videoIds.map(elem => {
                             return <SwiperSlide key={elem}><VideoPlayer videoId={elem} /></SwiperSlide>
                         })
                     }
