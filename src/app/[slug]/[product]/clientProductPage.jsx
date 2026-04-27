@@ -9,8 +9,9 @@ import ScrollGallery from '@/components/Library/Scroll Gallery/scrollGallery';
 import VideoCarousel from '@/components/Library/Video Carousel/videoCarousel';
 import VideoPlayer from '@/components/Library/video Player/videoPlayer';
 import GravityForm from '@/components/Library/Gravity Form/gravityForm';
+import { useStore } from '@/store/useStore.js';
 
-export default function ProductPage({prodotto, cat}){
+export default function ProductPage({prodotto, cat, formObject = null}){
     
     const [open, setOpen] = useState(false);
     const [drawsHeight, setDrawsHeight] = useState(0);
@@ -28,6 +29,11 @@ export default function ProductPage({prodotto, cat}){
 
     var videoIds = prodotto.acf.galleria_video.map(elem => {return elem.id_video_yt});
 
+    const {setCurrentPageTitle} = useStore();
+    useEffect(() => {
+        setCurrentPageTitle(`${cat.name} ${prodotto.title.rendered}`);
+    },[setCurrentPageTitle])
+    
 
     return <>
         <section id={style.heading} className="shaded">
@@ -65,7 +71,7 @@ export default function ProductPage({prodotto, cat}){
             <div className={`${style.container} big-boxed`}>
                 <div className={style.title}><BigText Tag="h3">{cat.acf.testo_gamma}</BigText></div>
                 <div className={style.bottom}>
-                    <CustomButton className={style.datasheet}>Scheda tecnica</CustomButton>
+                    <CustomButton className={`${style.datasheet} light`}>Scheda tecnica</CustomButton>
                     <div className={`${style.disegni} ${open?style.open:''}`}>
                         <div className={style.title} onClick={handeClickDraws}><span>Disegni tecnici</span><div className={style.actions}></div></div>
                         <div className={style.drawsContainer} style={{height: drawsHeight}}>
@@ -104,7 +110,8 @@ export default function ProductPage({prodotto, cat}){
         <section id={style.third} className="big-boxed">
             <div className="divisor"></div>
             <div className={style.container}>
-                <BigText Tag="h3">Richiedi informazioni</BigText>
+                <BigText className={style.title} Tag="h3">Richiedi informazioni</BigText>
+                <GravityForm className={style.form} formObject={formObject} />
             </div>
         </section>
         <section id={style.fourth} className="big-boxed">

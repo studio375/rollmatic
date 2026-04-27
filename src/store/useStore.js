@@ -5,4 +5,6 @@ export const useStore = create((set) => ({
   //   setLoaded: (loaded) => set({ loaded }),
   lenis: null,
   setLenis: (lenis) => set({ lenis }),
+  currentPageTitle: null,
+  setCurrentPageTitle: (currentPageTitle) => set({currentPageTitle})
 }));

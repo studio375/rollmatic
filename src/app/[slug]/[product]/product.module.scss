@@ -57,8 +57,14 @@
     }
 }
 #third{
-    margin-top: 40px; position: relative; display: flex; gap: 115px; align-items: flex-start; flex-direction: column; z-index: 10; min-height: 400px;
+    margin-top: 50px; position: relative; z-index: 10; display: flex; align-items: flex-start; flex-direction: column; gap: 115px;
+    .container{
+        display: flex; align-items: flex-start; width: 100%; position: relative;
+        .title{width: calc(100% / 3);}
+        .form{width: calc(200% / 3);}
+    }
+   
 }
 #fourth{
-    margin-bottom: 178px;
+    margin-bottom: 178px; margin-top: 120px;
 }
