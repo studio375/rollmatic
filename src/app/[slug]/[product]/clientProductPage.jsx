@@ -71,7 +71,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             <div className={`${style.container} big-boxed`}>
                 <div className={style.title}><BigText Tag="h3">{cat.acf.testo_gamma}</BigText></div>
                 <div className={style.bottom}>
-                    <CustomButton className={`${style.datasheet} light`}>Scheda tecnica</CustomButton>
+                    <CustomButton href="" className={`${style.datasheet} light`}>Scheda tecnica</CustomButton>
                     <div className={`${style.disegni} ${open?style.open:''}`}>
                         <div className={style.title} onClick={handeClickDraws}><span>Disegni tecnici</span><div className={style.actions}></div></div>
                         <div className={style.drawsContainer} style={{height: drawsHeight}}>

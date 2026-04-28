@@ -5,27 +5,49 @@ import parse from 'html-react-parser';
 export default function SingleField({fieldObject, register, errors}){
     var type = fieldObject.type;
     const {currentPageTitle} = useStore();
-    var printInput = <input name={`input_${fieldObject.id}`} type={type} placeholder={fieldObject.placeholder} {...register(fieldObject.label, {required: fieldObject.isRequired})} />
+    
+    
+    if(type !== 'consent')
+        var printInput = <input  name={`input_${fieldObject.id}`} type={type} placeholder={fieldObject.placeholder} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})} />
+
+    if(type === 'email'){
+        var printInput = <input 
+                            name={`input_${fieldObject.id}`} 
+                            type={type} placeholder={fieldObject.placeholder} 
+                            {...register(`input_${fieldObject.id}`, {
+                                required: fieldObject.isRequired,
+                                pattern: {
+                                    value: /\S+@\S+\.\S+/,
+                                    message: "L'indirizzo email non è valido"
+                                }
+                            })} 
+                        />
+
+    }
 
     if(type === 'consent'){
-        printInput = <label><input name={`input_${fieldObject.id}`} type={'checkbox'} placeholder={fieldObject.placeholder} {...register(fieldObject.label, {required: fieldObject.isRequired})} /><span>{fieldObject.checkboxLabel}</span></label>
+        var printInput = <label>
+            <input type={'checkbox'} value="1" {...register(`input_${fieldObject.id}_1`, {required: fieldObject.isRequired})} /><span>{fieldObject.checkboxLabel}</span>
+            <input type="hidden" value={fieldObject.checkboxLabel} {...register(`input_${fieldObject.id}_2`)} />
+            <input type="hidden" value="1" {...register(`input_${fieldObject.id}_3`)} />
+        </label>
     }
 
     if(type === 'select'){
-        printInput = <select name={`input_${fieldObject.id}`} {...register(fieldObject.label, {required: fieldObject.isRequired})}>
+        printInput = <select name={`input_${fieldObject.id}`} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})}>
             {
                 fieldObject.placeholder && <option value="" disabled selected>{fieldObject.placeholder}</option>
             }
             {
                 fieldObject.choices.map(opt => {
                     return <option key={opt.value} value={opt.value} selected={opt.isSelected} >{opt.text}</option>
-                })
+                })  
             }
         </select>
     }
 
     if(type === 'textarea'){
-        printInput = <textarea name={`input_${fieldObject.id}`} placeholder={fieldObject.placeholder} {...register(fieldObject.label, {required: fieldObject.isRequired})}></textarea>
+        printInput = <textarea name={`input_${fieldObject.id}`} placeholder={fieldObject.placeholder} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})}></textarea>
     }
 
     if(type == 'html'){
@@ -36,11 +58,17 @@ export default function SingleField({fieldObject, register, errors}){
         gridColumn: `span ${fieldObject.layoutGridColumnSpan}`
     }
 
-    return <div className={`${style.singleField} type-${type} ${fieldObject.labelPlacement}`} style={styleObject}>
+
+    var field_errors =(type !== 'consent')?errors?.[`input_${fieldObject.id}`]:errors?.[`input_${fieldObject.id}_1`];
+
+    return <div className={`${style.singleField} type-${type} ${fieldObject.labelPlacement} ${field_errors && style.notValid}`} style={styleObject}>
         <div className={`${style.labelContainer}`}>{fieldObject.label}</div>
         <div className={`${style.inputContainer}`}>
             {printInput}
-            {errors?.[fieldObject.label]?.type === "required" && <p>This field is required</p>}
+            {field_errors && <span className={`${style.errorLabel}`}>
+                    {(field_errors.type==="required")?'Questo campo è obbligatorio':field_errors.message}
+                </span>
+            }
         </div>
     </div>
 }

@@ -18,12 +18,32 @@
                 }
                 &:global(.type-consent){
                     margin-top: -15px;
-                    .inputContainer label{
-                        width: 100%; display: flex; align-items: center; justify-content: flex-start; gap: 8px;
-                        span{font-size: 10px; line-height: 15px;}
-                    }
+                    .inputContainer{
+                        label{
+                            width: auto; display: inline-flex; align-items: center; justify-content: flex-start; gap: 8px;
+                            span{font-size: 10px; line-height: 15px;}
+                        }
+                    } 
                 } 
                 &:global(.hidden_label) .labelContainer{display: none;}
+
+                &.notValid{
+                    .inputContainer{
+                        display: flex; flex-direction: column; align-items: flex-start; gap: 5px;
+                        input:not(input[type="checkbox"]), select, textarea{
+                            border: 2px solid red;
+                        }
+                        .errorLabel{
+                            font-size: 13px; line-height: 15px; margin-left: 15px;
+                        }
+                    }
+                    &:global(.type-consent){
+                        .inputContainer{
+                            flex-direction: row; align-items: center;
+                            .errorLabel{font-size: 13px; line-height: 15px; color: red; margin-left: 5px;}
+                        }
+                    }
+                }
             }
         }
         .formSubmit{
