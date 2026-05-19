@@ -1,6 +1,5 @@
 import { fetchAPI } from "@/helpers/api/fetch-api";
 import { notFound } from "next/navigation";
-import style from './grazie.module.scss';
 import BigText from "@/components/Library/Big Text/bigText";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import CustomButton from "@/components/Library/Custom Button/customButton";
@@ -13,11 +12,11 @@ export default async function Page({params}){
     });
     if(!page) notFound();
     console.log(page);
-    return <section id={`${style.first}`} className="big-boxed">
-        <div className={`${style.container}`}>
-            <BigText Tag="h1" className={`${style.title} h2`}>{page.acf.titolo}</BigText>
-            <Paragraph Tag="span" className={`${style.subtitle}`}>{page.acf.testo}</Paragraph>
-            <CustomButton href="/" className={`${style.button}`}>Torna alla home</CustomButton>
+    return <section className="big-boxed mt-20 mb-15 w-full relative">
+        <div className={`flex flex-col items-center w-full gap-3`}>
+            <BigText Tag="h1" className={`h2`}>{page.acf.titolo}</BigText>
+            <Paragraph Tag="span" className={``}>{page.acf.testo}</Paragraph>
+            <CustomButton href="/" className={``}>Torna alla home</CustomButton>
         </div>
     </section>;
 }

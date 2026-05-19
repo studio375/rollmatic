@@ -1,7 +1,6 @@
 import { fetchAPI } from "@/helpers/api/fetch-api";
 import { notFound } from "next/navigation";
 import ProductPage from "./clientProductPage";
-import { useStore } from "zustand";
 
 export default async function Page({params}){
     const {slug, product} = await params;

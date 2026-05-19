@@ -1,8 +1,9 @@
+@import "tailwindcss";
 
 :root {
   --background: #1B1B19;
   --foreground: #fff;
-  --spacing: 1rem;
+  --spacing: 10px;
   --main-color: #00A2AD;
   --sfumatura-1: linear-gradient(90deg,#00A2AD, #005157, #000000 70%);
   --sfumatura-2: linear-gradient(#1B1B1900, #1B1B19);
@@ -13,6 +14,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--main-color);
   --font-aspekta: var(--font-aspekta);
   --spacing: var(--spacing);
 }
@@ -26,6 +28,10 @@ body {
   overflow-x: hidden;
 }
 
+
+.font-aspekta{
+  font-family: var(--font-aspekta);
+}
 
 
 
@@ -46,11 +52,40 @@ p{margin: 0;}
   position: relative; margin-top: -250px;
   &::before{content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 250px; background: var(--sfumatura-2); z-index: 1; transform: rotate(180deg);}
 }
-.custom-button{
-  display: inline-flex; border: 2px solid var(--main-color); border-radius: 50px; padding: 0 16px; text-transform: uppercase; cursor: pointer; color: var(--main-color); font-size: 20px; line-height: 30px; background-color: transparent;
-  &.light{
-    border: 2px solid #fff; color: #fff;
-  }
-}
 .divisor{width: 100%; height: 1px; background-color: #fff; display: block;}
 .pin-spacer{z-index: 10 !important;}
+.sfumatura-1{background: var(--sfumatura-1);}
+.sfumatura-2{background: var(--sfumatura-2);}
+
+
+
+.video-carousel-section .video-carousel-cards{
+    .swiper-wrapper{
+        align-items: stretch; 
+        .swiper-slide{border-radius: 5px; overflow: hidden;}
+        .plyr{
+            &.plyr--paused .plyr__controls{display: none;}
+        }
+    } 
+}
+
+.formWrapper form .formFields .singleField{
+  &.hidden_label .labelContainer{display: none;}
+  &.notValid{
+    .inputContainer{
+      display: flex; flex-direction: column; align-items: flex-start; gap: 5px;
+      input:not(input[type="checkbox"]), select, textarea{
+        border: 2px solid red;
+      }
+      .errorLabel{
+        font-size: 13px; line-height: 15px; margin-left: 15px;
+      }
+    }
+    &.type-consent{
+      .inputContainer{
+        flex-direction: row; align-items: center;
+        .errorLabel{font-size: 13px; line-height: 15px; color: red; margin-left: 5px;}
+      }
+    }
+  }
+}

@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image"
-import style from './scrollGallery.module.scss';
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
@@ -29,7 +28,7 @@ export default function ScrollGallery({images, ...props}){
             zIndex: 100 - index, 
             top: 20 * index
         }
-        return <Image key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
+        return <Image className="w-auto h-full absolute max-w-85" key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
     })
 
     useGSAP(() => {
@@ -78,10 +77,10 @@ export default function ScrollGallery({images, ...props}){
         };
     }, [galleryRef])
     
-    return <div ref={galleryRef} {...props} className={`${props.className || ''} ${style.scrollGallery}`}>
-        <div className={style.slidesContainer}>{images}</div>
-        <div className={style.actions}>
-            <div className={style.counter}>{currentSlide}/{images.length}</div>
+    return <div ref={galleryRef} {...props} className={`${props.className || ''} w-full relative flex flex-col items-start`}>
+        <div className={`w-full relative h-50`}>{images}</div>
+        <div className={`w-full mt-2`}>
+            <div>{currentSlide}/{images.length}</div>
         </div>
     </div>
 }
