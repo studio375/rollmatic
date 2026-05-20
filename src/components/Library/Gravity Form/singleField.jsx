@@ -4,8 +4,8 @@ import parse from 'html-react-parser';
 export default function SingleField({fieldObject, register, errors}){
     var type = fieldObject.type;
     const {currentPageTitle} = useStore();
-    var commonClasses = 'w-full rounded-[50px] bg-[#D9D9D91A] border-none pl-[15px] text-white font-aspekta text-[16px] font-light h-[40px]';
-    var placeholderClasses = 'placeholder:text-white placeholder:font-[var(--font-aspekta)] placeholder:text-[16px] placeholder:text-light focus:placeholder:opacity-0';
+    var commonClasses = 'w-full rounded-[50px] bg-[#7D5B5B1A] border-none pl-[15px] text-[var(--color-foreground)] font-aspekta text-[16px] font-light h-[40px]';
+    var placeholderClasses = 'placeholder:text-[var(--color-foreground)] placeholder:font-[var(--font-aspekta)] placeholder:text-[16px] placeholder:font-light focus:placeholder:opacity-0';
     
     if(type !== 'consent')
         var printInput = <input className={`${commonClasses} ${placeholderClasses}`} name={`input_${fieldObject.id}`} type={type} placeholder={fieldObject.placeholder} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})} />

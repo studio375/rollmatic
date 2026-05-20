@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1B1B19;
-  --foreground: #fff;
+  --background: #FAF2F2;
+  --foreground: #1B1B19;
   --spacing: 10px;
   --main-color: #00A2AD;
   --sfumatura-1: linear-gradient(90deg,#00A2AD, #005157, #000000 70%);
-  --sfumatura-2: linear-gradient(#1B1B1900, #1B1B19);
+  --sfumatura-2: linear-gradient(#FAF2F200, #FAF2F2);
 }
 
 *{box-sizing: border-box;}
@@ -37,8 +37,8 @@ body {
 
 //utils
 a{text-decoration: none; color: var(--foreground);}
-h1, .h1{font-size: 80px; line-height: 90px; color: var(--main-color); text-transform: uppercase; margin: 0;}
-h2, .h2{font-size: 38px; line-height: 100%; text-transform: uppercase; margin: 0;}
+h1, .h1{font-size: 80px; line-height: 90px; color: var(--main-color); margin: 0;}
+h2, .h2{font-size: 38px; line-height: 100%; margin: 0;}
 h3, .h3{font-size: 30px; line-height: 35px; text-transform: unset; margin: 0; font-weight: 600; &.sub{font-weight: 400;}}
 p{margin: 0;}
 .boxed{padding-left: 76px; padding-right: 76px;}
@@ -52,10 +52,13 @@ p{margin: 0;}
   position: relative; margin-top: -250px;
   &::before{content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 250px; background: var(--sfumatura-2); z-index: 1; transform: rotate(180deg);}
 }
-.divisor{width: 100%; height: 1px; background-color: #fff; display: block;}
+.divisor{width: 100%; height: 1px; background-color: var(--foreground); display: block;}
 .pin-spacer{z-index: 10 !important;}
+
 .sfumatura-1{background: var(--sfumatura-1);}
 .sfumatura-2{background: var(--sfumatura-2);}
+
+.sfumatura-dark{background: linear-gradient(#1B1B1900, #1B1B19);}
 
 
 

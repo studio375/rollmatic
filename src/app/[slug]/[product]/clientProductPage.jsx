@@ -35,31 +35,31 @@ export default function ProductPage({prodotto, cat, formObject = null}){
     const singleColClass="flex items-start justify-start flex-col";
 
     return <>
-        <section className="shaded w-full relative">
+        <section className="w-full relative h-screen overflow-hidden">
             <Image className='w-full h-auto' src={prodotto.acf.immagine_testata.url} width={prodotto.acf.immagine_testata.width} height={prodotto.acf.immagine_testata.height} alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}/>
             <div className={`boxed absolute left-0 top-[80vh] w-full flex items-end`}>
                 <div className={`w-[40%]`}>
-                    <h2 className="h3 sub">{cat.name}</h2>
+                    <h2 className="h3 sub text-[var(--color-background)]">{cat.name}</h2>
                     <h1>{prodotto.title.rendered}</h1>
                 </div>
                 <div className={`flex items-end justify-between w-[60%]`}>
                     <div className={`${singleColClass}`}>
-                        <span>{prodotto.acf.potenza}</span>
-                        <span>{prodotto.acf.frequenza}</span>
-                        <span>{prodotto.acf.tensione}</span>
+                        <span className="text-[var(--color-background)]">{prodotto.acf.potenza}</span>
+                        <span className="text-[var(--color-background)]">{prodotto.acf.frequenza}</span>
+                        <span className="text-[var(--color-background)]">{prodotto.acf.tensione}</span>
                     </div>
                     <div className={`${singleColClass}`}>
-                        <span>Larghezza tavolo</span>
-                        <span>{prodotto.acf.larghezza_tavolo}</span>
+                        <span className="text-[var(--color-background)]">Larghezza tavolo</span>
+                        <span className="text-[var(--color-background)]">{prodotto.acf.larghezza_tavolo}</span>
                     </div>
                     <div className={`${singleColClass}`}>
-                        <span>Lunghezza tavolo</span>
-                        <span>{prodotto.acf.lunghezza_tavolo}</span>
+                        <span className="text-[var(--color-background)]">Lunghezza tavolo</span>
+                        <span className="text-[var(--color-background)]">{prodotto.acf.lunghezza_tavolo}</span>
                     </div>
                 </div>
             </div>
         </section>
-        <section className="boxed flex items-start min-h-50">
+        <section className="boxed flex items-start min-h-50 pt-13">
             <div className={`w-[calc(100%-1050px)] pr-20 z-[10] relative`}><Paragraph>{prodotto.acf.paragrafo}</Paragraph></div>
             <div className={`w-105 z-[10] relative`}>
                 <ScrollGallery images={prodotto.acf.galleria}/>
@@ -70,13 +70,13 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             <div className={`big-boxed relative top-0 w-full h-full pt-36 pb-25 flex flex-col justify-between items-center gap-85`}>
                 <div><BigText className="text-center !text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)]" Tag="h3">{cat.acf.testo_gamma}</BigText></div>
                 <div className={`flex flex-col items-center gap-[77px] w-full`}>
-                    <CustomButton href="" className={`light`}>Scheda tecnica</CustomButton>
-                    <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-white`}>
+                    <CustomButton href="" className={``}>Scheda tecnica</CustomButton>
+                    <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)]`}>
                         <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
                             <span className='uppercase'>Disegni tecnici</span>
                             <div className={`w-3 h-3 relative`}>
-                                <div className='hor absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-white rounded-[2px]'></div>
-                                <div className='vert absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-white rounded-[2px] rotate-[-90deg] transition-all duration-[0.3s] ease [.open_&]:opacity-0'></div>
+                                <div className='hor absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px]'></div>
+                                <div className='vert absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px] rotate-[-90deg] transition-all duration-[0.3s] ease [.open_&]:opacity-0'></div>
                             </div>
                         </div>
                         <div className={`h-0 overflow-hidden w-full transition-all duration-[0.5s] ease`} style={{height: drawsHeight}}>
