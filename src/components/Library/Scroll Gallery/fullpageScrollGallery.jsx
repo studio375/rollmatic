@@ -10,18 +10,20 @@ export default function FullpageScrollGallery({elements,children}){
     const ref = useRef(null);
     useEffect(() => {
         var slides = ref.current.children[0].children;
-        console.log(slides);
+        const slidesArray = Array.from(slides);
         var tml = gsap.timeline({
             scrollTrigger: {
                 trigger: ref.current,
                 start: 'top 0',
                 end: `+=${500*elements.length}px`,
                 pin: true,
-                scrub: true
+                scrub: true,
+                onLeave: () => {setCurrentSlideIndex(slidesArray.length - 1)},
             }
         });
-        Array.from(slides).forEach(element => {
-            tml.to(element, {x: "-100%", ease: 'none' });
+        slidesArray.forEach((element, index) => {
+            if(index == (slidesArray.length - 1)) return;
+            tml.to(element, {marginLeft: `-${element.offsetWidth}px`, ease: 'none', onUpdate: () => {setCurrentSlideIndex(index)} });
         });
     }, []);
     return <div className="w-full h-screen relative" ref={ref}>

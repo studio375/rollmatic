@@ -20,7 +20,11 @@ export default async function Home({params}) {
     acf_format: 'standard',
     _embed: true
   });
-  console.log(settori);
+  const articoli = await fetchAPI('posts', {
+    acf_format: 'standard',
+    _embed: true
+  });
+  console.log(articoli);
   return (
     <>
       <section className="w-full h-screen relative">
@@ -39,7 +43,7 @@ export default async function Home({params}) {
           {
             categorie.map(elem => {
               return <div key={elem.id} className="relative flex flex-col items-center flex-1">
-                <BigText Tag="h3" className="text-[32px] font-semibold">{elem.name}</BigText>
+                <BigText Tag="h3" className="text-[32px] font-semibold text-center">{elem.name}</BigText>
                 <Paragraph Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
                 <CustomButton className="mt-3" href={elem.slug}>Vedi soluzioni</CustomButton>
               </div>
@@ -66,6 +70,29 @@ export default async function Home({params}) {
               })
             }
           </FullpageScrollGallery>
+      </section>
+      <section className="mt-13 big-boxed w-full flex flex-col items-start pb-15">
+          <BigText Tag="h2" className="!text-[var(--color-primary)]">News</BigText>
+          <div className="realtive w-full flex items-start mt-[35px]">
+            {
+              articoli.map((elem, index) => {
+                var img = elem._embedded['wp:featuredmedia'][0];
+                var pad = (index === 0)? 'pr-10' : 'pl-10';
+                return <div key={index} className="w-[50%] flex flex-col items-start">
+                  <div className={`border-b-[1px] border-b-[var(--color-primary)] w-full ${pad}`}>
+                    <div className="relative inline-flex pb-1">
+                      <span className="text-[15px] font-bold uppercase">{elem.title.rendered}</span>
+                      <div className="absolute bottom-0 left-0 w-full h-[3px] block bg-[var(--color-primary)]"></div>
+                    </div>
+                  </div>
+                  <div className={`flex flex-col items-start mt-5 ${pad}`}>
+                    <Image src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt="" />
+                    <Paragraph className="mt-[27px]">{elem.acf.descrizione_breve}</Paragraph>
+                  </div>
+                </div>
+              })
+            }
+          </div>
       </section>
     </>
   );

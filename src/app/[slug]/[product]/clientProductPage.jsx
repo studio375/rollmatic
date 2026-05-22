@@ -115,7 +115,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
         <section className="big-boxed mt-5 relative z-[10] flex items-start flex-col gap-[115px]">
             <div className="divisor"></div>
             <div className={`flex items-start w-full relative`}>
-                <BigText className={`w-[calc(100%/3)]`} Tag="h3">Richiedi informazioni</BigText>
+                <BigText className={`w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{'Richiedi<br>informazioni'}</BigText>
                 <GravityForm className={`!w-[calc(200%/3)]`} formObject={formObject} />
             </div>
         </section>
