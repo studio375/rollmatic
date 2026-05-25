@@ -3,12 +3,14 @@ import Paragraph from "@/components/Library/Paragraph/paragraph";
 import { fetchAPI } from "@/helpers/api/fetch-api"
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default async function Page({params}){
     var page = await fetchAPI('pages', {
         slug: 'settori',
         acf_format: 'standard'
     });
+    if(!page) notFound();
     const settori = await fetchAPI('settore', {
         acf_format: 'standard',
         _embed: true
@@ -16,7 +18,7 @@ export default async function Page({params}){
     return <>
         <section className="w-full relative big-boxed pt-20">
             <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 ">
-                <BigText Tag="h1" className="text-[var(--color-primary)] text-[40px] font-bold">{page.acf.titolo}</BigText>
+                <BigText Tag="h1" className="text-[var(--color-primary)] !text-[40px]/[50px] font-bold">{page.acf.titolo}</BigText>
                 <Paragraph className="w-[calc(100%/3*2)]">{page.acf.paragrafo}</Paragraph>
             </div>    
         </section>

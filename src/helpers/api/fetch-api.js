@@ -19,7 +19,7 @@ export async function fetchAPI(path = "", urlParamsObject = {}, isGravity = fals
     if(isGravity){
       requestUrl = `${process.env.GRAVITY_ENDPOINT}/${path}${queryString ? `?${queryString}` : ""}`;
     }
-    
+
     // Trigger API call
     const response = await fetch(requestUrl, options);
     const r = await response.json();

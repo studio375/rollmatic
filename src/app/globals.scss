@@ -36,7 +36,7 @@ body {
 
 
 //utils
-a{text-decoration: none; color: var(--foreground);}
+a{text-decoration: none;}
 h1, .h1{font-size: 80px; line-height: 90px; color: var(--main-color); margin: 0;}
 h2, .h2{font-size: 38px; line-height: 100%; margin: 0;}
 h3, .h3{font-size: 30px; line-height: 35px; text-transform: unset; margin: 0; font-weight: 600; &.sub{font-weight: 400;}}

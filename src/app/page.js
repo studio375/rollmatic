@@ -6,6 +6,7 @@ import BigText from "@/components/Library/Big Text/bigText";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import CustomButton from "@/components/Library/Custom Button/customButton";
 import FullpageScrollGallery from "@/components/Library/Scroll Gallery/fullpageScrollGallery";
+import NewsCard from "@/components/Library/News Card/newsCard";
 
 export default async function Home({params}) {
   const page = await fetchAPI('pages', {
@@ -76,20 +77,7 @@ export default async function Home({params}) {
           <div className="realtive w-full flex items-start mt-[35px]">
             {
               articoli.map((elem, index) => {
-                var img = elem._embedded['wp:featuredmedia'][0];
-                var pad = (index === 0)? 'pr-10' : 'pl-10';
-                return <div key={index} className="w-[50%] flex flex-col items-start">
-                  <div className={`border-b-[1px] border-b-[var(--color-primary)] w-full ${pad}`}>
-                    <div className="relative inline-flex pb-1">
-                      <span className="text-[15px] font-bold uppercase">{elem.title.rendered}</span>
-                      <div className="absolute bottom-0 left-0 w-full h-[3px] block bg-[var(--color-primary)]"></div>
-                    </div>
-                  </div>
-                  <div className={`flex flex-col items-start mt-5 ${pad}`}>
-                    <Image src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt="" />
-                    <Paragraph className="mt-[27px]">{elem.acf.descrizione_breve}</Paragraph>
-                  </div>
-                </div>
+                return <NewsCard key={elem.id} news={elem} index={index} />
               })
             }
           </div>

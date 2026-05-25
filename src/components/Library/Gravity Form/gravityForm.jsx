@@ -1,3 +1,4 @@
+"use client"
 import { useForm } from 'react-hook-form';
 import CustomButton from '../Custom Button/customButton';
 import SingleField from './singleField';

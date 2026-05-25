@@ -52,7 +52,8 @@ export default function SingleField({fieldObject, register, errors}){
     }
 
     if(type == 'html'){
-        printInput = <div>{parse(fieldObject.content.replace('{embed_post:post_title}', currentPageTitle))}</div>
+        var value = parse(fieldObject.content.replace('{embed_post:post_title}', currentPageTitle?currentPageTitle:' - '));
+        printInput = <div>{value}</div>
     }
 
     var styleObject = {
