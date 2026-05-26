@@ -18,7 +18,7 @@ export default async function Page({params}){
     return <>
         <section className="w-full relative big-boxed pt-20">
             <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 ">
-                <BigText Tag="h1" className="text-[var(--color-primary)] !text-[40px]/[50px] font-bold">{page.acf.titolo}</BigText>
+                <BigText Tag="h1" className="classic-title">{page.acf.titolo}</BigText>
                 <Paragraph className="w-[calc(100%/3*2)]">{page.acf.paragrafo}</Paragraph>
             </div>    
         </section>
@@ -28,7 +28,7 @@ export default async function Page({params}){
                     const img = elem._embedded['wp:featuredmedia'][0];
                     return <div key={elem.id} className="flex-1 relative aspect-[55/60] overflow-hidden rounded-[5px]">
                         <Image className="w-full h-full object-cover" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
-                        <Link className="absolute flex flex-col items-start right-[35px] bottom-[35px]" href={elem.slug}>
+                        <Link className="absolute flex flex-col items-start right-[35px] bottom-[35px]" href={`/settori/${elem.slug}`}>
                             <BigText tag="span" className="font-bold text-[40px] text-[var(--color-background)]">{elem.title.rendered}</BigText>
                             <Image className="mt-2" src="/next-arrow-light.svg" width={50} height={20} alt=""/>                 
                         </Link>

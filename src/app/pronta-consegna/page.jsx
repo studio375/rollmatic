@@ -20,7 +20,7 @@ export default async function Page({params}){
     return <>
         <section className="w-full relative big-boxed pt-20">
             <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 ">
-                <BigText Tag="h1" className="text-[var(--color-primary)] !text-[40px]/[50px] font-bold">{page.title.rendered}</BigText>
+                <BigText Tag="h1" className="classic-title">{page.title.rendered}</BigText>
                 <Paragraph className="w-[calc(100%/3*2)]">{page.acf.paragrafo}</Paragraph>
             </div>    
         </section>
@@ -30,7 +30,7 @@ export default async function Page({params}){
             <GravityForm className={`!w-[calc(200%/3)]`} formObject={form} />
         </section>
         <section className="relative w-full big-boxed my-10 flex flex-col items-start gap-5">
-            <BigText Tag="h2" className="!text-[40px]/[50px] !text-[var(--color-primary)] font-bold">Faq</BigText>
+            <BigText Tag="h2" className="classic-title">Faq</BigText>
             <Faq faq={page.acf.faq} />
         </section>
     </>

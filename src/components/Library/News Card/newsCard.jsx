@@ -6,7 +6,7 @@ export default function NewsCard({news, index}){
     var img = news._embedded['wp:featuredmedia'][0];
     var pad = (index%2 == 0)? 'pr-10' : 'pl-10';
     return <div key={index} className="w-[50%] flex flex-col items-start">
-            <Link href={`news/${news.slug}`}>
+            <Link href={`/news/${news.slug}`}>
                 <div className={`border-b-[1px] border-b-[var(--color-primary)] w-full ${pad}`}>
                 <div className="relative inline-flex pb-1">
                     <span className="text-[15px] font-bold uppercase">{news.title.rendered}</span>

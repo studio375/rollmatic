@@ -12,8 +12,11 @@ var prodObjectExpamle = {
 };
 */
 export default function ProntaConsegnaCard({prodObject, ...props}){
+    if(prodObject == null){
+        return <div {...props} className={`w-[calc(100%/3)] relative px-[75px] pb-6 product-image product-image-card ${props.className}`}></div>
+    }
     const img = prodObject.thumbnail_data;
-    return <div {...props} className={`w-[calc(100%/3)] relative flex flex-col items-center ${props.className}`}>
+    return <div {...props} className={`product-image product-image-card w-[calc(100%/3)] relative px-[75px] pb-6 relative flex flex-col items-center ${props.className}`}>
         <Image src={img[0]} width={img[1]} height={img[2]} alt={prodObject.title}/>
         <div className="w-full h-[1px] bg-[var(--color-primary)] mt-2"></div>
         <span className="mt-1 block">{prodObject.cat.name}</span>

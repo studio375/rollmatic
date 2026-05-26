@@ -6,5 +6,5 @@ export const useStore = create((set) => ({
   lenis: null,
   setLenis: (lenis) => set({ lenis }),
   currentPageTitle: null,
-  setCurrentPageTitle: (currentPageTitle) => set({currentPageTitle})
+  setCurrentPageTitle: (currentPageTitle) => set({currentPageTitle}),
 }));

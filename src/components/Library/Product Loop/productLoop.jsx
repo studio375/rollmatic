@@ -6,6 +6,12 @@ import ProntaConsegnaCard from "../Product Card/prontaConsegnaCard";
 
 export default function ProductLoop({catFilters, products, prontaConsegna = false}){
     const [activeCat, setActiveCat] = useState(null);
+    if(products.length%3!==0){
+        for (let index = 0; index < products.length%3; index++) {
+            products.push(null);
+        }
+    }
+    console.log(products);
     return <>
         {
         (catFilters && catFilters.length > 0) && <section className="relative mt-5 big-boxed flex justify-center gap-2 big-boxed flex items-center w-full">
@@ -17,10 +23,11 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
             }
         </section>
         }
-        <section className={`mt-10 flex flex-wrap items-start ${prontaConsegna?'px-13':'big-boxed'} gap-x-15 gap-y-8`}>
+        <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-2`}>
             {
-                products.map(elem => {
+                products.map((elem, index) => {
                     if(activeCat && activeCat !== elem.category_info[0].term_id) return;
+                    if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
                     var prodObject = {
                         ID: elem.id,
                         thumbnail_data: elem.thumbnail_data,
@@ -29,7 +36,7 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
                         title: elem.title.rendered
                     };
                     var props = {
-                        className:"!w-[calc((100%-300px)/3)]",
+                        //className:"!w-[calc((100%-300px)/3)]",
                         prodObject:prodObject
                     }
                     return (prontaConsegna)?<ProntaConsegnaCard {...props} key={elem.id} />:<ProductCard key={elem.id} {...props} />

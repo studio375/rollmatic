@@ -35,13 +35,15 @@ export default function SingleField({fieldObject, register, errors}){
     }
 
     if(type === 'select'){
-        printInput = <select className={`${commonClasses} ${placeholderClasses}`} name={`input_${fieldObject.id}`} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})}>
+        var defaultValue = fieldObject.choices.filter(el => el.isSelected);
+        printInput = <select defaultValue={defaultValue.length?defaultValue[0].value:''} className={`${commonClasses} ${placeholderClasses}`} name={`input_${fieldObject.id}`} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})}>
             {
-                fieldObject.placeholder && <option value="" disabled selected>{fieldObject.placeholder}</option>
+                fieldObject.placeholder && <option value="" disabled >{fieldObject.placeholder}</option>
             }
             {
+
                 fieldObject.choices.map(opt => {
-                    return <option key={opt.value} value={opt.value} selected={opt.isSelected} >{opt.text}</option>
+                    return <option key={opt.value} value={opt.value} >{opt.text}</option>
                 })  
             }
         </select>

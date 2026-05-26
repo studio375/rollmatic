@@ -9,6 +9,7 @@ export default function FullpageScrollGallery({elements,children}){
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const ref = useRef(null);
     useEffect(() => {
+        if(!ref.current) return;
         var slides = ref.current.children[0].children;
         const slidesArray = Array.from(slides);
         var tml = gsap.timeline({
@@ -25,6 +26,7 @@ export default function FullpageScrollGallery({elements,children}){
             if(index == (slidesArray.length - 1)) return;
             tml.to(element, {marginLeft: `-${element.offsetWidth}px`, ease: 'none', onUpdate: () => {setCurrentSlideIndex(index)} });
         });
+        return () => tml.kill();
     }, []);
     return <div className="w-full h-screen relative" ref={ref}>
         <div className="w-full h-full relative flex items-start justify-start">{children}</div>

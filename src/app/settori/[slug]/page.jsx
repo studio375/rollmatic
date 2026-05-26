@@ -23,7 +23,7 @@ export default async function Page({params}){
         </section>
         <section className="w-full big-boxed mt-7 relative">
             <div className="w-full flex items-start justify-between pb-3 border-b-[1px] border-b-[var(--color-primary)]">
-                <BigText Tag="h1" className="!text-[40px]/[45px] font-bold text-[var(--color-primary)]">{settore.title.rendered}</BigText>
+                <BigText Tag="h1" className="classic-title">{settore.title.rendered}</BigText>
                 <Paragraph className="w-[calc(100%/3*2.1)]">{settore.acf.paragrafo}</Paragraph>
             </div>
         </section>
@@ -42,7 +42,7 @@ export default async function Page({params}){
             }
         </section>
         <section className="mt-8 big-boxed w-full relative pb-15">
-            <BigText Tag="h2" className="!text-[var(--color-primary)] !text-[40px]/[50px] !font-bold">FAQ</BigText>
+            <BigText Tag="h2" className="classic-title">FAQ</BigText>
             <div className="mt-5">
                 <Faq faq={settore.acf.faq} />
             </div>

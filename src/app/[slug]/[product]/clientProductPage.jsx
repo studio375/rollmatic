@@ -65,52 +65,53 @@ export default function ProductPage({prodotto, cat, formObject = null}){
                 <ScrollGallery images={prodotto.acf.galleria}/>
                 </div>
         </section>
-        <section className="shaded shaded-before w-full relative">
-            <Image className='w-full h-auto absolute top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
-            <div className={`big-boxed relative top-0 w-full h-full pt-36 pb-25 flex flex-col justify-between items-center gap-85`}>
-                <div><BigText className="text-center !text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)]" Tag="h3">{cat.acf.testo_gamma}</BigText></div>
-                <div className={`flex flex-col items-center gap-[77px] w-full`}>
-                    <CustomButton href="" className={``}>Scheda tecnica</CustomButton>
-                    <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)]`}>
-                        <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
-                            <span className='uppercase'>Disegni tecnici</span>
-                            <div className={`w-3 h-3 relative`}>
-                                <div className='hor absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px]'></div>
-                                <div className='vert absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px] rotate-[-90deg] transition-all duration-[0.3s] ease [.open_&]:opacity-0'></div>
-                            </div>
-                        </div>
-                        <div className={`h-0 overflow-hidden w-full transition-all duration-[0.5s] ease`} style={{height: drawsHeight}}>
-                            <div className={`flex items-stretch flex-wrap gap-3 w-full pt-[15px] pb-3`} ref={drawsInner}>
-                            {
-                                prodotto.acf.disegni_tecnici.map(elem => {
-                                    return <Image className='w-[calc(50%-15px)] h-auto' src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'disegno tecnico'} key={elem.ID} />
-                                })
-                            }
-                            </div>
+        <section className="w-full relative mt-25">
+            <div><BigText className="big-boxed text-center !text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)]" Tag="h3">{cat.acf.testo_gamma}</BigText></div>
+            <div className="w-full product-image big-boxed">
+                <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
+            </div>
+            <div className={`big-boxed relative flex flex-col items-center gap-[77px] w-full pt-10 pb-25 gradient-before`}>
+                <CustomButton href="" className={``}>Scheda tecnica</CustomButton>
+                <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)]`}>
+                    <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
+                        <span className='uppercase'>Disegni tecnici</span>
+                        <div className={`w-3 h-3 relative`}>
+                            <div className='hor absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px]'></div>
+                            <div className='vert absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px] rotate-[-90deg] transition-all duration-[0.3s] ease [.open_&]:opacity-0'></div>
                         </div>
                     </div>
-                    <div className={`flex items-start justify-start gap-18 w-full`}>
-                        <div className={`relative w-[calc(50%-90px)]`}>
-                            <ul>
-                            {
-                                col1Dettagli.map((elem,i) => {
-                                    return <Paragraph className={`${i > 0 && 'mt-[5px]'}`} key={i} Tag='li'>{elem.testo}</Paragraph>;
-                                })
-                            }
-                            </ul>
-                        </div>
-                        <div className={`relative w-[calc(50%-90px)]`}>
-                            <ul>
-                            {
-                                col2Dettagli.map((elem,i) => {
-                                    return <Paragraph className={`${i > 0 && 'mt-[5px]'}`} key={i} Tag='li'>{elem.testo}</Paragraph>;
-                                })
-                            }
-                            </ul>
+                    <div className={`h-0 overflow-hidden w-full transition-all duration-[0.5s] ease`} style={{height: drawsHeight}}>
+                        <div className={`flex items-stretch flex-wrap gap-3 w-full pt-[15px] pb-3`} ref={drawsInner}>
+                        {
+                            prodotto.acf.disegni_tecnici.map(elem => {
+                                return <Image className='w-[calc(50%-15px)] h-auto' src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'disegno tecnico'} key={elem.ID} />
+                            })
+                        }
                         </div>
                     </div>
                 </div>
+                <div className={`flex items-start justify-start gap-18 w-full`}>
+                    <div className={`relative w-[calc(50%-90px)]`}>
+                        <ul>
+                        {
+                            col1Dettagli.map((elem,i) => {
+                                return <Paragraph className={`${i > 0 && 'mt-[5px]'}`} key={i} Tag='li'>{elem.testo}</Paragraph>;
+                            })
+                        }
+                        </ul>
+                    </div>
+                    <div className={`relative w-[calc(50%-90px)]`}>
+                        <ul>
+                        {
+                            col2Dettagli.map((elem,i) => {
+                                return <Paragraph className={`${i > 0 && 'mt-[5px]'}`} key={i} Tag='li'>{elem.testo}</Paragraph>;
+                            })
+                        }
+                        </ul>
+                    </div>
+                </div>
             </div>
+            
         </section>
         <section className="big-boxed mt-5 relative z-[10] flex items-start flex-col gap-[115px]">
             <div className="divisor"></div>

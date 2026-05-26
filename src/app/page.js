@@ -22,10 +22,12 @@ export default async function Home({params}) {
     _embed: true
   });
   const articoli = await fetchAPI('posts', {
+    per_page: 2,
     acf_format: 'standard',
     _embed: true
   });
   console.log(articoli);
+  
   return (
     <>
       <section className="w-full h-screen relative">
@@ -73,7 +75,7 @@ export default async function Home({params}) {
           </FullpageScrollGallery>
       </section>
       <section className="mt-13 big-boxed w-full flex flex-col items-start pb-15">
-          <BigText Tag="h2" className="!text-[var(--color-primary)]">News</BigText>
+          <BigText Tag="h2" className="classic-title">News</BigText>
           <div className="realtive w-full flex items-start mt-[35px]">
             {
               articoli.map((elem, index) => {
