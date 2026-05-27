@@ -15,9 +15,16 @@
                 span:last-child{text-transform: lowercase;}
             }
         }
+        .links{
+            display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+        }
+        .social{
+            margin-top: 30px; display: flex; align-items: center; justify-content: flex-start; gap: 20px;
+        }
     }   
     .footer-bottom .textwidget{
         width: 100%; display: flex; align-items: center; justify-content: space-between;
+        *{font-size: 10px; line-height: 15px;}
         .right{display: flex; align-items: center; justify-content: flex-end; gap: 10px;}
     }
     a{text-transform: uppercase;}

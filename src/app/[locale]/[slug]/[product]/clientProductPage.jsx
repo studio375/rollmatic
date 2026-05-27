@@ -39,8 +39,8 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             <Image className='w-full h-auto' src={prodotto.acf.immagine_testata.url} width={prodotto.acf.immagine_testata.width} height={prodotto.acf.immagine_testata.height} alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}/>
             <div className={`boxed absolute left-0 top-[80vh] w-full flex items-end`}>
                 <div className={`w-[40%]`}>
-                    <h2 className="h3 sub text-[var(--color-background)]">{cat.name}</h2>
-                    <h1>{prodotto.title.rendered}</h1>
+                    <BigText className="h3 sub text-[var(--color-background)]" Tag="h2">{cat.name}</BigText>
+                    <BigText Tag="h1">{prodotto.title.rendered}</BigText>
                 </div>
                 <div className={`flex items-end justify-between w-[60%]`}>
                     <div className={`${singleColClass}`}>

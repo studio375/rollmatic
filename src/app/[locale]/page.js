@@ -7,8 +7,16 @@ import Paragraph from "@/components/Library/Paragraph/paragraph";
 import CustomButton from "@/components/Library/Custom Button/customButton";
 import FullpageScrollGallery from "@/components/Library/Scroll Gallery/fullpageScrollGallery";
 import NewsCard from "@/components/Library/News Card/newsCard";
+import { getTranslations } from "next-intl/server";
+import {use} from 'react';
+import {setRequestLocale} from 'next-intl/server';
+
+
 
 export default async function Home({params}) {
+  const {locale} = use(params);
+  // Enable static rendering
+  setRequestLocale(locale);
   const page = await fetchAPI('pages', {
     slug: 'homepage',
     acf_format: 'standard',
@@ -26,6 +34,8 @@ export default async function Home({params}) {
     acf_format: 'standard',
     _embed: true
   });
+  const t = await getTranslations('HomePage');
+  console.log(t('title'));
   console.log(articoli);
   
   return (

@@ -43,7 +43,7 @@ export default function FullpageScrollGallery({elements,children}){
                 {
                     elements.map((elem, index) => {
                         return <div key={elem.id} className={`single-link ${index == currentSlideIndex && 'active'} absolute right-0 bottom-0 opacity-0 [&.active]:opacity-100`}>
-                            <Link className="flex flex-col items-end" href={elem.slug}>
+                            <Link className="flex flex-col items-end" href={`/settori/${elem.slug}`}>
                                 <BigText tag="span" className="font-bold text-[48px] text-[var(--color-background)]">{elem.title.rendered}</BigText>
                                 <Image className="mt-2" src="/next-arrow-light.svg" width={50} height={20} alt=""/>
                             </Link>
