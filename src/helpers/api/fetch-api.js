@@ -34,3 +34,17 @@ export async function fetchAPI(path = "", urlParamsObject = {}, isGravity = fals
     );
   }
 }
+
+
+export async function getTranslatedSlug(path, slug, fromLocale, toLocale) {
+  const post = await fetchAPI(`${path}`, {
+    lang: `${fromLocale}`,
+    slug: slug,
+    _embed: true,
+  });
+  if (!post?.wpml_translations) return null;
+  const match = Object.entries(post.wpml_translations).find(
+    ([key]) => key === toLocale || key.startsWith(toLocale),
+  );
+  return match ? match[1].slug : null;
+}

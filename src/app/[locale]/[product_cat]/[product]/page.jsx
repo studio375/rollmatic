@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ProductPage from "./clientProductPage";
 
 export default async function Page({params}){
-    const {slug, product} = await params;
+    const {product_cat, product} = await params;
     
     const prodotto = await fetchAPI('prodotto', {
         slug: product,

@@ -1,5 +1,7 @@
 {
-  "HomePage": {
-    "title": "Ciao mondo!"
+  "strings": {
+    "Vedi soluzioni": "Vedi soluzioni",
+    "News": "News",
+    "Homepage path": "/"
   }
 }

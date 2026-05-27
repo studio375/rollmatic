@@ -1,6 +1,6 @@
 import Image from "next/image";
 import parse from 'html-react-parser';
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 /*
 var prodObjectExpamle = {
     ID: 1,

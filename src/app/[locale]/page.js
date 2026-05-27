@@ -8,16 +8,14 @@ import CustomButton from "@/components/Library/Custom Button/customButton";
 import FullpageScrollGallery from "@/components/Library/Scroll Gallery/fullpageScrollGallery";
 import NewsCard from "@/components/Library/News Card/newsCard";
 import { getTranslations } from "next-intl/server";
-import {use} from 'react';
-import {setRequestLocale} from 'next-intl/server';
+
 
 
 
 export default async function Home({params}) {
-  const {locale} = use(params);
-  // Enable static rendering
-  setRequestLocale(locale);
+  const {locale} = await params;
   const page = await fetchAPI('pages', {
+    lang: locale,
     slug: 'homepage',
     acf_format: 'standard',
   });
@@ -34,10 +32,7 @@ export default async function Home({params}) {
     acf_format: 'standard',
     _embed: true
   });
-  const t = await getTranslations('HomePage');
-  console.log(t('title'));
-  console.log(articoli);
-  
+  const t = await getTranslations('strings');
   return (
     <>
       <section className="w-full h-screen relative">
@@ -58,7 +53,7 @@ export default async function Home({params}) {
               return <div key={elem.id} className="relative flex flex-col items-center flex-1">
                 <BigText Tag="h3" className="text-[32px] font-semibold text-center">{elem.name}</BigText>
                 <Paragraph Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
-                <CustomButton className="mt-3" href={elem.slug}>Vedi soluzioni</CustomButton>
+                <CustomButton className="mt-3" href={elem.slug}>{t('Vedi soluzioni')}</CustomButton>
               </div>
             })
           }
@@ -76,7 +71,6 @@ export default async function Home({params}) {
             {
               settori.map(elem => {
                 const img = elem._embedded['wp:featuredmedia'][0];
-                console.log(img);
                 return <div key={elem.id} className="w-full min-w-full h-full relative" data-slide-id={elem.id}>
                   <Image className="w-full h-screen" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
                 </div>
@@ -85,7 +79,7 @@ export default async function Home({params}) {
           </FullpageScrollGallery>
       </section>
       <section className="mt-13 big-boxed w-full flex flex-col items-start pb-15">
-          <BigText Tag="h2" className="classic-title">News</BigText>
+          <BigText Tag="h2" className="classic-title">{t('News')}</BigText>
           <div className="realtive w-full flex items-start mt-[35px]">
             {
               articoli.map((elem, index) => {

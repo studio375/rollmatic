@@ -1,5 +1,5 @@
 "use client"
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import BigText from "../Big Text/bigText";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";

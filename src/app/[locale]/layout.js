@@ -30,9 +30,7 @@ export default async function RootLayout({ children, params }) {
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-  console.log('aaa');
   setRequestLocale(locale);
-  console.log('pippo');
   return (
     <html lang={locale}>
       <body className={`${aspekta.variable} antialiased`}>

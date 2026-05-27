@@ -6,10 +6,10 @@ import { fetchAPI } from "@/helpers/api/fetch-api";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export default async function Page({params}){
-    const {slug} = await params;
+export default async function Page({params}){ 
+    const {product_cat} = await params;
     const cat = await fetchAPI('categoria',{
-        slug: slug,
+        slug: product_cat,
         acf_format: 'standard'
     });
     
@@ -24,7 +24,6 @@ export default async function Page({params}){
         _embed: true
     });
     
-    console.log(products);
     return <>
        <section className="w-full flex h-auto relative">
             <Image className="w-full h-auto object-cover max-h-[80vh]" src={cat.acf.immagine_testata.url} width={cat.acf.immagine_testata.width} height={cat.acf.immagine_testata.height} alt={cat.name}/>
