@@ -3,11 +3,25 @@ import { Link } from "@/i18n/navigation";
 import BigText from "../Big Text/bigText";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 export default function FullpageScrollGallery({elements,children}){
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const ref = useRef(null);
+    const handleScroll = (distance, count) => {
+        var galleryProgress = (window.scrollY - distance);
+        var total = 500 * count;
+        var singleStep = total / (count-1);
+        for (let index = 0; index < (count - 1); index++) {
+            var step = (singleStep * index) + (singleStep/2);
+            var nextStep = singleStep * (index+1); 
+            if(galleryProgress >= step && galleryProgress < nextStep){
+                setCurrentSlideIndex(index + 1);
+            }else if(galleryProgress < nextStep && galleryProgress >= (singleStep*index)){
+                setCurrentSlideIndex(index);
+            }
+        }
+    }
     useEffect(() => {
         if(!ref.current) return;
         var slides = ref.current.children[0].children;
@@ -19,14 +33,20 @@ export default function FullpageScrollGallery({elements,children}){
                 end: `+=${500*elements.length}px`,
                 pin: true,
                 scrub: true,
-                onLeave: () => {setCurrentSlideIndex(slidesArray.length - 1)},
+                invalidateOnRefresh: true,
             }
         });
         slidesArray.forEach((element, index) => {
             if(index == (slidesArray.length - 1)) return;
-            tml.to(element, {marginLeft: `-${element.offsetWidth}px`, ease: 'none', onUpdate: () => {setCurrentSlideIndex(index)} });
+            tml.to(element, {marginLeft: `-${element.offsetWidth}px`, ease: 'none'});
         });
-        return () => tml.kill();
+        var dist = ref.current.getBoundingClientRect().top + window.scrollY;
+        window.addEventListener("scroll", () => handleScroll(dist, slidesArray.length));
+        return () => {
+            tml.scrollTrigger.kill();
+            tml.kill();
+            window.removeEventListener('scroll', handleScroll);
+        }
     }, []);
     return <div className="w-full h-screen relative" ref={ref}>
         <div className="w-full h-full relative flex items-start justify-start">{children}</div>

@@ -2,7 +2,8 @@ import BigText from "@/components/Library/Big Text/bigText";
 import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
-import { fetchAPI } from "@/helpers/api/fetch-api";
+import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
+import { routing } from "@/i18n/routing";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -40,4 +41,15 @@ export default async function Page({params}){
         </section>
        }       
     </>;
+}
+
+export async function generateStaticParams() {
+    const params = [];
+    for (const locale of routing.locales) {
+        const slugs = await getAllSlugs("categoria", locale);
+        for (const product_cat of slugs) {
+            params.push({ locale, product_cat });
+        }
+    }
+    return params;
 }

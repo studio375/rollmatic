@@ -35,26 +35,26 @@ export default function ProductPage({prodotto, cat, formObject = null}){
     const singleColClass="flex items-start justify-start flex-col";
 
     return <>
-        <section className="w-full relative h-screen overflow-hidden">
-            <Image className='w-full h-auto' src={prodotto.acf.immagine_testata.url} width={prodotto.acf.immagine_testata.width} height={prodotto.acf.immagine_testata.height} alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}/>
+        <section className="w-full relative h-screen overflow-hidden testata-product">
+            <Image className='w-auto h-[70%] mx-auto' src={prodotto.acf.immagine_testata.url} width={prodotto.acf.immagine_testata.width} height={prodotto.acf.immagine_testata.height} alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}/>
             <div className={`boxed absolute left-0 top-[80vh] w-full flex items-end`}>
                 <div className={`w-[40%]`}>
-                    <BigText className="h3 sub text-[var(--color-background)]" Tag="h2">{cat.name}</BigText>
-                    <BigText Tag="h1">{prodotto.title.rendered}</BigText>
+                    <BigText className="h3 sub" Tag="h2">{cat.name}</BigText>
+                    <BigText Tag="h1" className="font-extrabold">{prodotto.title.rendered}</BigText>
                 </div>
                 <div className={`flex items-end justify-between w-[60%]`}>
                     <div className={`${singleColClass}`}>
-                        <span className="text-[var(--color-background)]">{prodotto.acf.potenza}</span>
-                        <span className="text-[var(--color-background)]">{prodotto.acf.frequenza}</span>
-                        <span className="text-[var(--color-background)]">{prodotto.acf.tensione}</span>
+                        <span>{prodotto.acf.potenza}</span>
+                        <span>{prodotto.acf.frequenza}</span>
+                        <span>{prodotto.acf.tensione}</span>
                     </div>
                     <div className={`${singleColClass}`}>
-                        <span className="text-[var(--color-background)]">Larghezza tavolo</span>
-                        <span className="text-[var(--color-background)]">{prodotto.acf.larghezza_tavolo}</span>
+                        <span>Larghezza tavolo</span>
+                        <span>{prodotto.acf.larghezza_tavolo}</span>
                     </div>
                     <div className={`${singleColClass}`}>
-                        <span className="text-[var(--color-background)]">Lunghezza tavolo</span>
-                        <span className="text-[var(--color-background)]">{prodotto.acf.lunghezza_tavolo}</span>
+                        <span>Lunghezza tavolo</span>
+                        <span>{prodotto.acf.lunghezza_tavolo}</span>
                     </div>
                 </div>
             </div>

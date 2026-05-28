@@ -54,3 +54,17 @@ export async function getTranslatedSlug(path, slug, fromLocale, toLocale) {
   );
   return match ? match[1].slug : null;
 }
+
+export async function getAllSlugs(path, locale, cat) {
+  var allPar = {
+    categoria: 4,
+    lang: `${locale}`,
+    _fields: "slug, id",
+    per_page: 100,
+  }
+  const posts = await fetchAPI(`${path}`, allPar);
+  console.log(posts);
+  return posts.map((p) => {
+    return {slug:p.slug, id: p.id}
+  });
+}

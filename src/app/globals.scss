@@ -106,3 +106,7 @@ p{margin: 0;}
   position: relative;
   &::before{content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 250px; background: linear-gradient(#fff, #FAF2F2); z-index: -1;}
 }
+
+.testata-product{
+  background: linear-gradient(#5F5F60,#646465,#7D7D7D 55%,#C5C6C7,#D5D6D8,#D2D3D4);
+}

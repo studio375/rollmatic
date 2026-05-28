@@ -10,7 +10,6 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
     if(activeCat){
         activeProducts = activeProducts.filter(elem => elem?.category_info[0]?.term_id === activeCat);
     }
-    console.log(activeProducts);
     if(activeProducts.length%3!==0){
         for (let index = 0; index < products.length%3; index++) {
             activeProducts.push(null);

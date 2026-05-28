@@ -1,5 +1,6 @@
 export default {
-    locales: ['it', 'en', 'fr', 'es', 'ru'],
+    //locales: ['it', 'en', 'fr', 'es', 'ru'],
+    locales: ['it', 'en'],
     defaultLocale: 'it',
     localePrefix: "as-needed",
     localeDetection: false,

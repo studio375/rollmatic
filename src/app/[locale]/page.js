@@ -72,7 +72,7 @@ export default async function Home({params}) {
               settori.map(elem => {
                 const img = elem._embedded['wp:featuredmedia'][0];
                 return <div key={elem.id} className="w-full min-w-full h-full relative" data-slide-id={elem.id}>
-                  <Image className="w-full h-screen" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
+                  <Image preload={true} className="w-full h-screen" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
                 </div>
               })
             }
