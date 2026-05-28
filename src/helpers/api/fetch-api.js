@@ -37,11 +37,17 @@ export async function fetchAPI(path = "", urlParamsObject = {}, isGravity = fals
 
 
 export async function getTranslatedSlug(path, slug, fromLocale, toLocale) {
+  console.log(path);
+  console.log(slug);
+  console.log(fromLocale);
   const post = await fetchAPI(`${path}`, {
     lang: `${fromLocale}`,
     slug: slug,
     _embed: true,
+    acf_format: 'standard'
   });
+  console.log('adadada');
+  console.log(post);
   if (!post?.wpml_translations) return null;
   const match = Object.entries(post.wpml_translations).find(
     ([key]) => key === toLocale || key.startsWith(toLocale),

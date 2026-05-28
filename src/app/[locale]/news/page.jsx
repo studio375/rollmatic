@@ -1,15 +1,18 @@
 import BigText from "@/components/Library/Big Text/bigText";
 import NewsCard from "@/components/Library/News Card/newsCard";
 import { fetchAPI } from "@/helpers/api/fetch-api";
+import { getLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
+    var locale = await getLocale();
     var page = await fetchAPI('pages', {
         slug: 'news',
         acf_format: 'standard'
     });
     if(!page) notFound();
     var posts = await fetchAPI('posts', {
+        lang: locale,
         _embed: true,
         acf_format: 'standard'
     });

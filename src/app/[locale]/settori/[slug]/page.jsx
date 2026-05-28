@@ -3,19 +3,20 @@ import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductCard from "@/components/Library/Product Card/productCard";
 import { fetchAPI } from "@/helpers/api/fetch-api";
+import { getLocale } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
     const {slug, sector} = await params;
-    
+    const locale = await getLocale();
     var settore = await fetchAPI('settore', {
+        lang: locale,
         slug: slug,
         acf_format: 'standard',
         _embed: true
     });
     if(!settore) notFound();
-    console.log(settore);
     const img = settore._embedded['wp:featuredmedia'][0];
     return <>
         <section className="flex w-full px-4">

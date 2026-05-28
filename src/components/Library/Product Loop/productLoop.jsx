@@ -6,12 +6,17 @@ import ProntaConsegnaCard from "../Product Card/prontaConsegnaCard";
 
 export default function ProductLoop({catFilters, products, prontaConsegna = false}){
     const [activeCat, setActiveCat] = useState(null);
-    if(products.length%3!==0){
+    var activeProducts = products;
+    if(activeCat){
+        activeProducts = activeProducts.filter(elem => elem?.category_info[0]?.term_id === activeCat);
+    }
+    console.log(activeProducts);
+    if(activeProducts.length%3!==0){
         for (let index = 0; index < products.length%3; index++) {
-            products.push(null);
+            activeProducts.push(null);
         }
     }
-    console.log(products);
+    
     return <>
         {
         (catFilters && catFilters.length > 0) && <section className="relative mt-5 big-boxed flex justify-center gap-2 big-boxed flex items-center w-full">
@@ -23,25 +28,27 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
             }
         </section>
         }
-        <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-2`}>
-            {
-                products.map((elem, index) => {
-                    if(activeCat && activeCat !== elem.category_info[0].term_id) return;
-                    if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
-                    var prodObject = {
-                        ID: elem.id,
-                        thumbnail_data: elem.thumbnail_data,
-                        cat: elem.category_info[0],
-                        slug: elem.slug,
-                        title: elem.title.rendered
-                    };
-                    var props = {
-                        //className:"!w-[calc((100%-300px)/3)]",
-                        prodObject:prodObject
-                    }
-                    return (prontaConsegna)?<ProntaConsegnaCard {...props} key={elem.id} />:<ProductCard key={elem.id} {...props} />
-                })
-            }
-        </section>
+        {
+            (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-2`}>
+                {
+                    activeProducts.map((elem, index) => {
+                        if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
+                        if(activeCat && activeCat !== elem.category_info[0].term_id) return;
+                        var prodObject = {
+                            ID: elem.id,
+                            thumbnail_data: elem.thumbnail_data,
+                            cat: elem.category_info[0],
+                            slug: elem.slug,
+                            title: elem.title.rendered
+                        };
+                        var props = {
+                            //className:"!w-[calc((100%-300px)/3)]",
+                            prodObject:prodObject
+                        }
+                        return (prontaConsegna)?<ProntaConsegnaCard {...props} key={elem.id} />:<ProductCard key={elem.id} {...props} />
+                    })
+                }
+            </section> : <span></span>
+        }
     </>
 }

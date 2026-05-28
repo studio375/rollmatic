@@ -11,8 +11,8 @@ export default function LangSwitcher({}){
     const router = useRouter();
     const pathname = usePathname();
     const params = useParams();
-    console.log(params);
-    console.log(pathname);
+    // console.log(params);
+    // console.log(pathname);
     const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-white';
 
     async function switchLocale(newLocale){
@@ -29,7 +29,7 @@ export default function LangSwitcher({}){
         }
         if(pathname.includes('[slug]')){
             slug=params.slug;
-            path='settore';
+            path=(pathname.includes('settori'))?'settore':'posts';
         }
         console.log(`/api/translated-slug?path=${path}&slug=${slug}&from=${locale}&to=${newLocale}`);
         const res = await fetch(

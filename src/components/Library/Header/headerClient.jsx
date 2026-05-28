@@ -3,18 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import CustomButton from "../Custom Button/customButton";
 import { useEffect, useRef } from "react";
-import { useParams, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import LangSwitcher from "./langSwitcher";
+import { usePathname } from "@/i18n/navigation";
 
 
 export default function HeaderClient({menu_items}){
     const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-white';
     const ref = useRef(null);
-    const params = useParams();
     var pathName = usePathname();
     var t = useTranslations('strings');
-    var transparent = (pathName === t('Homepage path') || (params.slug && pathName.indexOf('news/') == -1)); //controllo che sia la home (pathname === '/') oppure che sia un post type guardando i params escludendo le news
+    var transparent = (pathName === t('Homepage path') || pathName.includes('[product_cat]'));
     const handleScroll = () => {
         if(window.scrollY > 300){
             ref.current.classList.remove("transparent");

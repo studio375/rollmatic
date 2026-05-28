@@ -20,8 +20,20 @@ export default {
             es: "/[product_cat]/[product]",
             ru: "/[product_cat]/[product]",
         },
-        '/settori' : '/settori',
-        '/settori/[slug]':'/settori/[slug]',
+        '/settori' : {
+            it: '/settori',
+            en: '/sectors',
+            fr: '/secteurs',
+            ru: '/секторы',
+            es: '/sectores'
+        },
+        '/settori/[slug]':{
+            it: '/settori/[slug]',
+            en: '/sectors/[slug]',
+            fr: '/secteurs/[slug]',
+            ru: '/секторы/[slug]',
+            es: '/sectores/[slug]'
+        },
         '/pronta-consegna':'/pronta-consegna',
         '/contatti':'/contatti',
         '/grazie':'/grazie',
