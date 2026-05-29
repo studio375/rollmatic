@@ -45,13 +45,14 @@ export default async function Home({params}) {
         </div>
         <div className="absolute bottom-0 left-0 w-full h-28 sfumatura-dark z-2"></div>
       </section>
-      <section className="w-full pt-10 boxed flex flex-col items-center">
+      <section className="w-full pt-10 flex flex-col items-center">
         <BigText className="font-semibold">{page.acf.titolo_categorie}</BigText>
-        <div className="mt-15 flex items-start w-full">
+        <div className="mt-15 flex items-stretch w-full">
           {
             categorie.map(elem => {
-              return <div key={elem.id} className="relative flex flex-col items-center flex-1">
-                <BigText Tag="h3" className="text-[32px] font-semibold text-center">{elem.name}</BigText>
+              return <div key={elem.id} className="relative flex flex-col items-center px-4 flex-1 product-image product-image-card">
+                <Image className="mb-5" src={elem.acf.immagine_lista.url} width={elem.acf.immagine_lista.width} height={elem.acf.immagine_lista.height} alt={elem.name} />
+                <BigText Tag="h3" className="!mt-auto text-[32px] font-semibold text-center">{elem.name}</BigText>
                 <Paragraph Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
                 <CustomButton className="mt-3" href={elem.slug}>{t('Vedi soluzioni')}</CustomButton>
               </div>

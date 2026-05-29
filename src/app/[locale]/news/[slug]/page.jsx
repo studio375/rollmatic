@@ -1,14 +1,13 @@
 import BigText from "@/components/Library/Big Text/bigText";
 import NewsCard from "@/components/Library/News Card/newsCard";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
-import { fetchAPI } from "@/helpers/api/fetch-api";
-import { getLocale } from "next-intl/server";
+import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
+import { routing } from "@/i18n/routing";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
-    const {slug, news}= await params;
-    var locale = await getLocale();
+    const {locale, slug}= await params;
     var obj = await fetchAPI('posts', {
         lang: locale,
         slug: slug,
@@ -16,9 +15,9 @@ export default async function Page({params}){
         _embed: true
     });
     if(!obj) notFound();
-    console.log(obj);
     const img = obj._embedded['wp:featuredmedia'][0];
     var featuredNews = await fetchAPI('posts', {
+        lang: locale,
         per_page: 2,
         exclude: obj.id,
         _embed: true,
@@ -47,4 +46,15 @@ export default async function Page({params}){
             </section>
         }
     </>
+}
+
+export async function generateStaticParams() {
+    const params = [];
+    for (const locale of routing.locales) {
+        const slugs = await getAllSlugs("posts", locale);
+        for (const {slug, id} of slugs) {
+            params.push({ locale, slug});
+        }
+    }
+    return params;
 }

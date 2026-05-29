@@ -47,7 +47,8 @@ export async function generateStaticParams() {
     const params = [];
     for (const locale of routing.locales) {
         const slugs = await getAllSlugs("categoria", locale);
-        for (const product_cat of slugs) {
+        for (const {slug, id} of slugs) {
+            const product_cat = slug;
             params.push({ locale, product_cat });
         }
     }

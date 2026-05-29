@@ -2,14 +2,13 @@ import BigText from "@/components/Library/Big Text/bigText";
 import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductCard from "@/components/Library/Product Card/productCard";
-import { fetchAPI } from "@/helpers/api/fetch-api";
-import { getLocale } from "next-intl/server";
+import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
+import { routing } from "@/i18n/routing";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
-    const {slug, sector} = await params;
-    const locale = await getLocale();
+    const {locale, slug} = await params;
     var settore = await fetchAPI('settore', {
         lang: locale,
         slug: slug,
@@ -28,25 +27,40 @@ export default async function Page({params}){
                 <Paragraph className="w-[calc(100%/3*2.1)]">{settore.acf.paragrafo}</Paragraph>
             </div>
         </section>
-        <section className="mt-10 px-4">
-            {
-                settore.acf.prodotti_correlati.map(elem => {
-                    var prodObject = {
-                        ID: elem.ID,
-                        thumbnail_data: elem.thumbnail_data,
-                        cat: elem.category_info[0],
-                        slug: elem.post_name,
-                        title: elem.post_title
-                    };
-                    return <ProductCard key={elem.ID} prodObject={prodObject} />
-                })
-            }
-        </section>
-        <section className="mt-8 big-boxed w-full relative pb-15">
-            <BigText Tag="h2" className="classic-title">FAQ</BigText>
-            <div className="mt-5">
-                <Faq faq={settore.acf.faq} />
-            </div>
-        </section>
+        {
+            settore.acf.prodotti_correlati && <section className="mt-10 px-4">
+                {
+                    settore.acf.prodotti_correlati.map(elem => {
+                        var prodObject = {
+                            ID: elem.ID,
+                            thumbnail_data: elem.thumbnail_data,
+                            cat: elem.category_info[0],
+                            slug: elem.post_name,
+                            title: elem.post_title
+                        };
+                        return <ProductCard key={elem.ID} prodObject={prodObject} />
+                    })
+                }
+            </section>
+        }
+        {
+            settore.acf.faq && <section className="mt-8 big-boxed w-full relative pb-15">
+                <BigText Tag="h2" className="classic-title">FAQ</BigText>
+                <div className="mt-5">
+                    <Faq faq={settore.acf.faq} />
+                </div>
+            </section>
+        }
     </>
+}
+
+export async function generateStaticParams() {
+    const params = [];
+    for (const locale of routing.locales) {
+        const slugs = await getAllSlugs("settore", locale);
+        for (const {slug, id} of slugs) {
+            params.push({ locale, slug});
+        }
+    }
+    return params;
 }

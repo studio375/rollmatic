@@ -18,26 +18,22 @@ export default async function Page({params}){
 }
 
 export async function generateStaticParams() {
-    const paramsCat = [];
-    const paramsProd = [];
+    const categories = [];
+    const params = [];
     for (const locale of routing.locales) {
         const slugs = await getAllSlugs("categoria", locale);
         for (const {slug, id} of slugs) {
-            paramsCat.push({ locale, slug, id});
+            categories.push({ locale, slug, id});
         }
     }
-    console.log(paramsCat);
-    // for (const locale of routing.locales) {
-    //     for (const product_cat of paramsCat) {
-    //         const products = await getAllSlugs('prodotto', locale, product_cat);
-    //         console.log(products);
-    //     }
-    // }
-    // for (const locale of routing.locales) {
-    //     const slugs = await getAllSlugs("prodotto", locale);
-    //     for (const product of slugs) {
-    //         params.push({ locale, product_cat, product });
-    //     }
-    // }
-    return [];
+    for(const cat of categories){
+        const locale = cat.locale;
+        const product_cat = cat.slug;
+        const slugs = await getAllSlugs('prodotto', locale, {categoria: cat.id});
+        for(const {slug, id} of slugs){
+            const product = slug;
+            params.push({locale, product_cat, product});
+        }
+    }
+    return params;
 }

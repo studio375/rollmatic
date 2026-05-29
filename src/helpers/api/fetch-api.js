@@ -55,15 +55,14 @@ export async function getTranslatedSlug(path, slug, fromLocale, toLocale) {
   return match ? match[1].slug : null;
 }
 
-export async function getAllSlugs(path, locale, cat) {
+export async function getAllSlugs(path, locale, more_opt = {}) {
   var allPar = {
-    categoria: 4,
+    ...more_opt,
     lang: `${locale}`,
     _fields: "slug, id",
     per_page: 100,
   }
   const posts = await fetchAPI(`${path}`, allPar);
-  console.log(posts);
   return posts.map((p) => {
     return {slug:p.slug, id: p.id}
   });
