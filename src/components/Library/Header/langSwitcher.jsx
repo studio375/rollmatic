@@ -2,6 +2,7 @@ import { useLocale } from "next-intl";
 import config from "@/i18n/config";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
+import { fetchAPI, getTranslatedSlug } from "@/helpers/api/fetch-api";
 
 
 
@@ -18,6 +19,8 @@ export default function LangSwitcher({}){
     async function switchLocale(newLocale){
         var slug = pathname;
         var path = 'pages';
+        var pathKey = 'slug';
+
         if(pathname.includes('[product_cat]')){
             if(pathname.includes('[product]')){
                 slug = params.product;
@@ -25,21 +28,21 @@ export default function LangSwitcher({}){
             }else{
                 slug = params.product_cat;
                 path = 'categoria';
+                pathKey = 'product_cat';
             }
         }
         if(pathname.includes('[slug]')){
             slug=params.slug;
             path=(pathname.includes('settori'))?'settore':'posts';
         }
-        console.log(`/api/translated-slug?path=${path}&slug=${slug}&from=${locale}&to=${newLocale}`);
         const res = await fetch(
             `/api/translated-slug?path=${path}&slug=${slug}&from=${locale}&to=${newLocale}`,
         );
         if (res.ok) {
-            const { slug: translatedSlug } = await res.json();
+            const { [pathKey]: translatedSlug } = await res.json();
             router.replace(
-            { pathname, params: { slug: translatedSlug } },
-            { locale: newLocale },
+                { pathname, params: { [pathKey]: translatedSlug } },
+                { locale: newLocale },      
             );
         } else {
             // Fallback

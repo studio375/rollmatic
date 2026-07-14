@@ -3,7 +3,6 @@ import { getTranslatedSlug } from "@/helpers/api/fetch-api";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
- 
   const path = searchParams.get("path");
   const slug = searchParams.get("slug");
   const from = searchParams.get("from");
@@ -16,13 +15,14 @@ export async function GET(request) {
   }
   
   const translatedSlug = await getTranslatedSlug(path, slug, from, to);
-
+  
   if (!translatedSlug) {
     return NextResponse.json(
       { error: "Translation not found" },
       { status: 404 },
     );
   }
-
-  return NextResponse.json({ slug: translatedSlug });
+  
+  const pathKey = (path == 'categoria')?'product_cat':'slug'; //chiave del pat come slug ([slug]) oppure product_cat([product_cat])
+  return NextResponse.json({ [pathKey]: translatedSlug });
 }

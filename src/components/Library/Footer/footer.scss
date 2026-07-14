@@ -29,3 +29,8 @@
     }
     a{text-transform: uppercase;}
 }
+
+@media only screen and (max-width: 768px){
+    #site-footer .top .singleCol .textwidget >img{width: 200px; height: auto;}
+    #site-footer .footer-bottom .textwidget{flex-direction: column-reverse; align-items: center; gap: 10px;}
+}

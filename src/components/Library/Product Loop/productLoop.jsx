@@ -33,10 +33,11 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
                     activeProducts.map((elem, index) => {
                         if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
                         if(activeCat && activeCat !== elem.category_info[0].term_id) return;
+                        //console.log(elem);
                         var prodObject = {
                             ID: elem.id,
                             thumbnail_data: elem.thumbnail_data,
-                            cat: elem.category_info[0],
+                            cat: elem.category_info[1],
                             slug: elem.slug,
                             title: elem.title.rendered
                         };

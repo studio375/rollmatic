@@ -18,6 +18,16 @@
   --color-primary: var(--main-color);
   --font-aspekta: var(--font-aspekta);
   --spacing: var(--spacing);
+
+  //responsive
+  --breakpoint-2xl: 2000px;
+  --breakpoint-xl: 1500px;
+  --breakpoint-l: 1250px;
+  --breakpoint-mobileHeader:1100px;
+  --breakpoint-m: 1025px;
+  --breakpoint-s: 768px;
+  --breakpoint-xs: 501px;
+  --breakpoint-xxs: 400px;
 }
 
 body {
@@ -109,4 +119,18 @@ p{margin: 0;}
 
 .testata-product{
   background: linear-gradient(0deg, #D2D3D4 0%, #D5D6D8 14%, #D5D5D5 34.13%, #8E8E8E 47.12%, #646465 65.38%, #2B2B2B 100%);
+}
+
+@media only screen and (max-width: 1500px){
+  .big-boxed{padding-left: 100px; padding-right: 100px;}
+  h1, .h1{font-size: 70px; line-height: 80px;}
+  h2, .h2{font-size: 32px;}
+}
+
+
+@media only screen and (max-width: 1025px){
+  .big-boxed, .boxed{padding-left: 5vw; padding-right: 5vw;}
+  h1, .h1{font-size: 60px; line-height: 70px;}
+  h2, .h2{font-size: 35px;}
+  h3, .h3{font-size: 27px; line-height: 32px;}
 }

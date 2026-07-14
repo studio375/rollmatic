@@ -10,6 +10,7 @@ import GravityForm from '@/components/Library/Gravity Form/gravityForm';
 import { useStore } from '@/store/useStore.js';
 
 export default function ProductPage({prodotto, cat, formObject = null}){
+    console.log(prodotto);
     const [open, setOpen] = useState(false);
     const [drawsHeight, setDrawsHeight] = useState(0);
     const drawsInner = useRef(null);
@@ -35,9 +36,8 @@ export default function ProductPage({prodotto, cat, formObject = null}){
 
     return <>
         <section className="w-full relative h-screen testata-product">
-            <Image className='w-full h-full object-cover absolute left-0 bottom-10 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>
-            {/* <Image className='w-full h-[calc(100%-150px)] object-contain absolute left-0 bottom-15 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/> */}
-            <div className={`boxed absolute left-0 top-[80vh] w-full flex items-end`}>
+            <Image className='h-full w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>
+            <div className={`boxed absolute left-0 bottom-8 w-full flex items-end`}>
                 <div className={`w-[40%]`}>
                     <BigText className="h3 sub" Tag="h2">{cat.name}</BigText>
                     <BigText Tag="h1" className="font-extrabold">{prodotto.title.rendered}</BigText>
