@@ -14,7 +14,8 @@ export default async function Page({params}){
     if(!page) notFound();
     var products = await fetchAPI('pronta-consegna', {
         acf_format: 'standard',
-        _embed: true
+        _embed: true,
+        per_page: 100
     });
     var form = await fetchAPI('forms/1', {}, true);
     return <>

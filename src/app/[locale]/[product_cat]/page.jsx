@@ -22,7 +22,8 @@ export default async function Page({params}){
     var products = await fetchAPI('prodotto', {
         'categoria': [cat.id].concat(catChild.map(el => {return el.id;})),
         acf_format: 'standard',
-        _embed: true
+        _embed: true,
+        per_page: 100
     });
     
     return <>
