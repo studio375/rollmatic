@@ -8,7 +8,14 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
     const [activeCat, setActiveCat] = useState(null);
     var activeProducts = products;
     if(activeCat){
-        activeProducts = activeProducts.filter(elem => elem?.category_info[0]?.term_id === activeCat);
+        activeProducts = activeProducts.filter(elem => {
+            var active = false;
+            elem?.category_info?.forEach(element => {
+                if(element.term_id === activeCat)
+                    active = true;
+            });
+            return active;
+        });
     }
     if(activeProducts.length%3!==0){
         for (let index = 0; index < products.length%3; index++) {
@@ -32,7 +39,6 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
                 {
                     activeProducts.map((elem, index) => {
                         if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
-                        if(activeCat && activeCat !== elem.category_info[0].term_id) return;
                         //console.log(elem);
                         var prodObject = {
                             ID: elem.id,

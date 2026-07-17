@@ -51,7 +51,7 @@ export default async function Home({params}) {
           {
             categorie.map(elem => {
               return <div key={elem.id} className="relative flex flex-col items-center px-4 flex-1 product-image product-image-card">
-                <Image className="mb-5" src={elem.acf.immagine_lista.url} width={elem.acf.immagine_lista.width} height={elem.acf.immagine_lista.height} alt={elem.name} />
+                {elem.acf.immagine_lista && <Image className="mb-5" src={elem.acf.immagine_lista.url} width={elem.acf.immagine_lista.width} height={elem.acf.immagine_lista.height} alt={elem.name} />}
                 <BigText Tag="h3" className="!mt-auto text-[32px] font-semibold text-center">{elem.name}</BigText>
                 <Paragraph Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
                 <CustomButton className="mt-3" href={elem.slug}>{t('Vedi soluzioni')}</CustomButton>
