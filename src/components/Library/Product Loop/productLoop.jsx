@@ -43,7 +43,7 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
                         var prodObject = {
                             ID: elem.id,
                             thumbnail_data: elem.thumbnail_data,
-                            cat: elem.category_info[1],
+                            cat: elem.category_info[1] ? elem.category_info[1] : elem.category_info[0],
                             slug: elem.slug,
                             title: elem.title.rendered
                         };

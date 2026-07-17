@@ -11,6 +11,7 @@ var prodObjectExample = {
 };
 */
 export default function ProductCard({prodObject, ...props}){
+    console.log(prodObject);
     if(prodObject == null){
         return <div {...props} className={`w-[calc(100%/3)] relative px-[75px] pb-6 product-image product-image-card ${props.className}`}></div>
     }
