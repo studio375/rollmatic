@@ -25,7 +25,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
     var col1Dettagli = dettagliProd?.filter((elem, i) => {return (i < dettagliProd.length / 2)});
     var col2Dettagli = dettagliProd?.filter((elem, i) => {return (i >= dettagliProd.length / 2)});
 
-    var videoIds = prodotto.acf.galleria_video.map(elem => {return elem.id_video_yt});
+    var videoIds = prodotto.acf.galleria_video && prodotto.acf.galleria_video.map(elem => {return elem.id_video_yt});
 
     const {setCurrentPageTitle} = useStore();
     useEffect(() => {
@@ -36,7 +36,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
 
     return <>
         <section className="w-full relative h-screen testata-product">
-            <Image className='h-full w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>
+            {prodotto._embedded['wp:featuredmedia'] && <Image className='h-full w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>}
             <div className={`boxed absolute left-0 bottom-8 w-full flex items-end`}>
                 <div className={`w-[40%]`}>
                     <BigText className="h3 sub" Tag="h2">{cat.name}</BigText>
@@ -61,14 +61,17 @@ export default function ProductPage({prodotto, cat, formObject = null}){
         </section>
         <section className="boxed flex items-start min-h-50 pt-13">
             <div className={`w-[calc(100%-1050px)] pr-20 z-[10] relative`}><Paragraph>{prodotto.acf.paragrafo}</Paragraph></div>
-            <div className={`w-105 z-[10] relative`}>
-                <ScrollGallery images={prodotto.acf.galleria}/>
+            {
+            prodotto.acf.galleria && 
+                <div className={`w-105 z-[10] relative`}>
+                    <ScrollGallery images={prodotto.acf.galleria}/>
                 </div>
+            }
         </section>
         <section className="w-full relative mt-25">
             <div><BigText className="big-boxed text-center !text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)]" Tag="h3">{cat.acf.testo_gamma}</BigText></div>
             <div className="w-full product-image big-boxed">
-                <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
+                {prodotto.acf.immagine_full && <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>}
             </div>
             <div className={`big-boxed relative flex flex-col items-center gap-[77px] w-full pt-10 pb-25 gradient-before`}>
                 <CustomButton href="" className={``}>Scheda tecnica</CustomButton>
@@ -83,7 +86,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
                     <div className={`h-0 overflow-hidden w-full transition-all duration-[0.5s] ease`} style={{height: drawsHeight}}>
                         <div className={`flex items-stretch flex-wrap gap-3 w-full pt-[15px] pb-3`} ref={drawsInner}>
                         {
-                            prodotto.acf.disegni_tecnici.map(elem => {
+                            prodotto.acf.disegni_tecnici && prodotto.acf.disegni_tecnici.map(elem => {
                                 return <Image className='w-[calc(50%-15px)] h-auto' src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'disegno tecnico'} key={elem.ID} />
                             })
                         }
@@ -121,7 +124,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             </div>
         </section>
         <section className="big-boxed mb-[178px] mt-12">
-            <VideoCarousel videoIds={videoIds} />
+            {videoIds && <VideoCarousel videoIds={videoIds} />}
         </section>
     </>;
 }
