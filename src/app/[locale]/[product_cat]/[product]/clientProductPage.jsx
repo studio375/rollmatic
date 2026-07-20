@@ -36,7 +36,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
 
     return <>
         <section className="w-full relative h-screen testata-product">
-            {prodotto._embedded['wp:featuredmedia'] && <Image className='h-full w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>}
+            {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100%-200px)] w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>}
             <div className={`boxed absolute left-0 bottom-8 w-full flex items-end`}>
                 <div className={`w-[40%]`}>
                     <BigText className="h3 sub" Tag="h2">{cat.name}</BigText>
