@@ -47,11 +47,12 @@ export default async function Home({params}) {
       </section>
       <section className="w-full pt-10 flex flex-col items-center">
         <BigText className="font-semibold">{page.acf.titolo_categorie}</BigText>
-        <div className="mt-15 flex items-stretch w-full">
+        <div className="mt-15 flex items-start w-full">
           {
             categorie.map(elem => {
-              return <div key={elem.id} className="relative flex flex-col items-center px-4 flex-1 product-image product-image-card">
-                {elem.acf.immagine_lista && <Image className="mb-5" src={elem.acf.immagine_lista.url} width={elem.acf.immagine_lista.width} height={elem.acf.immagine_lista.height} alt={elem.name} />}
+              var italianID = (locale == 'it')?elem.id:elem.wpml_translations?.it_ID.id;
+              return <div key={elem.id} className={`relative flex flex-col items-center product-image product-image-card ${italianID==284?'w-[40%]':'w-[calc(60%/3)] px-4'}`}>
+                {elem.acf.immagine_categoria && <Image className="mb-5 w-full h-[40vh] object-cover" src={elem.acf.immagine_categoria.url} width={elem.acf.immagine_categoria.width} height={elem.acf.immagine_categoria.height} alt={elem.name} />}
                 <BigText Tag="h3" className="!mt-auto text-[32px] font-semibold text-center">{elem.name}</BigText>
                 <Paragraph Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
                 <CustomButton className="mt-3" href={elem.slug}>{t('Vedi soluzioni')}</CustomButton>

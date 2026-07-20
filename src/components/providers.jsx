@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { TransitionRouter } from "next-transition-router";
-import { useStore } from "@/store/useStore";
 import { gsap } from "@/lib/gsap";
 import Image from "next/image";
 
@@ -12,10 +11,6 @@ export default function Providers({ children }) {
   const secondLayer = useRef(null);
   const logo = useRef(null);
   const imageWall = useRef(null);
-  const thirdLayer = useRef(null);
-
-  const dur = 1;
-  const overlap = "<0.18";
 
   return (
     <TransitionRouter
@@ -50,8 +45,6 @@ export default function Providers({ children }) {
         <div ref={imageWall} className="w-35 h-35 absolute left-1/2 top-1/2 -translate-y-1/2 bg-[var(--color-primary)] z-1" />
         <Image ref={logo} src={'/logo_light.svg'} width={200} height={100} alt="logo" className="w-30 h-auto absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2" />
     </div>
-      {/* <div ref={secondLayer} className="overlay v2" />
-      <div ref={thirdLayer} className="overlay v3" /> */}
     </TransitionRouter>
   );
 }

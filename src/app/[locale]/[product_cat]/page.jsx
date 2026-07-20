@@ -28,12 +28,12 @@ export default async function Page({params}){
     
     return <>
     
-        <section className="w-full flex h-auto relative min-h-[50vh]">
-                {cat.acf.immagine_testata && <Image className="w-full h-auto object-cover max-h-[80vh]" src={cat.acf.immagine_testata.url} width={cat.acf.immagine_testata.width} height={cat.acf.immagine_testata.height} alt={cat.name}/>}
-                <div className="absolute flex flex-col items-start left-15 bottom-15 gap-[15px]">
+        <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 px-15 flex items-center justify-between">
+                <div className="relative flex flex-col items-start gap-[15px] w-40">
                     <BigText Tag="h1" className="classic-title">{cat.name}</BigText>
-                    <Paragraph className="text-[var(--color-background)]">{cat.acf.paragrafo}</Paragraph>
+                    <Paragraph className="text-[var(--color-foreground)]">{cat.acf.paragrafo}</Paragraph>
                 </div>
+                {cat.acf.immagine_categoria && <Image className="h-[80vh] w-auto object-cover max-w-[calc(100%-400px)]" src={cat.acf.immagine_categoria.url} width={cat.acf.immagine_categoria.width} height={cat.acf.immagine_categoria.height} alt={cat.name}/>}
         </section>
        <ProductLoop catFilters={catChild} products={products} />
        {
