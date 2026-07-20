@@ -15,6 +15,7 @@
     "locomotive-scroll": "^5.0.1",
     "next": "16.1.6",
     "next-intl": "^4.12.0",
+    "next-transition-router": "^0.2.11",
     "plyr": "^3.8.4",
     "plyr-react": "^6.0.0",
     "qs": "^6.15.0",

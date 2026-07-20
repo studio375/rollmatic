@@ -1,17 +1,20 @@
 "use client"
 import CustomButton from "@/components/Library/Custom Button/customButton";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProductCard from "../Product Card/productCard";
 import ProntaConsegnaCard from "../Product Card/prontaConsegnaCard";
+import BigText from "../Big Text/bigText";
+import Image from "next/image";
 
 export default function ProductLoop({catFilters, products, prontaConsegna = false}){
     const [activeCat, setActiveCat] = useState(null);
+    const [filterOpen, setFilterOpen] = useState(false);
     var activeProducts = products;
     if(activeCat){
         activeProducts = activeProducts.filter(elem => {
             var active = false;
             elem?.category_info?.forEach(element => {
-                if(element.term_id === activeCat)
+                if(element.term_id === activeCat.id)
                     active = true;
             });
             return active;
@@ -22,24 +25,48 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
             activeProducts.push(null);
         }
     }
+    const filterCommonClass = `py-1 px-2 [&_span]:text-[var(--color-primary)] cursor-pointer [&:not(:last-child)]:border-b-[1px] [&:not(:last-child)]:border-b-[var(--color-primary)] [&:hover,&.current]:bg-[var(--color-primary)] [&:hover_span,&.current_span]:text-white [&,&_span]:transition-all [&,&_span]:duration-500 [&,&_span]:ease`;
     
-    return <>
-        {
-        (catFilters && catFilters.length > 0) && <section className="relative mt-5 big-boxed flex justify-center gap-2 big-boxed flex items-center w-full">
-            <CustomButton onClick={() => {setActiveCat(null)}} className={`${!activeCat && 'active'} [&:not(.active)]:!text-[var(--color-foreground)] [&:not(.active)]:!border-[var(--color-foreground)]`} Tag={'div'}>Tutte</CustomButton>
-            {
-                catFilters.map(elem => {
-                    return <CustomButton onClick={() => {setActiveCat(elem.id)}} className={`${activeCat == elem.id && 'active'} [&:not(.active)]:!text-[var(--color-foreground)] [&:not(.active)]:!border-[var(--color-foreground)]`} key={elem.id} Tag={'div'}>{elem.name}</CustomButton>
-                })
+    useEffect(() => {
+        document.querySelector('body').addEventListener('click', function(e){
+            var target = e.target;
+            if(!target.classList.contains('filters-handle') && !target.closest('.filters-handle')){
+                setFilterOpen(false);
             }
+        })
+    }, []);
+    
+    const handleClickFilterOption = (val)=>{
+        setActiveCat(val);
+        setFilterOpen(false);
+    }
+
+
+    return <>
+        <section className="relative mt-5 boxed flex items-center gap-2 z-10">
+            <BigText Tag="span" className="font-semibold text-[var(--color-primary)] h3">Categorie macchinari</BigText>
+            <div className="relative inline-flex min-w-40">
+                <div className="py-1 px-2 bg-[var(--color-primary)] min-w-full [&_span]:text-white cursor-pointer filters-handle flex items-center justify-between gap-2 rounded-[5px]" onClick={() => setFilterOpen(!filterOpen)}><span>{activeCat?activeCat.name:'Tutte'}</span><Image className={`ml-auto transition-all duration-300 ease ${filterOpen && 'rotate-[-180deg]'}`} src={'/expand-more.svg'} width={25} height={25} alt="expand more" /></div>
+                
+                {
+                    (catFilters && catFilters.length > 0) && <div className={`filters-handle ${filterOpen? 'inline-flex' : 'hidden'} flex-col items-left bg-white border-[var(--color-primary)] border-[1px] absolute top-[calc(100%-2px)] rounded-b-[5px] right-0 w-full`}>
+                        {
+                            activeCat && <div onClick={() => {handleClickFilterOption(null)}} className={`${!activeCat && 'current'} ${filterCommonClass}`}><span>Tutte</span></div>
+                        }
+                        {
+                            catFilters.map(elem => {
+                                return <div key={elem.id} onClick={() => {handleClickFilterOption({name: elem.name, id: elem.id})}} className={`${(activeCat && activeCat.id == elem.id) && 'current'} ${filterCommonClass}`}><span>{elem.name}</span></div>
+                            })
+                        }
+                    </div>
+                }
+            </div>
         </section>
-        }
         {
             (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-2`}>
                 {
                     activeProducts.map((elem, index) => {
                         if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
-                        //console.log(elem);
                         var prodObject = {
                             ID: elem.id,
                             thumbnail_data: elem.thumbnail_data,

@@ -7,6 +7,7 @@ import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import { setRequestLocale } from "next-intl/server";
+import Providers from "@/components/providers";
 
 const aspekta = localFont({
   src: [
@@ -35,9 +36,11 @@ export default async function RootLayout({ children, params }) {
     <html lang={locale}>
       <body className={`${aspekta.variable} antialiased`}>
         <NextIntlClientProvider>
-          <Header />
-          <SmoothScroll>{children}</SmoothScroll>
-          <Footer />
+          <Providers>
+            <Header />
+            <SmoothScroll>{children}</SmoothScroll>
+            <Footer />
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>
