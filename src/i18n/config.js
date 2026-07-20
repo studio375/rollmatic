@@ -35,11 +35,23 @@ export default {
             ru: '/секторы/[slug]',
             es: '/sectores/[slug]'
         },
-        '/azienda':'/azienda',
-        '/pronta-consegna':'/pronta-consegna',
-        '/contatti':'/contatti',
-        '/grazie':'/grazie',
         '/news':'/news',
         '/news/[slug]':'/news/[slug]',
+        '/azienda':{
+            it:'/azienda',
+            en:'/company'
+        },
+        '/pronta-consegna':{
+            it:'/pronta-consegna',
+            en:'/ready-for-delivery'
+        },
+        '/contatti':{
+            it:'/contatti',
+            en:'/contacts'
+        },
+        '/grazie':{
+            it:'/grazie',
+            en:'/thank-you'
+        }
     },
 }

@@ -21,16 +21,19 @@ export default async function Home({params}) {
   });
   const categorie = await fetchAPI('categoria', {
     acf_format: 'standard',
-    parent: 0
+    parent: 0,
+    lang: locale
   });
   const settori = await fetchAPI('settore', {
     acf_format: 'standard',
-    _embed: true
+    _embed: true,
+    lang: locale
   });
   const articoli = await fetchAPI('posts', {
     per_page: 2,
     acf_format: 'standard',
-    _embed: true
+    _embed: true,
+    lang: locale
   });
   const t = await getTranslations('strings');
   return (
@@ -50,6 +53,7 @@ export default async function Home({params}) {
         <div className="mt-15 flex items-start w-full">
           {
             categorie.map(elem => {
+              console.log(elem);
               var italianID = (locale == 'it')?elem.id:elem.wpml_translations?.it_IT?.id;
               return <div key={elem.id} className={`relative flex flex-col items-center product-image product-image-card ${italianID==284?'w-[40%]':'w-[calc(60%/3)] px-4'}`}>
                 {elem.acf.immagine_categoria && <Image className="mb-5 w-full h-[40vh] object-cover" src={elem.acf.immagine_categoria.url} width={elem.acf.immagine_categoria.width} height={elem.acf.immagine_categoria.height} alt={elem.name} />}

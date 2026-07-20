@@ -4,15 +4,18 @@ import { notFound } from "next/navigation";
 import parse from 'html-react-parser';
 import Image from "next/image";
 import GravityForm from "@/components/Library/Gravity Form/gravityForm";
+import { getTranslations } from "next-intl/server";
 
 export default async function Page({params}){
+    const {locale} = await params;
     var page = await fetchAPI('pages', {
         slug: 'contatti',
         acf_format: 'standard',
-        _embed: true
+        _embed: true,
+        lang: locale
     });
     if(!page) notFound();
-    console.log(page);
+    const t = await getTranslations('strings');
     const social = page.acf.social;
     var form = await fetchAPI('forms/1', {}, true);
     return <>
@@ -33,7 +36,7 @@ export default async function Page({params}){
                 </div>
            </div>
            <div className="relative w-[calc(200%/3)] flex flex-col items-start gap-2 max-m:w-full">
-                <span className="!text-[24px]/[30px] font-bold !text-[var(--color-foreground)]">Richiedi informazioni</span>
+                <span className="!text-[24px]/[30px] font-bold !text-[var(--color-foreground)]">{t("Richiedi informazioni").replace('<br/>', ' ')}</span>
                 <GravityForm formObject={form} />
            </div>
         </section>

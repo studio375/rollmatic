@@ -4,12 +4,13 @@ import ProductPage from "./clientProductPage";
 import { routing } from "@/i18n/routing";
 
 export default async function Page({params}){
-    const {product_cat, product} = await params;
+    const {product_cat, product, locale} = await params;
     
     const prodotto = await fetchAPI('prodotto', {
         slug: product,
         acf_format: "standard",
-        _embed: true
+        _embed: true,
+        lang: locale
     });
     if(!prodotto) notFound();
     const cat = prodotto?._embedded['wp:term'][0][0];

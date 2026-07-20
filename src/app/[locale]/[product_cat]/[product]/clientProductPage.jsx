@@ -8,11 +8,13 @@ import ScrollGallery from '@/components/Library/Scroll Gallery/scrollGallery';
 import VideoCarousel from '@/components/Library/Video Carousel/videoCarousel';
 import GravityForm from '@/components/Library/Gravity Form/gravityForm';
 import { useStore } from '@/store/useStore.js';
+import { useTranslations } from "next-intl";
 
 export default function ProductPage({prodotto, cat, formObject = null}){
     const [open, setOpen] = useState(false);
     const [drawsHeight, setDrawsHeight] = useState(0);
     const drawsInner = useRef(null);
+    const t = useTranslations('strings');
     function handeClickDraws(){
         var isOpen = !open;
         setOpen(isOpen);
@@ -50,37 +52,37 @@ export default function ProductPage({prodotto, cat, formObject = null}){
                     </div>
                     {
                         prodotto.acf.larghezza_tavolo && <div className={`${singleColClass}`}>
-                            <span>Larghezza tavolo</span>
+                            <span>{t("Larghezza tavolo")}</span>
                             <span>{prodotto.acf.larghezza_tavolo}</span>
                         </div>
                     }
                     {
                         prodotto.acf.lunghezza_tavolo && <div className={`${singleColClass}`}>
-                            <span>Lunghezza tavolo</span>
+                            <span>{t("Lunghezza tavolo")}</span>
                             <span>{prodotto.acf.lunghezza_tavolo}</span>
                         </div>
                     }
                     {
                         prodotto.acf.litri_planetaria && <div className={`${singleColClass}`}>
-                            <span>Litri planetaria</span>
+                            <span>{t("Litri planetaria")}</span>
                             <span>{prodotto.acf.litri_planetaria}</span>
                         </div>
                     }
                     {
                         prodotto.acf.num_programmi_spazza_arrotondatrice && <div className={`${singleColClass}`}>
-                            <span>Numero programmi</span>
+                            <span>{t("Numero programmi")}</span>
                             <span>{prodotto.acf.num_programmi_spazza_arrotondatrice}</span>
                         </div>
                     }
                     {
                         prodotto.acf.passo_lame && <div className={`${singleColClass}`}>
-                            <span>Passo lame</span>
+                            <span>{t("Passo lame")}</span>
                             <span>{prodotto.acf.passo_lame}</span>
                         </div>
                     }
                     {
                         prodotto.acf.dimensione_max_pane && <div className={`${singleColClass}`}>
-                            <span>Dimensione massima pane</span>
+                            <span>{t("Dimensione massima pane")}</span>
                             <span>{prodotto.acf.dimensione_max_pane}</span>
                         </div>
                     }
@@ -102,10 +104,10 @@ export default function ProductPage({prodotto, cat, formObject = null}){
                  <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
             </div>}
             <div className={`big-boxed relative flex flex-col items-center gap-[77px] w-full pt-10 pb-25 gradient-before`}>
-                <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>Scheda tecnica</CustomButton>
+                <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
                 {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)]`}>
                     <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
-                        <span className='uppercase'>Disegni tecnici</span>
+                        <span className='uppercase'>{t("Disegni tecnici")}</span>
                         <div className={`w-3 h-3 relative`}>
                             <div className='hor absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px]'></div>
                             <div className='vert absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px] rotate-[-90deg] transition-all duration-[0.3s] ease [.open_&]:opacity-0'></div>
@@ -147,7 +149,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
         <section className="big-boxed mt-5 mb-12 relative z-[10] flex items-start flex-col gap-[115px]">
             <div className="divisor"></div>
             <div className={`flex items-start w-full relative`}>
-                <BigText className={`w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{'Richiedi<br>informazioni'}</BigText>
+                <BigText className={`w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi informazioni")}</BigText>
                 <GravityForm className={`!w-[calc(200%/3)]`} formObject={formObject} />
             </div>
         </section>

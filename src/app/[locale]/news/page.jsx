@@ -8,7 +8,8 @@ export default async function Page({params}){
     var locale = await getLocale();
     var page = await fetchAPI('pages', {
         slug: 'news',
-        acf_format: 'standard'
+        acf_format: 'standard',
+        lang: locale
     });
     if(!page) notFound();
     var posts = await fetchAPI('posts', {

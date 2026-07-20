@@ -4,18 +4,23 @@ import GravityForm from "@/components/Library/Gravity Form/gravityForm";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
 import { fetchAPI } from "@/helpers/api/fetch-api";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
+    const {locale} = await params;
+    const t = await getTranslations('strings');
     var page = await fetchAPI('pages', {
         slug: 'pronta-consegna',
-        acf_format: 'standard'
+        acf_format: 'standard',
+        lang: locale
     });
     if(!page) notFound();
     var products = await fetchAPI('pronta-consegna', {
         acf_format: 'standard',
         _embed: true,
-        per_page: 100
+        per_page: 100,
+        lang: locale
     });
     var form = await fetchAPI('forms/1', {}, true);
     return <>
@@ -27,7 +32,7 @@ export default async function Page({params}){
         </section>
         <ProductLoop products={products} prontaConsegna={true} />
         <section id="form" className="relative w-full mt-25 big-boxed flex items-start">
-            <BigText className={`w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{'Richiedi<br>offerta'}</BigText>
+            <BigText className={`w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi offerta")}</BigText>
             <GravityForm className={`!w-[calc(200%/3)]`} formObject={form} />
         </section>
         <section className="relative w-full big-boxed my-10 flex flex-col items-start gap-5">

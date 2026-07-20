@@ -8,22 +8,25 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){ 
-    const {product_cat} = await params;
+    const {product_cat, locale} = await params;
     const cat = await fetchAPI('categoria',{
         slug: product_cat,
-        acf_format: 'standard'
+        acf_format: 'standard',
+        lang: locale
     });
     
     if(!cat) notFound();
     const catChild = await fetchAPI('categoria', {
-        parent: cat.id
+        parent: cat.id,
+        lang: locale
     });
 
     var products = await fetchAPI('prodotto', {
         'categoria': [cat.id].concat(catChild.map(el => {return el.id;})),
         acf_format: 'standard',
         _embed: true,
-        per_page: 100
+        per_page: 100,
+        lang: locale
     });
     
     return <>

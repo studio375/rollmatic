@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CustomButton from "../Custom Button/customButton";
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import LangSwitcher from "./langSwitcher";
 import { usePathname } from "@/i18n/navigation";
 import MobileHeader from "./mobileHeader";
@@ -13,11 +13,11 @@ export default function HeaderClient({menu_items}){
     const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-white max-l:text-[15px]';
     const ref = useRef(null);
     var pathName = usePathname();
-    console.log(pathName);
-    var t = useTranslations('strings');
-    var transparent = (pathName === t('Homepage path') || pathName.includes('[product_cat]'));
+    const locale = useLocale();
+    var transparent = (pathName === '/' || pathName.includes('[product_cat]'));
     const [isMobile, setIsMobile] = useState(false);
     const handleScroll = () => {
+        if(!ref.current) return;
         if(isMobile) return;
         if(window.scrollY > 300){
             ref.current.classList.remove("transparent");
@@ -37,7 +37,7 @@ export default function HeaderClient({menu_items}){
     }, [transparent, isMobile]);
     return <header id="site-header" ref={ref} className={`fixed ${transparent && !isMobile && 'transparent'} top-0 w-[100vw] left-0 px-4 py-1 max-m:px-[5vw] flex items-center justify-start z-[99999] bg-[var(--color-background)] [&.transparent]:!bg-transparent max-mobileHeader:justify-between`}>
         <MobileHeader menu_items={menu_items} />
-        <div className={`mr-4 z-1 max-mobileHeader:absolute max-mobileHeader:left-1/2 max-mobileHeader:-translate-x-1/2 z-1`}><Link href={"/"}><Image className="max-xl:w-20" src={"/Logo.svg"} width={250} height={65} alt="Logo Rollmatic" /></Link></div>
+        <div className={`mr-4 z-1 max-mobileHeader:absolute max-mobileHeader:left-1/2 max-mobileHeader:-translate-x-1/2 z-1`}><Link href={`${locale=='it'?'/':`/${locale}`}`}><Image className="max-xl:w-20" src={"/Logo.svg"} width={250} height={65} alt="Logo Rollmatic" /></Link></div>
         <div className={`flex items-center justify-center rounded-[5px] w-auto gap-[45px] max-xl:gap-3 ml-auto max-mobileHeader:hidden`}>
             {
                 menu_items.map(elem => {

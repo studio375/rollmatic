@@ -2,6 +2,19 @@
   "strings": {
     "Vedi soluzioni": "Ver soluciones",
     "News": "News",
-    "Homepage path": "/es"
+    "Slug settori":"/es/sectores",
+    "Settori":"Sectores",
+    "Tutte": "Todo",
+    "Categorie macchinari":"Categorías de maquinaria",
+    "Larghezza tavolo": "Ancho de la mesa",
+    "Lunghezza tavolo": "Longitud de la mesa",
+    "Litri planetaria": "Capacidad de la amasadora (L)",
+    "Numero programmi": "Número de programas",
+    "Passo lame": "Paso de las cuchillas",
+    "Dimensione massima pane": "Tamaño máximo del pan",
+    "Scheda tecnica": "Ficha técnica",
+    "Disegni tecnici": "Planos técnicos",
+    "Richiedi informazioni": "Solicitar<br/>información",
+    "Richiedi offerta": "Solicitar<br/>presupuesto"
   }
 }

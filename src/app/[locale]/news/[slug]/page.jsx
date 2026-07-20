@@ -34,7 +34,7 @@ export default async function Page({params}){
             </div>
         </section>
         {
-            (featuredNews && featuredNews.length) && <section className="w-full big-boxed mb-14">
+            (featuredNews && featuredNews.length>0) && <section className="w-full big-boxed mb-14">
                 <BigText Tag="h2" className="classic-title !text-[var(--color-foreground)]">Altre news</BigText>
                 <div className="relative w-full flex items-start mt-9">
                     {

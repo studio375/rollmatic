@@ -2,6 +2,19 @@
   "strings": {
     "Vedi soluzioni": "Vedi soluzioni",
     "News": "News",
-    "Homepage path": "/"
+    "Slug settori":"/settori",
+    "Settori":"Settori",
+    "Tutte":"Tutte",
+    "Categorie macchinari":"Categorie macchinari",
+    "Larghezza tavolo":"Larghezza tavolo",
+    "Lunghezza tavolo":"Lunghezza tavolo",
+    "Litri planetaria":"Litri planetaria",
+    "Numero programmi":"Numero programmi",
+    "Passo lame":"Passo lame",
+    "Dimensione massima pane":"Dimensione massima pane",
+    "Scheda tecnica":"Scheda tecnica",
+    "Disegni tecnici":"Disegni tecnici",
+    "Richiedi informazioni":"Richiedi<br/>Informazioni",
+    "Richiedi offerta": "Запросить<br/>предложение"
   }
 }

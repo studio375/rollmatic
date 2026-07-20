@@ -2,6 +2,19 @@
   "strings": {
     "Vedi soluzioni": "Voir les solutions",
     "News": "News",
-    "Homepage path": "/fr"
+    "Slug settori":"/fr/secteurs",
+    "Settori":"Secteurs",
+    "Tutte":"Tous",
+    "Categorie macchinari":"Catégories de machines",
+    "Larghezza tavolo": "Largeur de la table",
+    "Lunghezza tavolo": "Longueur de la table",
+    "Litri planetaria": "Capacité du batteur (L)",
+    "Numero programmi": "Nombre de programmes",
+    "Passo lame": "Pas des lames",
+    "Dimensione massima pane": "Dimension maximale du pain",
+    "Scheda tecnica": "Fiche technique",
+    "Disegni tecnici": "Dessins techniques",
+    "Richiedi informazioni": "Demander des<br/>informations",
+    "Richiedi offerta": "Demander un<br/>devis"
   }
 }

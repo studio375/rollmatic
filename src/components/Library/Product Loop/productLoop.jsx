@@ -5,10 +5,12 @@ import ProductCard from "../Product Card/productCard";
 import ProntaConsegnaCard from "../Product Card/prontaConsegnaCard";
 import BigText from "../Big Text/bigText";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function ProductLoop({catFilters, products, prontaConsegna = false}){
     const [activeCat, setActiveCat] = useState(null);
     const [filterOpen, setFilterOpen] = useState(false);
+    const t = useTranslations('strings');
     var activeProducts = products;
     if(activeCat){
         activeProducts = activeProducts.filter(elem => {
@@ -44,14 +46,14 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
 
     return <>
         <section className="relative mt-5 boxed flex items-center gap-2 z-10">
-            <BigText Tag="span" className="font-semibold text-[var(--color-primary)] h3">Categorie macchinari</BigText>
+            <BigText Tag="span" className="font-semibold text-[var(--color-primary)] h3">{t('Categorie macchinari')}</BigText>
             <div className="relative inline-flex min-w-40">
-                <div className="py-1 px-2 bg-[var(--color-primary)] min-w-full [&_span]:text-white cursor-pointer filters-handle flex items-center justify-between gap-2 rounded-[5px]" onClick={() => setFilterOpen(!filterOpen)}><span>{activeCat?activeCat.name:'Tutte'}</span><Image className={`ml-auto transition-all duration-300 ease ${filterOpen && 'rotate-[-180deg]'}`} src={'/expand-more.svg'} width={25} height={25} alt="expand more" /></div>
+                <div className="py-1 px-2 bg-[var(--color-primary)] min-w-full [&_span]:text-white cursor-pointer filters-handle flex items-center justify-between gap-2 rounded-[5px]" onClick={() => setFilterOpen(!filterOpen)}><span>{activeCat?activeCat.name:t('Tutte')}</span><Image className={`ml-auto transition-all duration-300 ease ${filterOpen && 'rotate-[-180deg]'}`} src={'/expand-more.svg'} width={25} height={25} alt="expand more" /></div>
                 
                 {
                     (catFilters && catFilters.length > 0) && <div className={`filters-handle ${filterOpen? 'inline-flex' : 'hidden'} flex-col items-left bg-white border-[var(--color-primary)] border-[1px] absolute top-[calc(100%-2px)] rounded-b-[5px] right-0 w-full`}>
                         {
-                            activeCat && <div onClick={() => {handleClickFilterOption(null)}} className={`${!activeCat && 'current'} ${filterCommonClass}`}><span>Tutte</span></div>
+                            activeCat && <div onClick={() => {handleClickFilterOption(null)}} className={`${!activeCat && 'current'} ${filterCommonClass}`}><span>{t('Tutte')}</span></div>
                         }
                         {
                             catFilters.map(elem => {

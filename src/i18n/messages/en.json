@@ -2,6 +2,19 @@
   "strings": {
     "Vedi soluzioni": "See solutions",
     "News": "News",
-    "Homepage path": "/en"
+    "Slug settori":"/en/sectors",
+    "Settori":"Sectors",
+    "Tutte":"All",
+    "Categorie macchinari":"Machinery categories",
+    "Larghezza tavolo": "Table width",
+    "Lunghezza tavolo": "Table length",
+    "Litri planetaria": "Mixer capacity (L)",
+    "Numero programmi": "Number of programs",
+    "Passo lame": "Blade pitch",
+    "Dimensione massima pane": "Maximum bread size",
+    "Scheda tecnica": "Technical data sheet",
+    "Disegni tecnici": "Technical drawings",
+    "Richiedi informazioni": "Request<br/>Information",
+    "Richiedi offerta": "Request a<br/>Quote"
   }
 }

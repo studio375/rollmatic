@@ -12,7 +12,6 @@ export default async function Page({params}){
         acf_format: 'standard',
         lang: locale
     });
-    console.log(page);
     if(!page) notFound();
     var beforeClass = "[&::before]:w-8 [&::before]:h-[3px] [&::before]:absolute [&::before]:bottom-0 [&::before]:left-0 [&::before]:bg-[var(--color-primary)] [&::before]:content-['']";
     var textSectionClass = "w-full flex items-start justify-start gap-5 max-m:flex-col max-m:gap-2";

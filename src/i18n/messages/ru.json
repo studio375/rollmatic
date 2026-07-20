@@ -2,6 +2,18 @@
   "strings": {
     "Vedi soluzioni": "См. решения",
     "News": "Новости",
-    "Homepage path": "/ru"
+    "Slug settori": "/ru/секторы",
+    "Settori":"секторы",
+    "Tutte":"все",
+    "Categorie macchinari":"Категории машин",
+    "Larghezza tavolo": "Ширина стола",
+    "Lunghezza tavolo": "Длина стола",
+    "Litri planetaria": "Объём тестомеса (л)",
+    "Numero programmi": "Количество программ",
+    "Passo lame": "Шаг лезвий",
+    "Dimensione massima pane": "Максимальный размер хлеба",
+    "Scheda tecnica": "Технический паспорт",
+    "Disegni tecnici": "Технические чертежи",
+    "Richiedi informazioni": "Запросить<br/>информацию"
   }
 }

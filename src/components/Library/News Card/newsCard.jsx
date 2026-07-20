@@ -1,12 +1,16 @@
+"use client"
 import Image from "next/image";
 import Paragraph from "../Paragraph/paragraph";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function NewsCard({news, index}){
+    const t = useTranslations('strings');
+    const locale = useLocale();
     var img = news._embedded['wp:featuredmedia'][0];
     var pad = (index%2 == 0)? 'pr-10' : 'pl-10';
     return <div key={index} className="w-[50%] flex flex-col items-start">
-            <Link href={`/news/${news.slug}`}>
+            <Link href={`${locale !== 'it' && `/${locale}`}/${t('News').toLowerCase()}/${news.slug}`}>
                 <div className={`border-b-[1px] border-b-[var(--color-primary)] w-full ${pad}`}>
                 <div className="relative inline-flex pb-1">
                     <span className="text-[15px] font-bold uppercase">{news.title.rendered}</span>
