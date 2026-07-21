@@ -1,6 +1,5 @@
 import localFont from "next/font/local";
 import Providers from "@/components/providers";
-import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import "./globals.scss";
 
@@ -12,14 +11,10 @@ const aspekta = localFont({
 
 export default async function RootLayout({ children }) {
   const locale = await getLocale();
-  const messages = await getMessages();
-
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${aspekta.variable} antialiased`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Providers>{children}</Providers>
-        </NextIntlClientProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

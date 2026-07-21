@@ -13,7 +13,6 @@ export default function LangSwitcher({}){
     const pathname = usePathname();
     const params = useParams();
     const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-white';
-
     async function switchLocale(newLocale) {
         const replacements = [];
 
