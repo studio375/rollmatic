@@ -2,6 +2,7 @@ import BigText from "@/components/Library/Big Text/bigText";
 import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductCard from "@/components/Library/Product Card/productCard";
+import ProductLoop from "@/components/Library/Product Loop/productLoop";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
 import { routing } from "@/i18n/routing";
 import Image from "next/image";
@@ -18,35 +19,22 @@ export default async function Page({params}){
     if(!settore) notFound();
     const img = settore._embedded['wp:featuredmedia'][0];
     return <>
-        <section className="flex w-full px-4">
+        <section className="flex w-full boxed m:!px-4 max-m:mt-10">
             <Image src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={settore.title.rendered} />
         </section>
-        <section className="w-full big-boxed mt-7 relative">
-            <div className="w-full flex items-start justify-between pb-3 border-b-[1px] border-b-[var(--color-primary)]">
+        <section className="w-full big-boxed mt-7 relative max-s:mt-4">
+            <div className="w-full flex items-start justify-between pb-3 border-b-[1px] border-b-[var(--color-primary)] max-l:flex-col max-l:gap-2">
                 <BigText Tag="h1" className="classic-title">{settore.title.rendered}</BigText>
-                <Paragraph className="w-[calc(100%/3*2.1)]">{settore.acf.paragrafo}</Paragraph>
+                <Paragraph className="w-[calc(100%/3*2.1)] max-l:w-full">{settore.acf.paragrafo}</Paragraph>
             </div>
         </section>
         {
-            settore.acf.prodotti_correlati && <section className="mt-10 px-4">
-                {
-                    settore.acf.prodotti_correlati.map(elem => {
-                        var prodObject = {
-                            ID: elem.ID,
-                            thumbnail_data: elem.thumbnail_data,
-                            cat: elem.category_info[0],
-                            slug: elem.post_name,
-                            title: elem.post_title
-                        };
-                        return <ProductCard key={elem.ID} prodObject={prodObject} />
-                    })
-                }
-            </section>
+            settore.acf.prodotti_correlati && <ProductLoop catFilters={null} filters={false} products={settore.acf.prodotti_correlati}/>
         }
         {
-            settore.acf.faq && <section className="mt-8 big-boxed w-full relative pb-15">
+            settore.acf.faq && <section className="mt-8 max-m:mt-4 big-boxed w-full relative pb-15">
                 <BigText Tag="h2" className="classic-title">FAQ</BigText>
-                <div className="mt-5">
+                <div className="mt-5 max-m:mt-3">
                     <Faq faq={settore.acf.faq} />
                 </div>
             </section>

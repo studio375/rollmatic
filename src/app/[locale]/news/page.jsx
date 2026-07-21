@@ -19,10 +19,10 @@ export default async function Page({params}){
     });
 
     return <>
-        <section className="w-full big-boxed mt-15">
+        <section className="w-full big-boxed mt-15 max-m:mt-13">
             <BigText Tag="h1" className="classic-title">News</BigText>
         </section>
-        <section className="big-boxed w-full mt-[35px] mb-15 flex flex-wrap gap-y-13">
+        <section className="big-boxed w-full mt-[35px] mb-15 flex flex-wrap gap-y-13 max-xl:gap-y-6">
             {
                 posts.map((elem, index) => {
                     return <NewsCard key={elem.id} news={elem} index={index} />

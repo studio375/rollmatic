@@ -65,7 +65,7 @@ export default function SingleField({fieldObject, register, errors}){
 
     var field_errors =(type !== 'consent')?errors?.[`input_${fieldObject.id}`]:errors?.[`input_${fieldObject.id}_1`];
 
-    return <div className={`singleField type-${type} ${fieldObject.labelPlacement} ${field_errors && 'notValid'} flex flex-col items-start relative w-full col-span-[12] [&.type-consent]:mt-[-15px]`} style={styleObject}>
+    return <div className={`singleField type-${type} ${fieldObject.labelPlacement} ${field_errors && 'notValid'} flex flex-col items-start relative w-full col-span-[12] [&.type-consent]:mt-[-15px] max-s:!col-span-12`} style={styleObject}>
         <div className={`labelContainer`}>{fieldObject.label}</div>
         <div className={`inputContainer w-full relative`}>
             {printInput}

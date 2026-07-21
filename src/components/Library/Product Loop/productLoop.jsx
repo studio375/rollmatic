@@ -7,7 +7,7 @@ import BigText from "../Big Text/bigText";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-export default function ProductLoop({catFilters, products, prontaConsegna = false}){
+export default function ProductLoop({catFilters, products, filters=true, prontaConsegna = false}){
     const [activeCat, setActiveCat] = useState(null);
     const [filterOpen, setFilterOpen] = useState(false);
     const t = useTranslations('strings');
@@ -45,9 +45,9 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
 
 
     return <>
-        <section className="relative mt-5 boxed flex items-center gap-2 z-10">
+        {filters && <section className="relative mt-5 boxed flex items-center gap-2 z-10 max-l:flex-col max-l:items-start">
             <BigText Tag="span" className="font-semibold text-[var(--color-primary)] h3">{t('Categorie macchinari')}</BigText>
-            <div className="relative inline-flex min-w-40">
+            <div className="relative inline-flex m:min-w-40 max-m:w-30 max-w-full">
                 <div className="py-1 px-2 bg-[var(--color-primary)] min-w-full [&_span]:text-white cursor-pointer filters-handle flex items-center justify-between gap-2 rounded-[5px]" onClick={() => setFilterOpen(!filterOpen)}><span>{activeCat?activeCat.name:t('Tutte')}</span><Image className={`ml-auto transition-all duration-300 ease ${filterOpen && 'rotate-[-180deg]'}`} src={'/expand-more.svg'} width={25} height={25} alt="expand more" /></div>
                 
                 {
@@ -63,24 +63,20 @@ export default function ProductLoop({catFilters, products, prontaConsegna = fals
                     </div>
                 }
             </div>
-        </section>
+        </section>}
         {
-            (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-2`}>
+            (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-2 max-m:mt-5`}>
                 {
                     activeProducts.map((elem, index) => {
                         if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
                         var prodObject = {
-                            ID: elem.id,
+                            ID: elem.id || elem.ID,
                             thumbnail_data: elem.thumbnail_data,
                             cat: elem.category_info[1] ? elem.category_info[1] : elem.category_info[0],
-                            slug: elem.slug,
-                            title: elem.title.rendered
+                            slug: elem.slug || elem.post_name,
+                            title: elem.title?.rendered || elem.post_title
                         };
-                        var props = {
-                            //className:"!w-[calc((100%-300px)/3)]",
-                            prodObject:prodObject
-                        }
-                        return (prontaConsegna)?<ProntaConsegnaCard {...props} key={elem.id} />:<ProductCard key={elem.id} {...props} />
+                        return (prontaConsegna)?<ProntaConsegnaCard prodObject={prodObject} key={prodObject.ID} />:<ProductCard key={prodObject.ID} prodObject={prodObject} />
                     })
                 }
             </section> : <span></span>

@@ -22,17 +22,17 @@ export default async function Page({params}){
         lang:locale
     });
     return <>
-        <section className="w-full relative big-boxed pt-20">
-            <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 ">
+        <section className="w-full relative big-boxed pt-20 max-l:pt-15 max-m:pt-13">
+            <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 max-l:flex-col max-l:gap-3">
                 <BigText Tag="h1" className="classic-title">{page.acf.titolo}</BigText>
-                <Paragraph className="w-[calc(100%/3*2)]">{page.acf.paragrafo}</Paragraph>
+                <Paragraph className="w-[calc(100%/3*2)] max-l:w-full">{page.acf.paragrafo}</Paragraph>
             </div>    
         </section>
-        <section className="relative mt-[75px] flex items-stretch w-full px-4 gap-1 mb-6">
+        <section className="relative mt-[75px] max-l:mt-4 big-boxed flex items-stretch w-full xl:!px-4 gap-1 mb-6 max-l:flex-col">
             {
                 settori.map(elem => {
                     const img = elem._embedded['wp:featuredmedia'][0];
-                    return <div key={elem.id} className="flex-1 relative aspect-[55/60] overflow-hidden rounded-[5px]">
+                    return <div key={elem.id} className="flex-1 relative l:aspect-[55/60] overflow-hidden rounded-[5px]">
                         <Image className="w-full h-full object-cover" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
                         <Link className="absolute flex flex-col items-start right-[35px] bottom-[35px]" href={`${t('Slug settori')}/${elem.slug}`}>
                             <BigText tag="span" className="font-bold text-[40px] text-[var(--color-background)]">{elem.title.rendered}</BigText>

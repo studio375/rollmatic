@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "@/i18n/navigation";
 import { slideToggle, slideUp } from "@/helpers/functions";
 import { useStore } from "@/store/useStore";
+import { useParams, useSearchParams } from "next/navigation";
 
 
 export default function MobileHeader({menu_items}){
     const commonClasses = 'uppercase font-medium max-l:text-[15px]';
     const [isOpen, setIsOpen] = useState(false);
     const pathName = usePathname();
+    const params = useParams();
     const {lenis} = useStore();
     const toggleSetOpen = (val) => {
         setIsOpen(val);
@@ -21,7 +23,7 @@ export default function MobileHeader({menu_items}){
     }
     useEffect(() => {
         toggleSetOpen(false);
-    }, [pathName]);
+    }, [pathName, params]);
     useEffect(() => {
         document.querySelectorAll('.menu-item .submenu').forEach(elem => slideUp(elem));
         document.querySelectorAll('.menu-item.has-children .main-item').forEach(elem => {

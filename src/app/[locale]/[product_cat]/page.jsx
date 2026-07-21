@@ -31,12 +31,12 @@ export default async function Page({params}){
     
     return <>
     
-        <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 px-15 flex items-center justify-between">
-                <div className="relative flex flex-col items-start gap-[15px] w-40">
+        <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 max-m:pt-12 max-m:pb-5 boxed xl:!px-15 flex items-center justify-between max-m:flex-col max-m:gap-4">
+                <div className="relative flex flex-col items-start gap-[15px] w-40 max-m:w-full">
                     <BigText Tag="h1" className="classic-title">{cat.name}</BigText>
                     <Paragraph className="text-[var(--color-foreground)]">{cat.acf.paragrafo}</Paragraph>
                 </div>
-                {cat.acf.immagine_categoria && <Image className="h-[80vh] w-auto object-cover max-w-[calc(100%-400px)]" src={cat.acf.immagine_categoria.url} width={cat.acf.immagine_categoria.width} height={cat.acf.immagine_categoria.height} alt={cat.name}/>}
+                {cat.acf.immagine_categoria && <Image className="w-full h-auto s:max-h-[80vh] s:object-contain m:h-[80vh] w-auto object-cover m:max-w-[calc(100%-400px)]" src={cat.acf.immagine_categoria.url} width={cat.acf.immagine_categoria.width} height={cat.acf.immagine_categoria.height} alt={cat.name}/>}
         </section>
        <ProductLoop catFilters={catChild} products={products} />
        {

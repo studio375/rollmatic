@@ -24,16 +24,16 @@ export default async function Page({params}){
     });
     var form = await fetchAPI('forms/1', {}, true);
     return <>
-        <section className="w-full relative big-boxed pt-20">
-            <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 ">
+        <section className="w-full relative big-boxed pt-20 max-m:pt-13">
+            <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 max-l:flex-col max-l:gap-3">
                 <BigText Tag="h1" className="classic-title">{page.title.rendered}</BigText>
-                <Paragraph className="w-[calc(100%/3*2)]">{page.acf.paragrafo}</Paragraph>
+                <Paragraph className="w-[calc(100%/3*2)] max-l:w-full">{page.acf.paragrafo}</Paragraph>
             </div>    
         </section>
-        <ProductLoop products={products} prontaConsegna={true} />
-        <section id="form" className="relative w-full mt-25 big-boxed flex items-start">
-            <BigText className={`w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi offerta")}</BigText>
-            <GravityForm className={`!w-[calc(200%/3)]`} formObject={form} />
+        <ProductLoop products={products} prontaConsegna={true} filters={false} />
+        <section id="form" className="relative w-full mt-25 max-xl:mt-10 big-boxed flex items-start max-m:flex-col max-m:gap-3">
+            <BigText className={`m:w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi offerta")}</BigText>
+            <GravityForm className={`m:!w-[calc(200%/3)]`} formObject={form} />
         </section>
         <section className="relative w-full big-boxed my-10 flex flex-col items-start gap-5">
             <BigText Tag="h2" className="classic-title">Faq</BigText>
