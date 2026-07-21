@@ -71,7 +71,7 @@ export default async function Home({params}) {
       <section className="mt-10 min-h-50 flex items-center justify-center">
           OGGETTO 3D
       </section>
-      <section className="mt-20 w-full relative">
+      <section className="mt-20 w-full relative max-w-full overflow-hidden">
           <FullpageScrollGallery elements={settori}>
             {
               settori.map(elem => {

@@ -52,16 +52,16 @@ export default function FullpageScrollGallery({elements,children}){
     }, []);
     return <div className="w-full h-screen relative" ref={ref}>
         <div className="w-full h-full relative flex items-start justify-start">{children}</div>
-        <div className="w-full absolute bottom-0 left-0 flex items-center justify-between pl-3 pr-12 pb-3">
-            <div className="flex items-center justify-start gap-5">
-                <div className="block"><span className="text-[var(--color-primary)] uppercase">{t('Settori')}</span></div>
+        <div className="w-full absolute bottom-0 left-0 flex items-center justify-between pl-3 pr-12 max-s:px-3 pb-3">
+            <div className="flex items-center justify-start gap-5 max-s:flex-wrap max-s:w-full max-s:gap-y-1">
+                <div className="block max-s:w-full"><span className="text-[var(--color-primary)] uppercase">{t('Settori')}</span></div>
                 {
                     elements.map((elem, index) => {
                         return <div key={elem.id} data-id={elem.id} className="single-cat block"><span className={`text-[var(--color-background)] uppercase ${index == currentSlideIndex && 'font-bold'}`}>{elem.title.rendered}</span></div>;
                     })
                 }
             </div>
-            <div className="block relative">
+            <div className="block relative max-s:absolute max-s:right-3 max-s:bottom-10">
                 {
                     elements.map((elem, index) => {
                         return <div key={elem.id} className={`single-link ${index == currentSlideIndex && 'active'} absolute right-0 bottom-0 opacity-0 [&.active]:opacity-100`}>
