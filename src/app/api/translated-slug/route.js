@@ -23,6 +23,6 @@ export async function GET(request) {
     );
   }
   
-  const pathKey = (path == 'categoria')?'product_cat':'slug'; //chiave del pat come slug ([slug]) oppure product_cat([product_cat])
+  const pathKey = (path == 'categoria')?'product_cat':((path == 'prodotto')?'product':'slug'); //chiave del path come slug ([slug]) oppure product_cat([product_cat])
   return NextResponse.json({ [pathKey]: translatedSlug });
 }

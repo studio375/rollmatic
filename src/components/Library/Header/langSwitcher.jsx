@@ -2,52 +2,69 @@ import { useLocale } from "next-intl";
 import config from "@/i18n/config";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
-import { fetchAPI, getTranslatedSlug } from "@/helpers/api/fetch-api";
+import { useTransitionRouter } from "next-transition-router";
 
 
 
 export default function LangSwitcher({}){
     const locale = useLocale();
     const all_locales = config.locales;
-    const router = useRouter();
+    const router = useTransitionRouter();
     const pathname = usePathname();
     const params = useParams();
-    // console.log(params);
-    // console.log(pathname);
     const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-white';
 
-    async function switchLocale(newLocale){
-        var slug = pathname;
-        var path = 'pages';
-        var pathKey = 'slug';
+    async function switchLocale(newLocale) {
+        const replacements = [];
 
-        if(pathname.includes('[product_cat]')){
-            if(pathname.includes('[product]')){
-                slug = params.product;
-                path = 'prodotto';
-            }else{
-                slug = params.product_cat;
-                path = 'categoria';
-                pathKey = 'product_cat';
-            }
+        if (pathname.includes('[product_cat]')) {
+            replacements.push({ token: '[product_cat]', path: 'categoria', slug: params.product_cat });
         }
-        if(pathname.includes('[slug]')){
-            slug=params.slug;
-            path=(pathname.includes('settori'))?'settore':'posts';
+        if (pathname.includes('[product]')) {
+            replacements.push({ token: '[product]', path: 'prodotto', slug: params.product });
         }
-        const res = await fetch(
-            `/api/translated-slug?path=${path}&slug=${slug}&from=${locale}&to=${newLocale}`,
-        );
-        if (res.ok) {
-            const { [pathKey]: translatedSlug } = await res.json();
-            router.replace(
-                { pathname, params: { [pathKey]: translatedSlug } },
-                { locale: newLocale },      
+        if (pathname.includes('[slug]')) {
+            const path = pathname.includes('settori') ? 'settore' : 'posts';
+            replacements.push({ token: '[slug]', path, slug: params.slug });
+        }
+
+        // pagina senza segmenti dinamici (es. pagina statica)
+        if (replacements.length === 0) {
+            router.push(buildLocalizedHref(pathname, newLocale));
+            return;
+        }
+
+        try {
+            //array con tutti i token tradotti (se ho due livelli come categoria->prodotto, ho un array di 2 oggetti con la traduzione della cat e del prodotto)
+            const results = await Promise.all( //lancia tutti insieme i fetch, e quando finiscono tutti restituisco il risultato di tutti sottoforma di array
+                replacements.map(r =>
+                    fetch(`/api/translated-slug?path=${r.path}&slug=${r.slug}&from=${locale}&to=${newLocale}`)
+                        .then(res => (res.ok ? res.json() : null))
+                )
             );
-        } else {
-            // Fallback
-            router.replace("/", { locale: newLocale });
+
+            // se manca anche solo una traduzione, l'URL sarebbe incoerente -> fallback
+            if (results.some(r => !r)) { //controllo che non ci sia nessun null
+                router.push(buildLocalizedHref('/', newLocale));
+                return;
+            }
+
+            let targetPathname = pathname;
+            replacements.forEach((r, i) => {
+                const translatedSlug = Object.values(results[i])[0]; // non serve conoscere la key esatta, con object.values ottengo in posizione 0 la key e in posizione 1 la value
+                targetPathname = targetPathname.replace(r.token, translatedSlug);
+            });
+
+            router.push(buildLocalizedHref(targetPathname, newLocale));
+        } catch (e) {
+            router.push(buildLocalizedHref('/', newLocale));
         }
+    }
+
+    function buildLocalizedHref(path, targetLocale) {
+        const isDefault = targetLocale === config.defaultLocale;
+        const prefix = isDefault ? '' : `/${targetLocale}`;
+        return `${prefix}${path}`.replace(/\/+/g, '/');
     }
 
     return <div className="flex relative lang-selector">

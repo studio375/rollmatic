@@ -27,7 +27,6 @@ export function generateStaticParams() {
 
 export default async function RootLayout({ children, params }) {
   const {locale} = await params;
-  console.log(locale);
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }

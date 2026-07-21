@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TransitionRouter } from "next-transition-router";
 import { gsap } from "@/lib/gsap";
 import Image from "next/image";
+import { useLocale } from "next-intl";
 
 
 export default function Providers({ children }) {
@@ -11,6 +12,22 @@ export default function Providers({ children }) {
   const secondLayer = useRef(null);
   const logo = useRef(null);
   const imageWall = useRef(null);
+  const isFirstRender = useRef(true);
+  const locale = useLocale();
+
+  useEffect(() => {
+     if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    var tml = gsap.timeline();
+    gsap.set(imageWall.current, {x:"50%"});
+    tml.fromTo(firstLayer.current, {y:0}, {y:"-100%", duration:0.3, ease: 'none', delay: 0.1})
+       .fromTo(secondLayer.current, {y:0}, {y:"-100%", duration:0.3, ease: 'none', delay: 0.1}, '<');
+    return () => {
+      tml.kill();
+    };
+  }, [locale]); 
 
   return (
     <TransitionRouter

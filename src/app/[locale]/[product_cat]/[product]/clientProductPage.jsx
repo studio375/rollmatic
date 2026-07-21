@@ -47,8 +47,8 @@ export default function ProductPage({prodotto, cat, formObject = null}){
                 <div className={`flex items-end justify-between w-[60%]`}>
                     <div className={`${singleColClass}`}>
                         <span>{prodotto.acf.potenza}</span>
-                        <span>{prodotto.acf.frequenza} Hz</span>
-                        <span>{prodotto.acf.tensione} Ph</span>
+                        <span>{prodotto.acf.frequenza}</span>
+                        <span>{prodotto.acf.tensione}</span>
                     </div>
                     {
                         prodotto.acf.larghezza_tavolo && <div className={`${singleColClass}`}>
