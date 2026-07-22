@@ -39,8 +39,8 @@ export default function Providers({ children }) {
     >
       {children}
 
-    <div ref={firstLayer} className="fixed top-0 left-0 w-screen h-screen translate-y-full bg-white z-99999" />
-    <div ref={secondLayer} className="fixed top-0 left-0 w-screen h-screen translate-y-full bg-[var(--color-primary)] z-99999">
+    <div ref={firstLayer} className="fixed top-0 left-0 w-screen h-[100lvh] translate-y-full bg-white z-99999" />
+    <div ref={secondLayer} className="fixed top-0 left-0 w-screen h-[100lvh] translate-y-full bg-[var(--color-primary)] z-99999">
         <div ref={imageWall} className="w-35 h-35 absolute left-1/2 top-1/2 -translate-y-1/2 bg-[var(--color-primary)] z-1" />
         <Image ref={logo} src={'/logo_light.svg'} width={200} height={100} alt="logo" className="w-30 h-auto absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2" />
     </div>

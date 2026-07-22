@@ -65,7 +65,7 @@ export default function ProductLoop({catFilters, products, filters=true, prontaC
             </div>
         </section>}
         {
-            (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-2 max-m:mt-5`}>
+            (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-5 max-m:mt-5`}>
                 {
                     activeProducts.map((elem, index) => {
                         if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
