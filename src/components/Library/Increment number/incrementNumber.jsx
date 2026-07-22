@@ -2,23 +2,22 @@
 import { useEffect } from "react";
 import BigText from "../Big Text/bigText"
 import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function IncrementNumber({page, ...props}){
-    useEffect(() =>{
-        gsap.utils.toArray('.number').forEach((elem, index) => {
-            gsap.from(elem, {
-                scrollTrigger: {
-                    trigger: elem,
-                    start: "top 70%",
-                    invalidateOnRefresh: true,
-                },
-                innerText: 0,
-                duration: 4,
-                snap : {
-                    innerText: 1
-                }
-            });
+    useGSAP(() =>{
+        var tml = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.number',
+                start: "top 70%",
+                invalidateOnRefresh: true,
+            }
         });
+        tml.from('.number', {innerText: 0, duration: 4, snap : {innerText: 1}});
+        return () => {
+            tml.scrollTrigger?.kill();
+            tml.kill();
+        }
     }, []);
     return <div {...props}>
         {

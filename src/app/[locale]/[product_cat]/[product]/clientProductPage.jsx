@@ -9,6 +9,7 @@ import VideoCarousel from '@/components/Library/Video Carousel/videoCarousel';
 import GravityForm from '@/components/Library/Gravity Form/gravityForm';
 import { useStore } from '@/store/useStore.js';
 import { useTranslations } from "next-intl";
+import parse from 'html-react-parser';
 
 export default function ProductPage({prodotto, cat, formObject = null}){
     const [open, setOpen] = useState(false);
@@ -46,64 +47,64 @@ export default function ProductPage({prodotto, cat, formObject = null}){
                 </div>
                 <div className={`flex items-end justify-between w-[55%] max-[1700px]:w-full max-[1700px]:flex-wrap max-[1700px]:gap-3`}>
                     <div className={`${singleColClass}`}>
-                        <span>{prodotto.acf.potenza}</span>
-                        <span>{prodotto.acf.frequenza}</span>
-                        <span>{prodotto.acf.tensione}</span>
+                        <span>{parse(prodotto.acf.potenza)}</span>
+                        <span>{parse(prodotto.acf.frequenza)}</span>
+                        <span>{parse(prodotto.acf.tensione)}</span>
                     </div>
                     {
                         prodotto.acf.larghezza_tavolo && <div className={`${singleColClass}`}>
                             <span>{t("Larghezza tavolo")}</span>
-                            <span>{prodotto.acf.larghezza_tavolo}</span>
+                            <span>{parse(prodotto.acf.larghezza_tavolo)}</span>
                         </div>
                     }
                     {
                         prodotto.acf.lunghezza_tavolo && <div className={`${singleColClass}`}>
                             <span>{t("Lunghezza tavolo")}</span>
-                            <span>{prodotto.acf.lunghezza_tavolo}</span>
+                            <span>{parse(prodotto.acf.lunghezza_tavolo)}</span>
                         </div>
                     }
                     {
                         prodotto.acf.litri_planetaria && <div className={`${singleColClass}`}>
                             <span>{t("Litri planetaria")}</span>
-                            <span>{prodotto.acf.litri_planetaria}</span>
+                            <span>{parse(prodotto.acf.litri_planetaria)}</span>
                         </div>
                     }
                     {
                         prodotto.acf.num_programmi_spazza_arrotondatrice && <div className={`${singleColClass}`}>
                             <span>{t("Numero programmi")}</span>
-                            <span>{prodotto.acf.num_programmi_spazza_arrotondatrice}</span>
+                            <span>{parse(prodotto.acf.num_programmi_spazza_arrotondatrice)}</span>
                         </div>
                     }
                     {
                         prodotto.acf.passo_lame && <div className={`${singleColClass}`}>
                             <span>{t("Passo lame")}</span>
-                            <span>{prodotto.acf.passo_lame}</span>
+                            <span>{parse(prodotto.acf.passo_lame)}</span>
                         </div>
                     }
                     {
                         prodotto.acf.dimensione_max_pane && <div className={`${singleColClass}`}>
                             <span>{t("Dimensione massima pane")}</span>
-                            <span>{prodotto.acf.dimensione_max_pane}</span>
+                            <span>{parse(prodotto.acf.dimensione_max_pane)}</span>
                         </div>
                     }
                 </div>
             </div>
         </section>
-        <section className="boxed flex items-start pt-13 max-l:flex-col">
+        <section className="boxed flex items-start pt-13 max-s:pt-5 max-l:flex-col max-l:gap-5">
             <div className={`w-[40%] max-xl:w-[50%] max-l:w-full pr-20 max-xl:pr-10 max-l:pr-0 z-[10] relative`}><Paragraph>{prodotto.acf.paragrafo}</Paragraph></div>
             {
             prodotto.acf.galleria && 
                 <div className={`w-[calc(60%)] max-xl:w-[50%] max-l:w-full z-[10] relative`}>
-                    <ScrollGallery images={prodotto.acf.galleria}/>
+                    {prodotto.acf.galleria.length > 1?<ScrollGallery images={prodotto.acf.galleria}/>:<Image className="w-full h-auto l:max-w-85 ml-auto" src={prodotto.acf.galleria[0].url} width={prodotto.acf.galleria[0].width} height={prodotto.acf.galleria[0].height} alt={prodotto.acf.galleria[0].alt || 'Immagine di galleria'}/>}
                 </div>
             }
         </section>
-        <section className="w-full relative mt-25 max-xl:mt-14">
+        <section className="w-full relative mt-25 max-xl:mt-14 max-s:mt-10">
             {cat.acf.testo_gamma && <BigText className="big-boxed text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)]" Tag="h3">{cat.acf.testo_gamma}</BigText>}
-            {prodotto.acf.immagine_full && <div className="w-full product-image big-boxed">
+            {prodotto.acf.immagine_full && <div className="w-full product-image big-boxed mt-5">
                  <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
             </div>}
-            <div className={`big-boxed relative flex flex-col items-center gap-[77px] w-full pt-10 pb-25 max-xl:pb-14 max-m:pb-4 gradient-before`}>
+            <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-25 max-xl:pb-14 max-m:pb-4 gradient-before`}>
                 <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
                 {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)]`}>
                     <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
@@ -114,10 +115,10 @@ export default function ProductPage({prodotto, cat, formObject = null}){
                         </div>
                     </div>
                     <div className={`h-0 overflow-hidden w-full transition-all duration-[0.5s] ease`} style={{height: drawsHeight}}>
-                        <div className={`flex items-stretch flex-wrap gap-3 w-full pt-[15px] pb-3`} ref={drawsInner}>
+                        <div className={`flex items-stretch flex-wrap gap-3 w-full pt-[15px] pb-3 max-s:flex-col`} ref={drawsInner}>
                         {
                             prodotto.acf.disegni_tecnici.map(elem => {
-                                return <Image className='w-[calc(50%-15px)] h-auto' src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'disegno tecnico'} key={elem.ID} />
+                                return <Image className='w-[calc(50%-15px)] max-s:w-full h-auto' src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'disegno tecnico'} key={elem.ID} />
                             })
                         }
                         </div>

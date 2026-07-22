@@ -16,7 +16,7 @@ export default function VideoCarousel({videoIds}){
                     slidesPerView={1} 
                     effect='cards' 
                     modules={[EffectCards]} 
-                    className={'video-carousel-cards max-w-[calc(200%/3)] !ml-0 relative'}
+                    className={'video-carousel-cards s:max-w-[calc(200%/3)] !ml-0 relative'}
                     cardsEffect={{rotate: false, perSlideOffset: 30}}
                 >
                     {

@@ -9,7 +9,7 @@ import { useParams, useSearchParams } from "next/navigation";
 
 
 export default function MobileHeader({menu_items}){
-    const commonClasses = 'uppercase font-medium max-l:text-[15px]';
+    const commonClasses = 'uppercase font-medium';
     const [isOpen, setIsOpen] = useState(false);
     const pathName = usePathname();
     const params = useParams();
@@ -49,13 +49,13 @@ export default function MobileHeader({menu_items}){
                         const hasChildren = children && children.length > 0;
                         return <div className={`menu-item relative py-[15px] flex flex-col items-center ${hasChildren && 'has-children'}`} key={elem.object_id}>
                                 {
-                                    (elem.classes.indexOf('btn')>=0)?<CustomButton href={elem.url} Tag={Link} className="max-l:text-[15px]">{elem.title.rendered}</CustomButton>
+                                    (elem.classes.indexOf('btn')>=0)?<CustomButton href={elem.url} Tag={Link}>{elem.title.rendered}</CustomButton>
                                     :<Link className={`${commonClasses} main-item [.menu-item:hover_&]:!underline relative`} href={elem.url}>{elem.title.rendered} {hasChildren && <><div className='text-[20px] absolute -right-1 translate-x-full top-0 block [.menu-item.submenu-open_&]:hidden'>+</div><div className='text-[20px] absolute -right-1 translate-x-full top-0 hidden [.menu-item.submenu-open_&]:block'>-</div></>}</Link>
                                 }
                                 {
-                                    hasChildren && <div className="relative flex flex-col items-center py-3 submenu" >
+                                    hasChildren && <div className="relative flex flex-col items-center pt-3 submenu gap-1" >
                                         {
-                                            children.map(elem2 => <Link key={elem2.id} className={`${commonClasses} whitespace-nowrap hover:!underline`} href={elem2.url}>{elem2.title.rendered}</Link>)
+                                            children.map(elem2 => <Link key={elem2.id} className={`${commonClasses} text-[15px] whitespace-nowrap hover:!underline`} href={elem2.url}>{elem2.title.rendered}</Link>)
                                         }
                                     </div>
                                 }

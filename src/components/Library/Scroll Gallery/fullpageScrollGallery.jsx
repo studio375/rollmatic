@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 export default function FullpageScrollGallery({elements,children}){
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const ref = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
     const t = useTranslations('strings');
     const handleScroll = (distance, count) => {
         var galleryProgress = (window.scrollY - distance);
@@ -25,9 +26,15 @@ export default function FullpageScrollGallery({elements,children}){
         }
     }
     useEffect(() => {
-        if(!ref.current) return;
+        setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', () => setIsMobile(window.innerWidth <= 768));
+    }, []);
+    useEffect(() => {
+        console.log('isMobile', isMobile);
+        if(!ref.current || isMobile) return;
         var slides = ref.current.children[0].children;
         const slidesArray = Array.from(slides);
+        ScrollTrigger.refresh();
         var tml = gsap.timeline({
             scrollTrigger: {
                 trigger: ref.current,
@@ -45,14 +52,15 @@ export default function FullpageScrollGallery({elements,children}){
         var dist = ref.current.getBoundingClientRect().top + window.scrollY;
         window.addEventListener("scroll", () => handleScroll(dist, slidesArray.length));
         return () => {
+            console.log('killing');
             tml.scrollTrigger.kill();
             tml.kill();
             window.removeEventListener('scroll', handleScroll);
         }
-    }, []);
-    return <div className="w-full h-screen relative" ref={ref}>
-        <div className="w-full h-full relative flex items-start justify-start">{children}</div>
-        <div className="w-full absolute bottom-0 left-0 flex items-center justify-between pl-3 pr-12 max-s:px-3 pb-3">
+    }, [isMobile]);
+    return <div className="w-full s:h-screen relative" ref={ref}>
+        <div className="w-full h-full relative flex items-start justify-start max-s:flex-col max-s:gap-4">{children}</div>
+        <div className="w-full absolute bottom-0 left-0 flex items-center justify-between pl-3 pr-12 max-s:px-3 pb-3 max-s:hidden">
             <div className="flex items-center justify-start gap-5 max-s:flex-wrap max-s:w-full max-s:gap-y-1">
                 <div className="block max-s:w-full"><span className="text-[var(--color-primary)] uppercase">{t('Settori')}</span></div>
                 {

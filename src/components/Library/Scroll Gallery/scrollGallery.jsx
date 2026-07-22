@@ -28,7 +28,7 @@ export default function ScrollGallery({images, ...props}){
             zIndex: 100 - index, 
             top: 20 * index
         }
-        return <Image className="w-auto h-full absolute max-w-85" key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
+        return <Image className={`h-auto absolute object-cover ${index == 0?'w-[calc(100%-200px)] max-m:relative':'w-[calc(100%-300px)]'} max-m:!w-full max-m:!right-0 max-m:!h-auto max-m:!top-0`} key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
     })
 
     useGSAP(() => {
@@ -78,7 +78,7 @@ export default function ScrollGallery({images, ...props}){
     }, [galleryRef])
     
     return <div ref={galleryRef} {...props} className={`${props.className || ''} w-full relative flex flex-col items-start`}>
-        <div className={`w-full relative h-50`}>{images}</div>
+        <div className={`w-full relative m:h-50`}>{images}</div>
         <div className={`w-full mt-2`}>
             <div>{currentSlide}/{images.length}</div>
         </div>
