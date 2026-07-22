@@ -1,6 +1,5 @@
 export default {
-    //locales: ['it', 'en', 'fr', 'es', 'ru'],
-    locales: ['it', 'en'],
+    locales: ['it', 'en', 'fr', 'es', 'ru'],
     defaultLocale: 'it',
     localePrefix: "as-needed",
     localeDetection: false,
@@ -35,23 +34,47 @@ export default {
             ru: '/секторы/[slug]',
             es: '/sectores/[slug]'
         },
-        '/news':'/news',
-        '/news/[slug]':'/news/[slug]',
+        '/news':{
+            it:'/news',
+            en:'/news',
+            fr:'/nouvelles',
+            es:'/noticias',
+            ru:'/новости',
+        },
+        '/news/[slug]':{
+            it:'/news/[slug]',
+            en:'/news/[slug]',
+            fr:'/nouvelles/[slug]',
+            es:'/noticias/[slug]',
+            ru:'/новости/[slug]',
+        },
         '/azienda':{
             it:'/azienda',
-            en:'/company'
+            en:'/company',
+            fr:'/agence',
+            es:'/agencia',
+            ru:'/агентство'
         },
         '/pronta-consegna':{
             it:'/pronta-consegna',
-            en:'/ready-for-delivery'
+            en:'/ready-for-delivery',
+            fr:'/prêt-à-être-livré',
+            es:'/listo-para-entrega',
+            ru:'/готово-к-доставке'
         },
         '/contatti':{
             it:'/contatti',
-            en:'/contacts'
+            en:'/contacts',
+            fr:'/contacts',
+            es:'/contactos',
+            ru:'/контакты'
         },
         '/grazie':{
             it:'/grazie',
-            en:'/thank-you'
+            en:'/thank-you',
+            fr:'/merci',
+            es:'/gracias',
+            ru:'/спасибо'
         }
     },
 }

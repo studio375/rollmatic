@@ -32,13 +32,13 @@ export default async function Page({params}){
             {
                 settori.map(elem => {
                     const img = elem._embedded['wp:featuredmedia'][0];
-                    return <div key={elem.id} className="flex-1 relative l:aspect-[55/60] max-xs:aspect-1/1 overflow-hidden rounded-[5px]">
+                    return <Link key={elem.id} className="flex-1 relative l:aspect-[55/40] max-xs:aspect-2/1.5 overflow-hidden rounded-[5px]" href={`${t('Slug settori')}/${elem.slug}`}>
                         <Image className="w-full h-full object-cover" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
-                        <Link className="absolute flex flex-col items-start right-[35px] bottom-[35px] max-l:items-end max-s:bottom-2 max-s:right-2" href={`${t('Slug settori')}/${elem.slug}`}>
-                            <BigText tag="span" className="font-bold text-[30px] s:text-[40px] text-[var(--color-background)]">{elem.title.rendered}</BigText>
+                        <div className="absolute flex flex-col items-end right-[35px] bottom-[35px] max-l:items-end max-s:bottom-2 max-s:right-2">
+                            <BigText tag="span" className="font-bold text-[30px] s:text-[40px] text-[var(--color-background)] text-right">{elem.title.rendered}</BigText>
                             <Image className="mt-2" src="/next-arrow-light.svg" width={50} height={20} alt=""/>                 
-                        </Link>
-                    </div>
+                        </div>
+                    </Link>
                 })
             }
         </section>

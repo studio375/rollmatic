@@ -23,12 +23,12 @@ export default function ScrollGallery({images, ...props}){
                 break;
         }
         var styleObject = {
-            height:  500 - (100 * index),
+            height:  `calc(50vh - ${100*index}px)`,
             right: right, 
             zIndex: 100 - index, 
             top: 20 * index
         }
-        return <Image className={`h-auto absolute object-cover ${index == 0?'w-[calc(100%-200px)] max-m:relative':'w-[calc(100%-300px)]'} max-m:!w-full max-m:!right-0 max-m:!h-auto max-m:!top-0`} key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
+        return <Image className={`h-auto absolute object-cover ${index == 0?'w-[calc(100%-200px)] max-m:relative':'w-[calc(100%-300px)]'} max-m:!w-full max-m:!right-0 max-m:!h-auto max-m:!max-h-[60vh] max-s:!max-h-[unset] max-m:!top-0`} key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
     })
 
     useGSAP(() => {
@@ -55,9 +55,9 @@ export default function ScrollGallery({images, ...props}){
                     var currRight = parseFloat(elem.style.right);
                     
                     if(currRight < 100){
-                        gsap.set(elem, {height: `${400 - (100-currRight)}`});
+                        gsap.set(elem, {height: `calc((50vh - 100px) - ${(100-currRight)}px)`});
                     }else if(currRight < 200){
-                        gsap.set(elem, {height: `${500 - (200-currRight)}`});
+                        gsap.set(elem, {height: `calc(50vh - ${(200-currRight)}px)`});
                     }
                     if(currRight > 200){
                         gsap.set(elem, {
@@ -78,7 +78,7 @@ export default function ScrollGallery({images, ...props}){
     }, [galleryRef])
     
     return <div ref={galleryRef} {...props} className={`${props.className || ''} w-full relative flex flex-col items-start`}>
-        <div className={`w-full relative m:h-50`}>{images}</div>
+        <div className={`w-full relative m:h-[50vh]`}>{images}</div>
         <div className={`w-full mt-2`}>
             <div>{currentSlide}/{images.length}</div>
         </div>
