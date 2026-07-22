@@ -9,8 +9,6 @@ import NewsCard from "@/components/Library/News Card/newsCard";
 import { getTranslations } from "next-intl/server";
 
 
-
-
 export default async function Home({params}) {
   const {locale} = await params;
   const page = await fetchAPI('pages', {
