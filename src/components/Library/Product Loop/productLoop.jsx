@@ -43,6 +43,16 @@ export default function ProductLoop({catFilters, products, filters=true, prontaC
         setFilterOpen(false);
     }
 
+    var mainCat = {}; //categoria da assegnare alle card "spacer"
+    if(activeProducts && activeProducts.length){
+        if(activeProducts[activeProducts.length - 1]?.category_info){
+            activeProducts[activeProducts.length - 1].category_info[0]
+        }else if(activeProducts[0]?.category_info){
+            mainCat = activeProducts[0].category_info[0]
+        }else{
+            mainCat = {};
+        }
+    }
 
     return <>
         {filters && <section className="relative mt-5 boxed flex items-center gap-2 z-10 max-l:flex-col max-l:items-start">
@@ -65,10 +75,10 @@ export default function ProductLoop({catFilters, products, filters=true, prontaC
             </div>
         </section>}
         {
-            (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-start gap-x-0 gap-y-5 max-m:mt-5`}>
+            (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-stretch gap-x-0 gap-y-5 max-m:mt-5`}>
                 {
                     activeProducts.map((elem, index) => {
-                        if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} />:<ProductCard key={index} prodObject={null} />
+                        if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} className={`spacer it-id-${mainCat.main_cat_italian_id}`} />:<ProductCard key={index} prodObject={null} className={`spacer it-id-${mainCat.main_cat_italian_id}`} />
                         var prodObject = {
                             ID: elem.id || elem.ID,
                             thumbnail_data: elem.thumbnail_data,
