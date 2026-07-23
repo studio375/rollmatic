@@ -19,8 +19,8 @@ export default function Providers({ children }) {
         var tml = gsap.timeline({
             onComplete: next,
         });
-        tml.to(firstLayer.current, {y:0, duration:0.5})
-           .to(secondLayer.current, {y:0, duration: 0.5})
+        tml.to(firstLayer.current, {y:0, duration:0.7, ease:'power4.inOut'})
+           .to(secondLayer.current, {y:0, duration: 0.6, ease:'power4.inOut'}, '<70%')
            .fromTo(imageWall.current,{x:"-50%"}, {x:"100%", duration: 1});
         return () => {
           tml.kill();
@@ -30,8 +30,8 @@ export default function Providers({ children }) {
         var tml = gsap.timeline({
             onComplete: next,
         });
-        tml.to(firstLayer.current, {y:"-100%", duration:0.3, ease: 'none'})
-           .to(secondLayer.current, {y:"-100%", duration:0.3, ease: 'none'}, '<');
+        tml.to(firstLayer.current, {y:"-100%", duration:0.7, ease: 'power4.inOut'})
+           .to(secondLayer.current, {y:"-100%", duration:0.7, ease: 'power4.inOut'}, '<');
         return () => {
           tml.kill();
         };

@@ -30,7 +30,6 @@ export default function FullpageScrollGallery({elements,children}){
         window.addEventListener('resize', () => setIsMobile(window.innerWidth <= 768));
     }, []);
     useEffect(() => {
-        console.log('isMobile', isMobile);
         if(!ref.current || isMobile) return;
         var slides = ref.current.children[0].children;
         const slidesArray = Array.from(slides);
@@ -52,7 +51,6 @@ export default function FullpageScrollGallery({elements,children}){
         var dist = ref.current.getBoundingClientRect().top + window.scrollY;
         window.addEventListener("scroll", () => handleScroll(dist, slidesArray.length));
         return () => {
-            console.log('killing');
             tml.scrollTrigger.kill();
             tml.kill();
             window.removeEventListener('scroll', handleScroll);

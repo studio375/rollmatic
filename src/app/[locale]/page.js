@@ -56,7 +56,6 @@ export default async function Home({params}) {
         <div className="mt-15 max-l:mt-10 flex items-start w-full max-xl:flex-wrap max-xl:gap-y-8">
           {
             categorie.map(elem => {
-              console.log(elem);
               var italianID = (locale == 'it')?elem.id:elem.wpml_translations?.it_IT?.id;
               return <div style={{order: (order+1 == 2)?order+=2:order++}} key={elem.id} className={`relative flex flex-col items-center product-image product-image-card ${italianID==284?'w-[40%] max-xl:w-[60%] xl:px-0 max-xl:!order-1':'w-[calc(60%/3)] max-xl:w-[40%]'} ${italianID == 314 && 'max-xl:!w-[60%] !order-10'} px-4 max-s:!w-full`}>
                 {elem.acf.immagine_categoria && <Image className="mb-5 max-m:mb-2 w-full h-[40vh] object-cover max-xl:object-contain" src={elem.acf.immagine_categoria.url} width={elem.acf.immagine_categoria.width} height={elem.acf.immagine_categoria.height} alt={elem.name} />}
