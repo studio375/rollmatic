@@ -27,7 +27,7 @@ export default function LangSwitcher({}){
         // pagina senza segmenti dinamici (es. pagina statica)
         if (replacements.length === 0) {
             //router.push(buildLocalizedHref(pathname, newLocale));
-            window.location.href = buildLocalizedHref('/', newLocale);
+            window.location.href = buildLocalizedHref(pathname, newLocale);
             return;
         }
 
