@@ -1,21 +1,18 @@
 import { useLocale } from "next-intl";
 import config from "@/i18n/config";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
-import { useTransitionRouter } from "next-transition-router";
 
 
 
 export default function LangSwitcher({}){
     const locale = useLocale();
     const all_locales = config.locales;
-    const router = useTransitionRouter();
     const pathname = usePathname();
     const params = useParams();
     const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-white';
     async function switchLocale(newLocale) {
         const replacements = [];
-
         if (pathname.includes('[product_cat]')) {
             replacements.push({ token: '[product_cat]', path: 'categoria', slug: params.product_cat });
         }
@@ -29,7 +26,8 @@ export default function LangSwitcher({}){
 
         // pagina senza segmenti dinamici (es. pagina statica)
         if (replacements.length === 0) {
-            router.push(buildLocalizedHref(pathname, newLocale));
+            //router.push(buildLocalizedHref(pathname, newLocale));
+            window.location.href = buildLocalizedHref('/', newLocale);
             return;
         }
 
@@ -44,7 +42,8 @@ export default function LangSwitcher({}){
 
             // se manca anche solo una traduzione, l'URL sarebbe incoerente -> fallback
             if (results.some(r => !r)) { //controllo che non ci sia nessun null
-                router.push(buildLocalizedHref('/', newLocale));
+                //router.push(buildLocalizedHref('/', newLocale));
+                window.location.href = buildLocalizedHref('/', newLocale);
                 return;
             }
 
@@ -53,10 +52,11 @@ export default function LangSwitcher({}){
                 const translatedSlug = Object.values(results[i])[0]; // non serve conoscere la key esatta, con object.values ottengo in posizione 0 la key e in posizione 1 la value
                 targetPathname = targetPathname.replace(r.token, translatedSlug);
             });
-
-            router.push(buildLocalizedHref(targetPathname, newLocale));
+            //router.push(buildLocalizedHref(targetPathname, newLocale));
+            window.location.href = buildLocalizedHref(targetPathname, newLocale);
         } catch (e) {
-            router.push(buildLocalizedHref('/', newLocale));
+            //router.push(buildLocalizedHref('/', newLocale));
+            window.location.href = buildLocalizedHref('/', newLocale);
         }
     }
 
