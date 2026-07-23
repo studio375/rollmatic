@@ -40,10 +40,10 @@ export default async function Page({params}){
         </section>
        <ProductLoop catFilters={catChild} products={products} />
        {
-        cat.acf.faq && <section className="my-10 big-boxed relative flex flex-col items-start gap-5">
+        cat.acf.faq ? <section className="my-10 big-boxed relative flex flex-col items-start gap-5">
             <BigText Tag="h2" className="classic-title">Faq</BigText>
             <Faq faq={cat.acf.faq} />
-        </section>
+        </section>:<div className="h-10"></div>
        }       
     </>;
 }

@@ -8,6 +8,7 @@ import FullpageScrollGallery from "@/components/Library/Scroll Gallery/fullpageS
 import NewsCard from "@/components/Library/News Card/newsCard";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 
 
 export default async function Home({params}) {
@@ -77,22 +78,30 @@ export default async function Home({params}) {
             {
               settori.map(elem => {
                 const img = elem._embedded['wp:featuredmedia'][0];
-                return <div key={elem.id} className="w-full min-w-full h-screen relative" data-slide-id={elem.id}>
-                  <Image preload={true} className="w-full h-full object-cover" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
-                </div>
+                return <Link key={elem.id} className="w-full min-w-full s:h-screen relative" data-slide-id={elem.id} href={`${t('Slug settori')}/${elem.slug}`}>
+                  <Image preload={true} className="w-full h-full object-cover max-xs:aspect-2/1.5" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
+                  <div className="s:!hidden absolute flex flex-col items-end right-[35px] bottom-[35px] max-l:items-end max-s:bottom-3 max-s:right-3">
+                      <BigText tag="span" className="font-bold text-[30px] s:text-[40px] text-[var(--color-background)] text-right">{elem.title.rendered}</BigText>
+                      <Image className="mt-2" src="/next-arrow-light.svg" width={50} height={20} alt=""/>                 
+                  </div>
+                </Link>
               })
             }
           </FullpageScrollGallery>
       </section>
-      <section className="mt-13 max-m:mt-10 big-boxed w-full flex flex-col items-start pb-15">
-          <BigText Tag="h2" className="classic-title">{t('News')}</BigText>
-          <div className="realtive w-full flex items-start mt-[35px] flex-wrap max-xl:gap-y-6">
-            {
-              articoli.map((elem, index) => {
-                return <NewsCard key={elem.id} news={elem} index={index} />
-              })
-            }
-          </div>
+      <section className={`mt-13 max-m:mt-10 max-s:mt-6 big-boxed w-full flex flex-col items-start ${(articoli && articoli.length) && "pb-15 max-s:pb-8"}`}>
+          {
+            articoli && articoli.length && <>
+              <BigText Tag="h2" className="classic-title">{t('News')}</BigText>
+              <div className="realtive w-full flex items-start mt-[35px] flex-wrap max-xl:gap-y-6">
+                {
+                  articoli.map((elem, index) => {
+                    return <NewsCard key={elem.id} news={elem} index={index} />
+                  })
+                }
+              </div>
+            </>
+          }
       </section>
     </>
   );

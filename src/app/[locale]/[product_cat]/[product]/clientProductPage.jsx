@@ -104,7 +104,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             {prodotto.acf.immagine_full && <div className="w-full product-image big-boxed mt-5">
                  <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
             </div>}
-            <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-25 max-xl:pb-14 max-m:pb-4 gradient-before`}>
+            <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-25 max-xl:pb-14 max-m:pb-5 gradient-before`}>
                 <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
                 {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)]`}>
                     <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
@@ -147,7 +147,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             </div>
             
         </section>
-        <section className="big-boxed mt-5 mb-12 relative z-[10] flex items-start flex-col gap-[115px] max-m:gap-5">
+        <section className="big-boxed s:mt-5 mb-12 max-s:mb-7 relative z-[10] flex items-start flex-col gap-[115px] max-m:gap-5">
             <div className="divisor"></div>
             <div className={`flex items-start w-full relative max-m:flex-col max-m:gap-3`}>
                 <BigText className={`m:w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi informazioni")}</BigText>
@@ -155,7 +155,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             </div>
         </section>
         
-        {videoIds && <section className="big-boxed mb-[178px]">
+        {videoIds && <section className="big-boxed mb-[178px] max-s:mb-10">
             <VideoCarousel videoIds={videoIds} />
         </section>}
     </>;

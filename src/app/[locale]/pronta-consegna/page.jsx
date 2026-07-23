@@ -31,11 +31,11 @@ export default async function Page({params}){
             </div>    
         </section>
         <ProductLoop products={products} prontaConsegna={true} filters={false} />
-        <section id="form" className="relative w-full mt-25 max-xl:mt-10 big-boxed flex items-start max-m:flex-col max-m:gap-3">
+        <section id="form" className="relative w-full mt-25 max-xl:mt-10 max-s:mt-5 big-boxed flex items-start max-m:flex-col max-m:gap-3">
             <BigText className={`m:w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi offerta")}</BigText>
             <GravityForm className={`m:!w-[calc(200%/3)]`} formObject={form} />
         </section>
-        <section className="relative w-full big-boxed my-10 flex flex-col items-start gap-5">
+        <section className="relative w-full big-boxed my-10 max-s:mt-6 flex flex-col items-start gap-5 max-s:gap-3">
             <BigText Tag="h2" className="classic-title">Faq</BigText>
             <Faq faq={page.acf.faq} />
         </section>

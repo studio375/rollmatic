@@ -12,10 +12,10 @@ export default async function Page({params}){
         lang: locale
     });
     if(!page) notFound();
-    return <section className="big-boxed mt-20 mb-15 w-full relative">
+    return <section className="big-boxed mt-20 mb-15 max-s:mt-15 max-s:mb-10 w-full relative">
         <div className={`flex flex-col items-center w-full gap-3`}>
-            <BigText Tag="h1" className={`h2`}>{page.acf.titolo}</BigText>
-            <Paragraph Tag="span" className={``}>{page.acf.testo}</Paragraph>
+            <BigText Tag="h1" className={`h2 text-center`}>{page.acf.titolo}</BigText>
+            <Paragraph Tag="span" className={`text-center`}>{page.acf.testo}</Paragraph>
             <CustomButton href="/" className={``}>Torna alla home</CustomButton>
         </div>
     </section>;

@@ -23,12 +23,12 @@ export default async function Page({params}){
     });
     return <>
         <section className="w-full relative big-boxed pt-20 max-l:pt-15 max-m:pt-13">
-            <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 max-l:flex-col max-l:gap-3">
+            <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 max-m:pb-4 max-l:flex-col max-l:gap-3">
                 <BigText Tag="h1" className="classic-title">{page.acf.titolo}</BigText>
                 <Paragraph className="w-[calc(100%/3*2)] max-l:w-full">{page.acf.paragrafo}</Paragraph>
             </div>    
         </section>
-        <section className="relative mt-[75px] max-l:mt-4 big-boxed flex items-stretch w-full xl:!px-4 gap-1 mb-6 max-l:flex-col">
+        <section className="relative mt-[75px] max-l:mt-4 big-boxed flex items-stretch w-full xl:!px-4 gap-[2px] mb-6 max-l:flex-col">
             {
                 settori.map(elem => {
                     const img = elem._embedded['wp:featuredmedia'][0];
