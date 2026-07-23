@@ -1,7 +1,6 @@
 import BigText from "@/components/Library/Big Text/bigText";
 import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
-import ProductCard from "@/components/Library/Product Card/productCard";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
 import { routing } from "@/i18n/routing";
