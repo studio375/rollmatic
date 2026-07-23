@@ -3,10 +3,14 @@ import IncrementNumber from "@/components/Library/Increment number/incrementNumb
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import Timeline from "@/components/Library/Timeline/timeline";
 import { fetchAPI } from "@/helpers/api/fetch-api";
+import { buildMetadata } from "@/helpers/seo/metadata";
+import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+
 export default async function Page({params}){
     const {locale} = await params;
+    setRequestLocale(locale);
     const page = await fetchAPI('pages', {
         slug: 'azienda',
         acf_format: 'standard',
@@ -63,4 +67,18 @@ export default async function Page({params}){
         </section>
         <Timeline page={page} />
     </>
+}
+
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const page = await fetchAPI("pages", {
+    lang: locale,
+    slug: "azienda",
+  });
+  return buildMetadata({
+    yoast: page?.yoast_head_json,
+    pathname: "/azienda",
+    locale,
+  });
 }

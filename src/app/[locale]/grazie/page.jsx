@@ -3,9 +3,12 @@ import { notFound } from "next/navigation";
 import BigText from "@/components/Library/Big Text/bigText";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import CustomButton from "@/components/Library/Custom Button/customButton";
+import { buildMetadata } from "@/helpers/seo/metadata";
+import { setRequestLocale } from "next-intl/server";
 
 export default async function Page({params}){
     const {locale} = await params;
+    setRequestLocale(locale);
     const page = await fetchAPI('pages',{
         slug: 'grazie',
         acf_format: 'standard',
@@ -19,4 +22,18 @@ export default async function Page({params}){
             <CustomButton href="/" className={``}>Torna alla home</CustomButton>
         </div>
     </section>;
+}
+
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const page = await fetchAPI("pages", {
+    lang: locale,
+    slug: "grazie",
+  });
+  return buildMetadata({
+    yoast: page?.yoast_head_json,
+    pathname: "/grazie",
+    locale,
+  });
 }

@@ -6,13 +6,15 @@ import Paragraph from "@/components/Library/Paragraph/paragraph";
 import CustomButton from "@/components/Library/Custom Button/customButton";
 import FullpageScrollGallery from "@/components/Library/Scroll Gallery/fullpageScrollGallery";
 import NewsCard from "@/components/Library/News Card/newsCard";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
+import { buildMetadata } from "@/helpers/seo/metadata";
 
 
 export default async function Home({params}) {
   const {locale} = await params;
+  setRequestLocale(locale);
   const page = await fetchAPI('pages', {
     lang: locale,
     slug: 'homepage',
@@ -105,4 +107,19 @@ export default async function Home({params}) {
       </section>
     </>
   );
+}
+
+
+export async function generateMetadata({ params }) {
+  const {locale} = await params;
+  const page = await fetchAPI('pages', {
+    lang: locale,
+    slug: 'homepage',
+    _fields: "yoast_head_json",
+  });
+  return buildMetadata({
+    yoast: page?.yoast_head_json,
+    pathname: "/",
+    locale,
+  });
 }

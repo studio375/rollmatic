@@ -4,10 +4,12 @@ import { notFound } from "next/navigation";
 import parse from 'html-react-parser';
 import Image from "next/image";
 import GravityForm from "@/components/Library/Gravity Form/gravityForm";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { buildMetadata } from "@/helpers/seo/metadata";
 
 export default async function Page({params}){
     const {locale} = await params;
+    setRequestLocale(locale);
     var page = await fetchAPI('pages', {
         slug: 'contatti',
         acf_format: 'standard',
@@ -44,4 +46,18 @@ export default async function Page({params}){
             <iframe className="border-0 w-full h-50" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2785.4067043809837!2d11.41373627607234!3d45.72293797107939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4778b6a9cfb75185%3A0xe4fef808164800a1!2sRollmatic%20Srl!5e0!3m2!1sit!2sit!4v1779783716966!5m2!1sit!2sit" width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </section>
     </>
+}
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const page = await fetchAPI("pages", {
+    lang: locale,
+    slug: "contatti",
+    _fields: "yoast_head_json",
+  });
+  return buildMetadata({
+    yoast: page?.yoast_head_json,
+    pathname: "/contatti",
+    locale,
+  });
 }

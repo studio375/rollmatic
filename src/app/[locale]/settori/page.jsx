@@ -1,7 +1,8 @@
 import BigText from "@/components/Library/Big Text/bigText";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import { fetchAPI } from "@/helpers/api/fetch-api"
-import { getTranslations } from "next-intl/server";
+import { buildMetadata } from "@/helpers/seo/metadata";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,6 +10,7 @@ import { notFound } from "next/navigation";
 
 export default async function Page({params}){
     const {locale} = await params;
+    setRequestLocale(locale);
     var page = await fetchAPI('pages', {
         slug: 'settori',
         acf_format: 'standard',
@@ -43,4 +45,20 @@ export default async function Page({params}){
             }
         </section>
     </>
+}
+
+
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const page = await fetchAPI("pages", {
+    lang: locale,
+    slug: "settori",
+    _fields: "yoast_head_json",
+  });
+  return buildMetadata({
+    yoast: page?.yoast_head_json,
+    pathname: "/settori",
+    locale,
+  });
 }

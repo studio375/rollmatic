@@ -4,11 +4,13 @@ import GravityForm from "@/components/Library/Gravity Form/gravityForm";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
 import { fetchAPI } from "@/helpers/api/fetch-api";
-import { getTranslations } from "next-intl/server";
+import { buildMetadata } from "@/helpers/seo/metadata";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
     const {locale} = await params;
+    setRequestLocale(locale);
     const t = await getTranslations('strings');
     var page = await fetchAPI('pages', {
         slug: 'pronta-consegna',
@@ -40,4 +42,19 @@ export default async function Page({params}){
             <Faq faq={page.acf.faq} />
         </section>
     </>
+}
+
+
+export async function generateMetadata({ params }) {
+    const { locale } = await params;
+    const page = await fetchAPI("pages", {
+      lang: locale,
+      slug: "pronta-consegna",
+      _fields: "yoast_head_json",
+    });
+    return buildMetadata({
+        yoast: page?.yoast_head_json,
+        pathname: "/pronta-consegna",
+        locale,
+    });
 }

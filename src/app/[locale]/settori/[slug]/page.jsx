@@ -3,12 +3,15 @@ import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
+import { buildMetadata } from "@/helpers/seo/metadata";
 import { routing } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
     const {locale, slug} = await params;
+    setRequestLocale(locale);
     var settore = await fetchAPI('settore', {
         lang: locale,
         slug: slug,
@@ -39,6 +42,22 @@ export default async function Page({params}){
             </section>
         }
     </>
+}
+
+export async function generateMetadata({ params }) {
+    const {locale, slug} = await params;
+    var page = await fetchAPI('settore', {
+        lang: locale,
+        slug: slug,
+        acf_format: 'standard',
+    });
+    return buildMetadata({
+        yoast: page?.yoast_head_json,
+        pathname: "/settori/[slug]",
+        locale,
+        value: slug,
+        translations: page?.wpml_translations,
+    });
 }
 
 export async function generateStaticParams() {

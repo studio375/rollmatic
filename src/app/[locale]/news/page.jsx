@@ -1,11 +1,13 @@
 import BigText from "@/components/Library/Big Text/bigText";
 import NewsCard from "@/components/Library/News Card/newsCard";
 import { fetchAPI } from "@/helpers/api/fetch-api";
-import { getLocale } from "next-intl/server";
+import { buildMetadata } from "@/helpers/seo/metadata";
+import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
-    var locale = await getLocale();
+    const {locale} = await params;
+    setRequestLocale(locale);
     var page = await fetchAPI('pages', {
         slug: 'news',
         acf_format: 'standard',
@@ -31,4 +33,19 @@ export default async function Page({params}){
         </section>
     </>
 
+}
+
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const page = await fetchAPI("pages", {
+    lang: locale,
+    slug: "news",
+    _fields: "yoast_head_json",
+  });
+  return buildMetadata({
+    yoast: page?.yoast_head_json,
+    pathname: "/news",
+    locale,
+  });
 }

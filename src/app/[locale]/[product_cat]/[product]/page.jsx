@@ -2,6 +2,28 @@ import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
 import { notFound } from "next/navigation";
 import ProductPage from "./clientProductPage";
 import { routing } from "@/i18n/routing";
+import { buildMetadata } from "@/helpers/seo/metadata";
+import { setRequestLocale } from "next-intl/server";
+
+export async function generateMetadata({ params }) {
+    const {product_cat, product, locale} = await params;
+    setRequestLocale(locale);
+    const page = await fetchAPI('prodotto', {
+        slug: product,
+        lang: locale,
+    });
+    
+    return buildMetadata({
+        yoast: page?.yoast_head_json,
+        pathname: "/[product_cat]/[product]",
+        locale,
+        value: product,
+        translations: page?.wpml_translations,
+        taxValues: [product_cat],
+        taxonomies: ["categoria"],
+        translationsTax: page?.wpml_translations_tax,
+    });
+}
 
 export default async function Page({params}){
     const {product_cat, product, locale} = await params;
@@ -38,3 +60,5 @@ export async function generateStaticParams() {
     }
     return params;
 }
+
+

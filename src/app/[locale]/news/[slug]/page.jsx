@@ -2,13 +2,15 @@ import BigText from "@/components/Library/Big Text/bigText";
 import NewsCard from "@/components/Library/News Card/newsCard";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
+import { buildMetadata } from "@/helpers/seo/metadata";
 import { routing } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({params}){
     const {locale, slug}= await params;
+    setRequestLocale(locale);
     var obj = await fetchAPI('posts', {
         lang: locale,
         slug: slug,
@@ -59,4 +61,19 @@ export async function generateStaticParams() {
         }
     }
     return params;
+}
+
+export async function generateMetadata({ params }) {
+    const {locale, slug}= await params;
+    var page = await fetchAPI('posts', {
+        lang: locale,
+        slug: slug,
+    });
+    return buildMetadata({
+        yoast: page?.yoast_head_json,
+        pathname: "/news/[slug]",
+        locale,
+        value: slug,
+        translations: page?.wpml_translations,
+    });
 }

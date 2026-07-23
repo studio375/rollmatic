@@ -3,7 +3,9 @@ import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
+import { buildMetadata } from "@/helpers/seo/metadata";
 import { routing } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -30,7 +32,6 @@ export default async function Page({params}){
     });
     
     return <>
-    
         <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 max-m:pt-12 max-m:pb-5 boxed xl:!px-15 flex items-center justify-between max-m:flex-col max-m:gap-4">
                 <div className="relative flex flex-col items-start gap-[15px] w-40 max-m:w-full">
                     <BigText Tag="h1" className="classic-title">{cat.name}</BigText>
@@ -58,4 +59,21 @@ export async function generateStaticParams() {
         }
     }
     return params;
+}
+
+export async function generateMetadata({ params }) {
+    const {product_cat, locale} = await params;
+    setRequestLocale(locale);
+    const page = await fetchAPI('categoria',{
+        slug: product_cat,
+        lang: locale
+    });
+
+    return buildMetadata({
+        yoast: page?.yoast_head_json,
+        pathname: "/[product_cat]",
+        locale,
+        value: product_cat,
+        translations: page?.wpml_translations,
+    });
 }
