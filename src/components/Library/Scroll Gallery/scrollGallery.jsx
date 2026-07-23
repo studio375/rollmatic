@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
 
 
@@ -9,6 +9,7 @@ export default function ScrollGallery({images, ...props}){
     //var aspectRatio = `${images[0].width}/${images[0].height}`;
     const [currentSlide, setCurrentSlide] = useState(1);
     const galleryRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
     var images = images.map((elem, index) => {
         var right = (-100 * index) + 200;
         switch (index) {
@@ -30,10 +31,13 @@ export default function ScrollGallery({images, ...props}){
         }
         return <Image className={`h-auto absolute object-cover ${index == 0?'w-[calc(100%-200px)] max-m:relative':'w-[calc(100%-300px)]'} max-m:!w-full max-m:!right-0 max-m:!h-auto max-m:!max-h-[60vh] max-s:!max-h-[unset] max-m:!top-0`} key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
     })
-
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 1025);
+        window.addEventListener('resize', () => setIsMobile(window.innerWidth < 1025));
+    }, []);
     useGSAP(() => {
         if(!galleryRef) return;
-        var slides = galleryRef.current.querySelectorAll('img'); //array con tutte le slide (immagini) della galleria
+        var slides = isMobile?galleryRef.current.querySelectorAll('img:not(:last-child)'):galleryRef.current.querySelectorAll('img'); //array con tutte le slide (immagini) della galleria
         var totalSlides = slides.length;
         var totalScroll = 100 * totalSlides; // 100 è lo spazio in px tra una slide e l'altra
         
@@ -44,38 +48,56 @@ export default function ScrollGallery({images, ...props}){
                 end: `+=${500*totalSlides}px`,
                 pin: galleryRef.current.closest('section'),
                 scrub: true,
+                invalidateOnRefresh: true,
+                onLeave: () => {
+                    (isMobile)&&setCurrentSlide(slides.length+1);
+                }
             } 
         });
-        tml.to(slides, {
-            right: `+=${totalScroll}px`, 
-            top: 0,
-            ease: 'none',
-            onUpdate: () => {
-                slides.forEach((elem, i) => {
-                    var currRight = parseFloat(elem.style.right);
-                    
-                    if(currRight < 100){
-                        gsap.set(elem, {height: `calc((50vh - 100px) - ${(100-currRight)}px)`});
-                    }else if(currRight < 200){
-                        gsap.set(elem, {height: `calc(50vh - ${(200-currRight)}px)`});
-                    }
-                    if(currRight > 200){
-                        gsap.set(elem, {
-                            opacity: gsap.utils.clamp(0, 1, (400-currRight) / 100),
-                            x: `-${(100 - (400-currRight)) / 2}%`
-                        });
-                    }
-                    if(currRight > 250){
-                        setCurrentSlide(i + 1);
-                    }
-                });
-            }
-        });
+        if(isMobile){
+            slides.forEach((elem, i) => {   
+                tml.to(elem, {xPercent:-100, ease: 'none'})
+                   .to(elem, {opacity: 0, ease: 'none', delay: (i) => i*0.4, onUpdate: () => setCurrentSlide(i + 1)}, '<');
+            });
+        }else{
+            tml.to(slides, {
+                right: `+=${isMobile?window.innerWidth:totalScroll}px`, 
+                top: 0,
+                ease: 'none',
+                onUpdate: () => {
+                    slides.forEach((elem, i) => {
+                        var currRight = parseFloat(elem.style.right);
+                        if(!isMobile){
+                            if(currRight < 100){
+                                gsap.set(elem, {height: `calc((50vh - 100px) - ${(100-currRight)}px)`});
+                            }else if(currRight < 200){
+                                gsap.set(elem, {height: `calc(50vh - ${(200-currRight)}px)`});
+                            }
+                        }
+                        if(currRight > 200){
+                            gsap.set(elem, {
+                                opacity: gsap.utils.clamp(0, 1, (400-currRight) / 100),
+                                x: `-${(100 - (400-currRight)) / 2}%`
+                            });
+                        }
+                        
+                        if(currRight > 250){
+                            setCurrentSlide(i + 1);
+                        }
+                    });
+                }
+            });
+        }
+        
 
         return () => {
-            if(tml) tml.kill();
+            if(tml) {
+                tml.scrollTrigger?.kill();
+                tml.kill();
+                ScrollTrigger.refresh();
+            }
         };
-    }, [galleryRef])
+    },{dependencies:[galleryRef, isMobile], revertOnUpdate: true})
     
     return <div ref={galleryRef} {...props} className={`${props.className || ''} w-full relative flex flex-col items-start`}>
         <div className={`w-full relative m:h-[50vh]`}>{images}</div>
