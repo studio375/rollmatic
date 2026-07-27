@@ -1,6 +1,8 @@
 import Image from "next/image";
 import CustomButton from "../Custom Button/customButton";
 import parse from 'html-react-parser'
+import { useStore } from "@/store/useStore";
+import { useTranslations } from "next-intl";
 
 /*
 var prodObjectExample = {
@@ -12,9 +14,15 @@ var prodObjectExample = {
 };
 */
 export default function ProntaConsegnaCard({prodObject, ...props}){
+    const {setFormHtmlValue, lenis} = useStore();
+    const t = useTranslations('strings');
     const commonClass = `relative product-image product-image-card px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] w-[calc(100%/3)] max-l:w-1/2 max-s:w-full overflow-hidden [&:not(.it-id-284)]:min-[1920px]:!w-[calc(100%/4)] ${props.className}`;
     if(prodObject == null){
         return <div {...props} className={`${commonClass} max-l:[&:nth-last-child(1)]:hidden max-l:[&:nth-last-child(2)]:hidden max-s:hidden `}></div>
+    }
+    const handleClickRequest = (value) => {
+        setFormHtmlValue(value);
+        lenis.scrollTo(document.getElementById('form').offsetTop-200, 1);
     }
     const img = prodObject.thumbnail_data;
     return <div {...props} className={`flex flex-col items-center ${commonClass}`}>
@@ -23,8 +31,8 @@ export default function ProntaConsegnaCard({prodObject, ...props}){
         {prodObject.cat && <span className="mt-1 block text-center">{prodObject.cat.name}</span>}
         <span className="font-extrabold text-[30px] text-[var(--color-primary)] mt-[5px] text-center">{parse(prodObject.title)}</span>
         <div className="flex items-center justify-center gap-1 mt-2 max-[450px]:flex-col max-[450px]:gap-1">
-            <CustomButton className="!text-[var(--color-foreground)] !border-[var(--color-foreground)] text-[14px] max-[450px]:w-full justify-center" href="" target="_blank">Specifiche tecniche</CustomButton>
-            <CustomButton className="!text-[var(--color-foreground)] !border-[var(--color-foreground)] text-[14px] max-[450px]:w-full justify-center" href="#form">Richiedi offerta</CustomButton>
+            <CustomButton className="!text-[var(--color-foreground)] !border-[var(--color-foreground)] text-[14px] max-[450px]:w-full justify-center" href="" target="_blank">{t('Specifiche tecniche')}</CustomButton>
+            <CustomButton onClick={() => handleClickRequest(prodObject.title)} className="!text-[var(--color-foreground)] !border-[var(--color-foreground)] text-[14px] max-[450px]:w-full justify-center" Tag={'div'}>{t('Richiedi offerta').replace('<br/>', ' ')}</CustomButton>
         </div>
     </div>
 }

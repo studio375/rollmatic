@@ -7,4 +7,6 @@ export const useStore = create((set) => ({
   setLenis: (lenis) => set({ lenis }),
   currentPageTitle: null,
   setCurrentPageTitle: (currentPageTitle) => set({currentPageTitle}),
+  formHtmlValue: ' - ',
+  setFormHtmlValue: (formHtmlValue) => set({formHtmlValue})
 }));

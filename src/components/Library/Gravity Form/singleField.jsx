@@ -3,7 +3,7 @@ import { useStore } from '@/store/useStore.js';
 import parse from 'html-react-parser';
 export default function SingleField({fieldObject, register, errors}){
     var type = fieldObject.type;
-    const {currentPageTitle} = useStore();
+    const {currentPageTitle, formHtmlValue} = useStore();
     var commonClasses = 'w-full rounded-[50px] bg-[#7D5B5B1A] border-none pl-[15px] text-[var(--color-foreground)] font-aspekta text-[16px] font-light h-[40px]';
     var placeholderClasses = 'placeholder:text-[var(--color-foreground)] placeholder:font-[var(--font-aspekta)] placeholder:text-[16px] placeholder:font-light focus:placeholder:opacity-0';
     
@@ -54,7 +54,7 @@ export default function SingleField({fieldObject, register, errors}){
     }
 
     if(type == 'html'){
-        var value = parse(fieldObject.content.replace('{embed_post:post_title}', currentPageTitle?currentPageTitle:' - '));
+        var value = parse(fieldObject.content.replace('{embed_post:post_title}', currentPageTitle || formHtmlValue));
         printInput = <div>{value}</div>
     }
 

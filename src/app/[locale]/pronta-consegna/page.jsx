@@ -5,6 +5,7 @@ import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
 import { fetchAPI } from "@/helpers/api/fetch-api";
 import { buildMetadata } from "@/helpers/seo/metadata";
+
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
@@ -34,7 +35,7 @@ export default async function Page({params}){
         </section>
         <ProductLoop products={products} prontaConsegna={true} filters={false} />
         <section id="form" className="relative w-full mt-25 max-xl:mt-10 max-s:mt-5 big-boxed flex items-start max-m:flex-col max-m:gap-3">
-            <BigText className={`m:w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi offerta")}</BigText>
+            <BigText className={`m:w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi offerta").replace('<br/>', ' ')}</BigText>
             <GravityForm className={`m:!w-[calc(200%/3)]`} formObject={form} />
         </section>
         <section className="relative w-full big-boxed my-10 max-s:mt-6 flex flex-col items-start gap-5 max-s:gap-3">

@@ -10,6 +10,7 @@ import GravityForm from '@/components/Library/Gravity Form/gravityForm';
 import { useStore } from '@/store/useStore.js';
 import { useTranslations } from "next-intl";
 import parse from 'html-react-parser';
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 
 export default function ProductPage({prodotto, cat, formObject = null}){
     const [open, setOpen] = useState(false);
@@ -37,6 +38,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
     const singleColClass="flex items-start justify-start flex-col";
 
     return <>
+        <Breadcrumbs page={prodotto} />
         <section className="w-full relative h-auto py-8 testata-product flex flex-col items-center max-s:gap-5 max-mobileHeader:pt-13">
             {/* {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100%-200px)] w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>} */}
             {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100vh-200px)] w-auto max-s:w-full max-s:h-auto max-s:max-h-[100vh-200px] object-cover max-s:object-contain relative object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>}

@@ -7,7 +7,7 @@ import BigText from "../Big Text/bigText";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-export default function ProductLoop({catFilters, products, filters=true, prontaConsegna = false}){
+export default function ProductLoop({catFilters, products, title=null, filters=true, prontaConsegna = false}){
     const [activeCat, setActiveCat] = useState(null);
     const [filterOpen, setFilterOpen] = useState(false);
     const t = useTranslations('strings');
@@ -53,7 +53,8 @@ export default function ProductLoop({catFilters, products, filters=true, prontaC
         setFilterOpen(false);
     }
 
-    return <>
+    return <div className="flex flex-col">
+        {title && <div className="px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] flex s:-mb-5"><BigText Tag="h2" className="font-semibold text-[var(--color-primary)] h2">{title}</BigText></div>}
         {filters && <section className="relative mt-5 boxed flex items-center gap-2 z-10 max-l:flex-col max-l:items-start">
             <BigText Tag="span" className="font-semibold text-[var(--color-primary)] h3">{t('Categorie macchinari')}</BigText>
             <div className="relative inline-flex m:min-w-40 max-m:w-30 max-w-full">
@@ -90,5 +91,5 @@ export default function ProductLoop({catFilters, products, filters=true, prontaC
                 }
             </section> : <span></span>
         }
-    </>
+    </div>
 }

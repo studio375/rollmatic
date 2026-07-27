@@ -20,19 +20,36 @@ export default async function Page({params}){
     });
     if(!settore) notFound();
     const img = settore._embedded['wp:featuredmedia'][0];
+    
+    const prodAllCat = {};
+    if (settore.acf.prodotti_correlati) {
+        Array.from(settore.acf.prodotti_correlati).forEach(elem => {
+            const topLevelCats = elem.category_info.filter(cat => cat.parent == 0);
+            const key = topLevelCats[0].name;
+            if (!prodAllCat[key]) {
+                prodAllCat[key] = [];
+            }
+            prodAllCat[key].push(elem);
+        });
+    }
+
     return <>
         <section className="flex w-full boxed m:!px-4 min-[1920px]:!px-[3vw] max-s:!px-0 max-m:mt-[75px]">
             <Image className="max-xs:aspect-2/1.5 object-cover xs:h-[50vh] m:h-[75vh] w-full rounded-[5px]" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={settore.title.rendered} />
         </section>
-        <section className="w-full big-boxed mt-7 relative max-s:mt-4">
+        <section className="w-full big-boxed mt-7 mb-10 relative max-s:mt-4">
             <div className="w-full flex items-start justify-between pb-3 border-b-[1px] border-b-[var(--color-primary)] max-l:flex-col max-l:gap-2">
                 <BigText Tag="h1" className="classic-title">{settore.title.rendered}</BigText>
                 <Paragraph className="w-[calc(100%/3*2.1)] max-l:w-full">{settore.acf.paragrafo}</Paragraph>
             </div>
         </section>
+        <section className="flex flex-col items-start gap-5">
         {
-            settore.acf.prodotti_correlati && <ProductLoop catFilters={null} filters={false} products={settore.acf.prodotti_correlati}/>
+            Object.keys(prodAllCat).map((catName) => (
+                <ProductLoop key={catName} title={catName} catFilters={null} filters={false} products={prodAllCat[catName]} />
+            ))
         }
+        </section>
         {
             settore.acf.faq && <section className="mt-8 max-m:mt-4 big-boxed w-full relative pb-15 max-s:pb-10">
                 <BigText Tag="h2" className="classic-title">FAQ</BigText>

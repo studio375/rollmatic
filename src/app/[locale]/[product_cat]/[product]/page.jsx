@@ -4,6 +4,7 @@ import ProductPage from "./clientProductPage";
 import { routing } from "@/i18n/routing";
 import { buildMetadata } from "@/helpers/seo/metadata";
 import { setRequestLocale } from "next-intl/server";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 
 export async function generateMetadata({ params }) {
     const {product_cat, product, locale} = await params;
