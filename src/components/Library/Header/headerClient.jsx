@@ -10,7 +10,7 @@ import MobileHeader from "./mobileHeader";
 
 
 export default function HeaderClient({menu_items}){
-    const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-white max-l:text-[15px]';
+    const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-[var(--background)] max-l:text-[15px]';
     const ref = useRef(null);
     var pathName = usePathname();
     const locale = useLocale();
@@ -49,7 +49,7 @@ export default function HeaderClient({menu_items}){
                             {
                                 (children && children.length > 0) && <div className="absolute top-[calc(100%)] left-[50%] translate-x-[-50%] bg-[var(--color-primary)] flex-col items-center px-[15px] py-3 rounded-[5px] gap-2 hidden [.menu-item:hover_&]:!flex" >
                                     {
-                                        children.map(elem2 => <Link key={elem2.id} className={`${commonClasses} text-white whitespace-nowrap hover:!underline`} href={elem2.url}>{elem2.title.rendered}</Link>)
+                                        children.map(elem2 => <Link key={elem2.id} className={`${commonClasses} text-[var(--background)] whitespace-nowrap hover:!underline`} href={elem2.url}>{elem2.title.rendered}</Link>)
                                     }
                                 </div>
                             }

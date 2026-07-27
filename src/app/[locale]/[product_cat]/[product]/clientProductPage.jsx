@@ -95,15 +95,15 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             {
             prodotto.acf.galleria && 
                 <div className={`w-[calc(60%)] max-xl:w-[50%] max-l:w-full z-[10] relative`}>
-                    {prodotto.acf.galleria.length > 1?<ScrollGallery images={prodotto.acf.galleria}/>:<Image className="w-full h-auto l:max-w-85 ml-auto" src={prodotto.acf.galleria[0].url} width={prodotto.acf.galleria[0].width} height={prodotto.acf.galleria[0].height} alt={prodotto.acf.galleria[0].alt || 'Immagine di galleria'}/>}
+                    {prodotto.acf.galleria.length > 1?<ScrollGallery images={prodotto.acf.galleria}/>:<Image className="w-full h-auto rounded-[5px] l:max-w-85 ml-auto" src={prodotto.acf.galleria[0].url} width={prodotto.acf.galleria[0].width} height={prodotto.acf.galleria[0].height} alt={prodotto.acf.galleria[0].alt || 'Immagine di galleria'}/>}
                 </div>
             }
         </section>
         <section className="w-full relative mt-25 max-xl:mt-14 max-s:mt-10">
-            {cat.acf.testo_gamma && <BigText className="big-boxed text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)]" Tag="h3">{cat.acf.testo_gamma}</BigText>}
-            {prodotto.acf.immagine_full && <div className="w-full product-image big-boxed mt-5">
+            {cat.acf.testo_gamma && <BigText className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]" Tag="h3">{cat.acf.testo_gamma}</BigText>}
+            {prodotto.acf.immagine_full? <div className="w-full product-image big-boxed mt-5">
                  <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
-            </div>}
+            </div>:<div className="h-20 max-m:h-10 w-full"></div>}
             <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-25 max-xl:pb-14 max-m:pb-5 gradient-before`}>
                 <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
                 {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)]`}>

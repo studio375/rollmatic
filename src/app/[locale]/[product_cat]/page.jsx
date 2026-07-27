@@ -37,11 +37,11 @@ export default async function Page({params}){
                     <BigText Tag="h1" className="classic-title">{cat.name}</BigText>
                     <Paragraph className="text-[var(--color-foreground)]">{cat.acf.paragrafo}</Paragraph>
                 </div>
-                {cat.acf.immagine_categoria && <Image className="w-full h-auto s:max-h-[80vh] s:object-contain m:h-[80vh] w-auto object-cover m:max-w-[calc(100%-400px)]" src={cat.acf.immagine_categoria.url} width={cat.acf.immagine_categoria.width} height={cat.acf.immagine_categoria.height} alt={cat.name}/>}
+                {cat.acf.immagine_categoria && <Image className="w-full h-auto m:h-[60vh] s:object-contain  w-auto object-cover m:max-w-[calc(100%-400px)]" src={cat.acf.immagine_categoria.url} width={cat.acf.immagine_categoria.width} height={cat.acf.immagine_categoria.height} alt={cat.name}/>}
         </section>
        <ProductLoop catFilters={catChild} products={products} />
        {
-        cat.acf.faq ? <section className="my-10 big-boxed relative flex flex-col items-start gap-5">
+        cat.acf.faq ? <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
             <BigText Tag="h2" className="classic-title">Faq</BigText>
             <Faq faq={cat.acf.faq} />
         </section>:<div className="h-10"></div>

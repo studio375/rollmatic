@@ -11,7 +11,15 @@ export default function ProductLoop({catFilters, products, filters=true, prontaC
     const [activeCat, setActiveCat] = useState(null);
     const [filterOpen, setFilterOpen] = useState(false);
     const t = useTranslations('strings');
-    var activeProducts = products;
+    var activeProducts = [...products];
+    var mainCat = {}; //categoria da assegnare alle card "spacer"
+    if(activeProducts && activeProducts.length){
+        if(activeProducts[activeProducts.length - 1]?.category_info){
+            mainCat = activeProducts[activeProducts.length - 1].category_info[0]
+        }else if(activeProducts[0]?.category_info){
+            mainCat = activeProducts[0].category_info[0]
+        }
+    }
     if(activeCat){
         activeProducts = activeProducts.filter(elem => {
             var active = false;
@@ -22,12 +30,14 @@ export default function ProductLoop({catFilters, products, filters=true, prontaC
             return active;
         });
     }
-    if(activeProducts.length%3!==0){
-        for (let index = 0; index < products.length%3; index++) {
+    var cols = (mainCat.main_cat_italian_id!==284)?4:3;
+    if(activeProducts.length%cols!==0){
+        const missing = (cols - (activeProducts.length % cols)) % cols;
+        for (let i = 0; i < missing; i++) {
             activeProducts.push(null);
         }
     }
-    const filterCommonClass = `py-1 px-2 [&_span]:text-[var(--color-primary)] cursor-pointer [&:not(:last-child)]:border-b-[1px] [&:not(:last-child)]:border-b-[var(--color-primary)] [&:hover,&.current]:bg-[var(--color-primary)] [&:hover_span,&.current_span]:text-white [&,&_span]:transition-all [&,&_span]:duration-500 [&,&_span]:ease`;
+    const filterCommonClass = `py-1 px-2 [&_span]:text-[var(--color-primary)] cursor-pointer [&:not(:last-child)]:border-b-[1px] [&:not(:last-child)]:border-b-[var(--color-primary)] [&:hover,&.current]:bg-[var(--color-primary)] [&:hover_span,&.current_span]:text-[var(--background)] [&,&_span]:transition-all [&,&_span]:duration-500 [&,&_span]:ease`;
     
     useEffect(() => {
         document.querySelector('body').addEventListener('click', function(e){
@@ -43,25 +53,14 @@ export default function ProductLoop({catFilters, products, filters=true, prontaC
         setFilterOpen(false);
     }
 
-    var mainCat = {}; //categoria da assegnare alle card "spacer"
-    if(activeProducts && activeProducts.length){
-        if(activeProducts[activeProducts.length - 1]?.category_info){
-            activeProducts[activeProducts.length - 1].category_info[0]
-        }else if(activeProducts[0]?.category_info){
-            mainCat = activeProducts[0].category_info[0]
-        }else{
-            mainCat = {};
-        }
-    }
-
     return <>
         {filters && <section className="relative mt-5 boxed flex items-center gap-2 z-10 max-l:flex-col max-l:items-start">
             <BigText Tag="span" className="font-semibold text-[var(--color-primary)] h3">{t('Categorie macchinari')}</BigText>
             <div className="relative inline-flex m:min-w-40 max-m:w-30 max-w-full">
-                <div className="py-1 px-2 bg-[var(--color-primary)] min-w-full [&_span]:text-white cursor-pointer filters-handle flex items-center justify-between gap-2 rounded-[5px]" onClick={() => setFilterOpen(!filterOpen)}><span>{activeCat?activeCat.name:t('Tutte')}</span><Image className={`ml-auto transition-all duration-300 ease ${filterOpen && 'rotate-[-180deg]'}`} src={'/expand-more.svg'} width={25} height={25} alt="expand more" /></div>
+                <div className="py-1 px-2 bg-[var(--color-primary)] min-w-full [&_span]:text-[var(--background)] cursor-pointer filters-handle flex items-center justify-between gap-2 rounded-[5px]" onClick={() => setFilterOpen(!filterOpen)}><span>{activeCat?activeCat.name:t('Tutte')}</span><Image className={`ml-auto transition-all duration-300 ease ${filterOpen && 'rotate-[-180deg]'}`} src={'/expand-more.svg'} width={25} height={25} alt="expand more" /></div>
                 
                 {
-                    (catFilters && catFilters.length > 0) && <div className={`filters-handle ${filterOpen? 'inline-flex' : 'hidden'} flex-col items-left bg-white border-[var(--color-primary)] border-[1px] absolute top-[calc(100%-2px)] rounded-b-[5px] right-0 w-full`}>
+                    (catFilters && catFilters.length > 0) && <div className={`filters-handle ${filterOpen? 'inline-flex' : 'hidden'} flex-col items-left bg-[var(--background)] border-[var(--color-primary)] border-[1px] absolute top-[calc(100%-2px)] rounded-b-[5px] right-0 w-full`}>
                         {
                             activeCat && <div onClick={() => {handleClickFilterOption(null)}} className={`${!activeCat && 'current'} ${filterCommonClass}`}><span>{t('Tutte')}</span></div>
                         }

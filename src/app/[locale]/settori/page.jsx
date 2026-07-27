@@ -30,7 +30,7 @@ export default async function Page({params}){
                 <Paragraph className="w-[calc(100%/3*2)] max-l:w-full">{page.acf.paragrafo}</Paragraph>
             </div>    
         </section>
-        <section className="relative mt-[75px] max-l:mt-4 big-boxed flex items-stretch w-full xl:!px-4 gap-[2px] mb-6 max-l:flex-col">
+        <section className="relative mt-[75px] max-l:mt-4 big-boxed flex items-stretch w-full xl:!px-4 gap-1 mb-6 max-l:flex-col">
             {
                 settori.map(elem => {
                     const img = elem._embedded['wp:featuredmedia'][0];

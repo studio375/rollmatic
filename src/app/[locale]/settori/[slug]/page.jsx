@@ -21,8 +21,8 @@ export default async function Page({params}){
     if(!settore) notFound();
     const img = settore._embedded['wp:featuredmedia'][0];
     return <>
-        <section className="flex w-full boxed m:!px-4 max-s:!px-0 max-m:mt-[75px]">
-            <Image className="max-xs:aspect-2/1.5 object-cover" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={settore.title.rendered} />
+        <section className="flex w-full boxed m:!px-4 min-[1920px]:!px-[3vw] max-s:!px-0 max-m:mt-[75px]">
+            <Image className="max-xs:aspect-2/1.5 object-cover xs:h-[50vh] m:h-[75vh] w-full rounded-[5px]" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={settore.title.rendered} />
         </section>
         <section className="w-full big-boxed mt-7 relative max-s:mt-4">
             <div className="w-full flex items-start justify-between pb-3 border-b-[1px] border-b-[var(--color-primary)] max-l:flex-col max-l:gap-2">

@@ -12,11 +12,11 @@ var prodObjectExample = {
 */
 export default function ProductCard({prodObject, ...props}){
     if(prodObject == null){
-        return <div {...props} className={`w-[calc(100%/3)] max-m:w-1/2 px-[75px] max-xl:px-3 pb-6 max-s:pb-3 max-xs:w-full max-xs:hidden ${props.className}`}></div>
+        return <div {...props} className={`w-[calc(100%/3)] max-m:w-1/2 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] overflow-hidden max-xs:w-full max-xs:hidden [&:not(.it-id-284)]:min-[1920px]:!w-[calc(100%/4)] [&:not(.it-id-284):last-child:nth-child(4n)]:max-[1920px]:hidden ${props.className}`}></div>
     }
-    const commonClass = `relative px-[75px] max-xl:px-3 pb-6 max-s:pb-3 product-image product-image-card it-id-${prodObject.cat.main_cat_italian_id}`;
+    const commonClass = `relative px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] pb-6 max-s:pb-3 product-image product-image-card it-id-${prodObject.cat.main_cat_italian_id}`;
     const img = prodObject.thumbnail_data;
-    return <div {...props} className={`w-[calc(100%/3)] max-m:w-1/2 max-xs:w-full relative flex ${props.className}`}>
+    return <div {...props} className={`w-[calc(100%/3)] max-m:w-1/2 max-xs:w-full relative flex ${props.className} it-id-${prodObject.cat.main_cat_italian_id} [&:not(.it-id-284)]:min-[1920px]:!w-[calc(100%/4)]`}>
         <Link className={`flex flex-col items-center w-full ${commonClass}`} href={`/${prodObject.cat.slug}/${prodObject.slug}`}>
             {img && <Image className="w-full h-auto object-contain" src={img[0]} width={img[1]} height={img[2]} alt={prodObject.title}/>}
             <div className="w-full h-[1px] bg-[var(--color-primary)] mt-2"></div>

@@ -12,9 +12,9 @@ var prodObjectExample = {
 };
 */
 export default function ProntaConsegnaCard({prodObject, ...props}){
-    const commonClass = `relative product-image product-image-card px-[75px] max-xl:px-3 pb-6 max-s:pb-3 w-[calc(100%/3)] max-l:w-1/2 max-s:w-full ${props.className}`;
+    const commonClass = `relative product-image product-image-card px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] w-[calc(100%/3)] max-l:w-1/2 max-s:w-full overflow-hidden [&:not(.it-id-284)]:min-[1920px]:!w-[calc(100%/4)] ${props.className}`;
     if(prodObject == null){
-        return <div {...props} className={`${commonClass} max-l:[&:nth-last-child(1)]:hidden max-l:[&:nth-last-child(2)]:hidden max-s:hidden`}></div>
+        return <div {...props} className={`${commonClass} max-l:[&:nth-last-child(1)]:hidden max-l:[&:nth-last-child(2)]:hidden max-s:hidden `}></div>
     }
     const img = prodObject.thumbnail_data;
     return <div {...props} className={`flex flex-col items-center ${commonClass}`}>

@@ -10,7 +10,7 @@ export default function LangSwitcher({}){
     const all_locales = config.locales;
     const pathname = usePathname();
     const params = useParams();
-    const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-white';
+    const commonClasses = 'uppercase font-medium [#site-header.transparent_&]:!text-[var(--background)]';
     async function switchLocale(newLocale) {
         const replacements = [];
         if (pathname.includes('[product_cat]')) {
@@ -74,7 +74,7 @@ export default function LangSwitcher({}){
             {
                 all_locales.map(lang => {
                     if(lang == locale) return;
-                    return <span key={lang} onClick={() => switchLocale(lang)} className={`${commonClasses} text-white whitespace-nowrap hover:!underline cursor-pointer`}>{lang}</span>;
+                    return <span key={lang} onClick={() => switchLocale(lang)} className={`${commonClasses} text-[var(--background)] whitespace-nowrap hover:!underline cursor-pointer`}>{lang}</span>;
                 })
             }
        </div>

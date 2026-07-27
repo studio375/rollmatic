@@ -40,7 +40,7 @@ export default function MobileHeader({menu_items}){
                 isOpen ? <Image src="/close.svg" width={30} height={30} alt="Close Menu" /> : <Image src="/hamburger.svg" width={30} height={30} alt="Hamburger Menu" />
             }
         </div>
-        <div className={`fixed top-0 left-0 w-screen h-screen bg-white flex items-start justify-center ${!isOpen && '!hidden' }`}>
+        <div className={`fixed top-0 left-0 w-screen h-screen bg-[var(--background)] flex items-start justify-center ${!isOpen && '!hidden' }`}>
             <div data-lenis-prevent className="flex flex-col items-center py-15 max-h-full overflow-y-auto w-full"> 
                 {
                     menu_items.map(elem => {
