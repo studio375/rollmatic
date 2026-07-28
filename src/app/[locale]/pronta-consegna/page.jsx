@@ -1,4 +1,5 @@
 import BigText from "@/components/Library/Big Text/bigText";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import Faq from "@/components/Library/Faq/faq";
 import GravityForm from "@/components/Library/Gravity Form/gravityForm";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
@@ -27,6 +28,7 @@ export default async function Page({params}){
     });
     var form = await fetchAPI('forms/1', {}, true);
     return <>
+        <Breadcrumbs items={[{label:page.title.rendered}]} />
         <section className="w-full relative big-boxed pt-20 max-m:pt-13">
             <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 max-l:flex-col max-l:gap-3">
                 <BigText Tag="h1" className="classic-title">{page.title.rendered}</BigText>

@@ -1,11 +1,12 @@
 import BigText from "@/components/Library/Big Text/bigText";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
 import { buildMetadata } from "@/helpers/seo/metadata";
 import { routing } from "@/i18n/routing";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -20,7 +21,7 @@ export default async function Page({params}){
     });
     if(!settore) notFound();
     const img = settore._embedded['wp:featuredmedia'][0];
-    
+    const t = await getTranslations('strings');
     const prodAllCat = {};
     if (settore.acf.prodotti_correlati) {
         Array.from(settore.acf.prodotti_correlati).forEach(elem => {
@@ -34,6 +35,7 @@ export default async function Page({params}){
     }
 
     return <>
+        <Breadcrumbs items={[{href:'settori', label:t("Settori")}, {label: settore.title.rendered}]} className="!relative !top-0 mt-10 mb-[5px]" />
         <section className="flex w-full boxed m:!px-4 min-[1920px]:!px-[3vw] max-s:!px-0 max-m:mt-[75px]">
             <Image className="max-xs:aspect-2/1.5 object-cover xs:h-[50vh] m:h-[75vh] w-full rounded-[5px]" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={settore.title.rendered} />
         </section>

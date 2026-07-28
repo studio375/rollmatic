@@ -19,7 +19,7 @@ export default function Faq({faq}){
     return <div ref={ref} className="flex flex-col items-start w-full">
         {
             faq.map((elem, index) => {
-                return <div onClick={() => handleClickFaq(ref.current, index)} key={index} className="w-full py-2 border-b-[1px] border-b-[var(--color-primary)] [&:first-child]:border-t-[1px] [&:first-child]:border-t-[var(--color-primary)] cursor-pointer">
+                return <div onClick={() => handleClickFaq(ref.current, index)} key={index} className="w-full py-2 border-b-[1px] border-b-[var(--color-primary)] [&:first-child]:border-t-[1px] [&:first-child]:border-t-[var(--color-primary)] cursor-pointer transition-all duration-500 [&:hover:not(.open)]:py-[25px]">
                     <div className="domanda w-full flex items-center">
                         <div className="flex items-center gap-4 max-m:gap-2 max-w-[calc(100%-50px)] max-m:max-w-[calc(100%-40px)]">
                             <span>{index+1}</span>

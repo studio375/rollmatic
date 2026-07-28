@@ -1,4 +1,5 @@
 import BigText from "@/components/Library/Big Text/bigText";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
@@ -32,6 +33,7 @@ export default async function Page({params}){
     });
     
     return <>
+        <Breadcrumbs items={[{label: cat.name}]} />
         <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 max-m:pt-12 max-m:pb-5 boxed xl:!px-15 flex items-center justify-between max-m:flex-col max-m:gap-4">
                 <div className="relative flex flex-col items-start gap-[15px] w-40 max-m:w-full">
                     <BigText Tag="h1" className="classic-title">{cat.name}</BigText>

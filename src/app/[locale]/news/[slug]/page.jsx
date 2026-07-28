@@ -1,7 +1,9 @@
 import BigText from "@/components/Library/Big Text/bigText";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import NewsCard from "@/components/Library/News Card/newsCard";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
+import { localizeHref } from "@/i18n/localize-href";
 import { buildMetadata } from "@/helpers/seo/metadata";
 import { routing } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -28,6 +30,7 @@ export default async function Page({params}){
         acf_format: 'standard'
     });
     return <>
+        <Breadcrumbs items={[{href:'news',label:t('News')}, {label:obj.title.rendered}]} />
         <section className="mt-15 max-m:mt-13 big-boxed flex flex-col items-start mb-17 max-m:mb-10">
             <div className="w-full border-b-[1px] border-b-[var(--color-primary)]">
                 <BigText Tag="h1" className="classic-title pb-6 max-m:pb-3 border-b-[2px] border-b-[var(--color-primary)] inline-block !font-semibold">{obj.title.rendered}</BigText>

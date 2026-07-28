@@ -1,4 +1,5 @@
 import BigText from "@/components/Library/Big Text/bigText";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import IncrementNumber from "@/components/Library/Increment number/incrementNumber";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import Timeline from "@/components/Library/Timeline/timeline";
@@ -20,6 +21,7 @@ export default async function Page({params}){
     var beforeClass = "[&::before]:w-8 [&::before]:h-[3px] [&::before]:absolute [&::before]:bottom-0 [&::before]:left-0 [&::before]:bg-[var(--color-primary)] [&::before]:content-['']";
     var textSectionClass = "w-full flex items-start justify-start gap-5 max-m:flex-col max-m:gap-2";
     return <>
+        <Breadcrumbs items={[{label: page.title.rendered}]} />
         <section className="w-full relative">
             <Image className="w-full h-auto max-s:h-[50vh] object-cover" src={page.acf.immagine_testata.url} width={page.acf.immagine_testata.width} height={page.acf.immagine_testata.height} alt={page.title.rendered} />
         </section>

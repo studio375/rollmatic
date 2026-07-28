@@ -36,9 +36,8 @@ export default function ProductPage({prodotto, cat, formObject = null}){
     },[setCurrentPageTitle])
     
     const singleColClass="flex items-start justify-start flex-col";
-
     return <>
-        <Breadcrumbs page={prodotto} />
+        <Breadcrumbs items={[{href:cat.slug, label: cat.name}, {label: prodotto.title.rendered}]} />
         <section className="w-full relative h-auto py-8 testata-product flex flex-col items-center max-s:gap-5 max-mobileHeader:pt-13">
             {/* {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100%-200px)] w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>} */}
             {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100vh-200px)] w-auto max-s:w-full max-s:h-auto max-s:max-h-[100vh-200px] object-cover max-s:object-contain relative object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>}
@@ -108,7 +107,7 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             </div>:<div className="h-20 max-m:h-10 w-full"></div>}
             <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-25 max-xl:pb-14 max-m:pb-5 gradient-before`}>
                 <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
-                {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)]`}>
+                {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)] transition-all duration-500 [&:hover:not(.open)]:py-[5px]`}>
                     <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
                         <span className='uppercase'>{t("Disegni tecnici")}</span>
                         <div className={`w-3 h-3 relative`}>

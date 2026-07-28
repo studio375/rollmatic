@@ -44,7 +44,7 @@ export function buildMetadata({
 }) {
   if (!yoast) return {};
 
-  const params = [...pathname.matchAll(/\[(\w+)\]/g)].map((m) => m[1]);
+  const params = [...pathname.matchAll(/\[(\w+)\]/g)].map((m) => m[1]); //cerco nel pathname stringhe come "[xxxx]"
   const lastParam = params.at(-1);
   const taxParams = params.slice(0, -1);
 

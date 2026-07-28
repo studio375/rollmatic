@@ -1,4 +1,5 @@
 import BigText from "@/components/Library/Big Text/bigText";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import { fetchAPI } from "@/helpers/api/fetch-api"
 import { buildMetadata } from "@/helpers/seo/metadata";
@@ -24,6 +25,7 @@ export default async function Page({params}){
         lang:locale
     });
     return <>
+        <Breadcrumbs items={[{label:page.title.rendered}]} />
         <section className="w-full relative big-boxed pt-20 max-l:pt-15 max-m:pt-13">
             <div className="w-full flex items-start justify-between border-b-[1px] border-b-[var(--color-primary)] pb-3 max-m:pb-4 max-l:flex-col max-l:gap-3">
                 <BigText Tag="h1" className="classic-title">{page.acf.titolo}</BigText>

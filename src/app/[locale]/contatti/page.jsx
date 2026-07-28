@@ -6,6 +6,7 @@ import Image from "next/image";
 import GravityForm from "@/components/Library/Gravity Form/gravityForm";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildMetadata } from "@/helpers/seo/metadata";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 
 export default async function Page({params}){
     const {locale} = await params;
@@ -21,6 +22,7 @@ export default async function Page({params}){
     const social = page.acf.social;
     var form = await fetchAPI('forms/1', {}, true);
     return <>
+        <Breadcrumbs items={[{label:page.title.rendered}]} />
         <section className="mt-20 big-boxed flex items-start max-m:flex-col max-m:gap-5 max-m:mt-13">
             <div className="flex flex-col items-start [&_*]:!text-[24px]/[30px] w-[calc(100%/3)] max-m:w-full max-m:flex-row flex-wrap max-m:gap-y-1 max-xs:gap-y-2">
                 <h1 className="!text-[24px]/[30px] font-bold !text-[var(--color-foreground)] w-full">{parse(page.acf.titolo)}</h1>

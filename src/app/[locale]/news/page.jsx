@@ -1,4 +1,5 @@
 import BigText from "@/components/Library/Big Text/bigText";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import NewsCard from "@/components/Library/News Card/newsCard";
 import { fetchAPI } from "@/helpers/api/fetch-api";
 import { buildMetadata } from "@/helpers/seo/metadata";
@@ -21,6 +22,7 @@ export default async function Page({params}){
     });
 
     return <>
+        <Breadcrumbs items={[{label:page.title.rendered}]} />
         <section className="w-full big-boxed mt-15 max-m:mt-13">
             <BigText Tag="h1" className="classic-title">News</BigText>
         </section>

@@ -5,6 +5,7 @@ import Paragraph from "@/components/Library/Paragraph/paragraph";
 import CustomButton from "@/components/Library/Custom Button/customButton";
 import { buildMetadata } from "@/helpers/seo/metadata";
 import { setRequestLocale } from "next-intl/server";
+import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 
 export default async function Page({params}){
     const {locale} = await params;
@@ -15,13 +16,16 @@ export default async function Page({params}){
         lang: locale
     });
     if(!page) notFound();
-    return <section className="big-boxed mt-20 mb-15 max-s:mt-15 max-s:mb-10 w-full relative">
-        <div className={`flex flex-col items-center w-full gap-3`}>
-            <BigText Tag="h1" className={`h2 text-center`}>{page.acf.titolo}</BigText>
-            <Paragraph Tag="span" className={`text-center`}>{page.acf.testo}</Paragraph>
-            <CustomButton href="/" className={``}>Torna alla home</CustomButton>
-        </div>
-    </section>;
+    return <>
+      <Breadcrumbs items={[{label: page.title.rendered}]} />
+      <section className="big-boxed mt-20 mb-15 max-s:mt-15 max-s:mb-10 w-full relative">
+          <div className={`flex flex-col items-center w-full gap-3`}>
+              <BigText Tag="h1" className={`h2 text-center`}>{page.acf.titolo}</BigText>
+              <Paragraph Tag="span" className={`text-center`}>{page.acf.testo}</Paragraph>
+              <CustomButton href="/" className={``}>Torna alla home</CustomButton>
+          </div>
+      </section>
+    </>;
 }
 
 
