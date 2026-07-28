@@ -53,15 +53,15 @@ export default async function Home({params}) {
       </section>
       <section className="w-full pt-10 flex flex-col items-center">
         <BigText className="font-semibold text-center boxed">{page.acf.titolo_categorie}</BigText>
-        <div className="mt-15 max-l:mt-10 flex items-start w-full max-xl:flex-wrap max-xl:gap-y-8">
+        <div className="mt-15 max-l:mt-10 flex items-stretch w-full max-xl:flex-wrap max-xl:gap-y-8">
           {
             categorie.map(elem => {
               var italianID = (locale == 'it')?elem.id:elem.wpml_translations?.it_IT?.id;
               return <div style={{order: (order+1 == 2)?order+=2:order++}} key={elem.id} className={`relative flex flex-col items-center product-image product-image-card ${italianID==284?'w-[40%] max-xl:w-[60%] xl:px-0 max-xl:!order-1':'w-[calc(60%/3)] max-xl:w-[40%]'} ${italianID == 314 && 'max-xl:!w-[60%] !order-10'} px-4 max-s:!w-full`}>
-                {elem.acf.immagine_categoria && <Image className="mb-5 max-m:mb-2 w-full h-[40vh] object-cover max-xl:object-contain" src={elem.acf.immagine_categoria.url} width={elem.acf.immagine_categoria.width} height={elem.acf.immagine_categoria.height} alt={elem.name} />}
-                <BigText Tag="h3" className="!mt-auto text-[32px] font-semibold text-center">{elem.name}</BigText>
-                <Paragraph Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
-                <CustomButton className="mt-3" href={`${locale!=='it'?locale:''}/${elem.slug}`}>{t('Vedi soluzioni')}</CustomButton>
+                {elem.acf.immagine_categoria && <Image className={`mb-3 max-m:mb-2 w-full s:h-[30vh] m:h-[40vh] object-contain object-bottom ${italianID == 314 && "max-xl:!w-[70%] max-s:!w-full"}`} src={elem.acf.immagine_categoria.url} width={elem.acf.immagine_categoria.width} height={elem.acf.immagine_categoria.height} alt={elem.name} />}
+                <BigText Tag="h3" className=" text-[32px] font-semibold text-center">{elem.name}</BigText>
+                <Paragraph className="block mb-3" Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
+                <CustomButton className="mt-auto" href={`${locale!=='it'?locale:''}/${elem.slug}`}>{t('Vedi soluzioni')}</CustomButton>
               </div>
             })
           }

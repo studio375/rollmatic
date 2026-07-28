@@ -1,10 +1,10 @@
 import { Link } from "@/i18n/navigation";
 
-export default function Breadcrumbs({items, ...attr}){
+export default function Breadcrumbs({items, ...props}){
     var commonClass = 'text-[12px] text-[#AAAAAA]';
     if(!items[0].href || items[0].href !== '/')
         items.splice(0, 0, {href:'/', label:'home'});
-    return <div {...attr} className={`absolute top-10 left-4 z-10 flex items-center gap-[5px] lowercase ${attr.className || ''}`}>
+    return <div {...props} className={`absolute top-10 left-4 z-10 flex items-center gap-[5px] lowercase ${props.className || ''}`}>
         {items.map((item, i) => {
             if (item.href && !item.href.startsWith('/')) {
                 item.href = '/' + item.href;
