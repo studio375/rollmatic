@@ -25,6 +25,9 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
     }
     var mainCat = cat.filter(elem => elem.parent==0)[0];
     var childCat = cat.filter(elem => elem.parent==mainCat.term_id)[0];
+    console.log(cat);
+    if(!childCat) childCat=mainCat;
+    console.log(childCat);
     var dettagliProd = prodotto.acf.dettagli_prodotto;
     var col1Dettagli = dettagliProd?.filter((elem, i) => {return (i < dettagliProd.length / 2)});
     var col2Dettagli = dettagliProd?.filter((elem, i) => {return (i >= dettagliProd.length / 2)});
@@ -33,18 +36,18 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
 
     const {setCurrentPageTitle} = useStore();
     useEffect(() => {
-        setCurrentPageTitle(`${childCat.name} ${prodotto.title.rendered}`);
+        setCurrentPageTitle(`${childCat?.name} ${prodotto.title.rendered}`);
     },[setCurrentPageTitle])
     
     const singleColClass="flex items-start justify-start flex-col";
     return <>
-        <Breadcrumbs items={[{href:mainCat.slug, label: mainCat.name}, {label: prodotto.title.rendered}]} />
+        <Breadcrumbs items={[{href:mainCat?.slug, label: mainCat?.name}, {label: prodotto.title.rendered}]} />
         <section className="w-full relative h-auto py-8 testata-product flex flex-col items-center max-s:gap-5 max-mobileHeader:pt-13">
             {/* {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100%-200px)] w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>} */}
             {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100vh-200px)] w-auto max-s:w-full max-s:h-auto max-s:max-h-[100vh-200px] object-cover max-s:object-contain relative object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>}
             <div className={`boxed relative -mt-8 max-[1700px]:-m-2 w-full flex items-end justify-between max-[1700px]:flex-col max-[1700px]:items-start max-[1700px]:gap-3`}>
                 <div className={`w-[40%] max-[1700px]:w-full`}>
-                    <BigText className="h3 sub" Tag="h2">{childCat.name}</BigText>
+                    <BigText className="h3 sub" Tag="h2">{childCat?.name}</BigText>
                     <BigText Tag="h1" className="font-extrabold">{prodotto.title.rendered}</BigText>
                 </div>
                 <div className={`flex items-end justify-between w-[55%] max-[1700px]:w-full max-[1700px]:flex-wrap max-[1700px]:gap-3`}>
@@ -102,7 +105,7 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
             }
         </section>
         <section className="w-full relative mt-25 max-xl:mt-14 max-s:mt-10">
-            {mainCat.acf.testo_gamma && <BigText className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]" Tag="h3">{mainCat.acf.testo_gamma}</BigText>}
+            {mainCat?.acf?.testo_gamma && <BigText className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]" Tag="h3">{mainCat.acf.testo_gamma}</BigText>}
             {prodotto.acf.immagine_full? <div className="w-full product-image big-boxed mt-5">
                  <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
             </div>:<div className="h-20 max-m:h-10 w-full"></div>}
