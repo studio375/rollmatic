@@ -8,7 +8,7 @@ import ScrollGallery from '@/components/Library/Scroll Gallery/scrollGallery';
 import VideoCarousel from '@/components/Library/Video Carousel/videoCarousel';
 import GravityForm from '@/components/Library/Gravity Form/gravityForm';
 import { useStore } from '@/store/useStore.js';
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import parse from 'html-react-parser';
 import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 
@@ -16,6 +16,7 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
     const [open, setOpen] = useState(false);
     const [drawsHeight, setDrawsHeight] = useState(0);
     const drawsInner = useRef(null);
+    const locale = useLocale();
     const t = useTranslations('strings');
     function handeClickDraws(){
         var isOpen = !open;
@@ -23,11 +24,14 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
         var height = drawsInner.current.getBoundingClientRect().height;
         setDrawsHeight((isOpen)?height:'0');
     }
-    var mainCat = cat.filter(elem => elem.parent==0)[0];
+    var mainCat = cat.filter(elem => {
+        if(locale !== 'it')
+            return elem.parent==0 && elem.term_id != elem.main_cat_italian_id; //controllo perchè in alcune categorie dall'import si è salvata anche la categoria italiana
+        else
+            return elem.parent==0;
+    })[0];
     var childCat = cat.filter(elem => elem.parent==mainCat.term_id)[0];
-    console.log(cat);
     if(!childCat) childCat=mainCat;
-    console.log(childCat);
     var dettagliProd = prodotto.acf.dettagli_prodotto;
     var col1Dettagli = dettagliProd?.filter((elem, i) => {return (i < dettagliProd.length / 2)});
     var col2Dettagli = dettagliProd?.filter((elem, i) => {return (i >= dettagliProd.length / 2)});

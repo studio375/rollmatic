@@ -29,7 +29,6 @@ export default function HeaderClient({menu_items}){
         setIsMobile(window.innerWidth <= 1100);
         window.addEventListener("resize", () => {setIsMobile(window.innerWidth <= 1100);});
         setTransparent(pathName === '/' || pathName.includes('[product_cat]'));
-        console.log(transparent);
     });
     useEffect(() => {
         if(!ref) return;    
