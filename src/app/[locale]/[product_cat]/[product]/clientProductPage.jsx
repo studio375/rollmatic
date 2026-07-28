@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import parse from 'html-react-parser';
 import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 
-export default function ProductPage({prodotto, cat, formObject = null}){
+export default function ProductPage({prodotto, cat=[...cat], formObject = null}){
     const [open, setOpen] = useState(false);
     const [drawsHeight, setDrawsHeight] = useState(0);
     const drawsInner = useRef(null);
@@ -23,7 +23,8 @@ export default function ProductPage({prodotto, cat, formObject = null}){
         var height = drawsInner.current.getBoundingClientRect().height;
         setDrawsHeight((isOpen)?height:'0');
     }
-    
+    var mainCat = cat.filter(elem => elem.parent==0)[0];
+    var childCat = cat.filter(elem => elem.parent==mainCat.term_id)[0];
     var dettagliProd = prodotto.acf.dettagli_prodotto;
     var col1Dettagli = dettagliProd?.filter((elem, i) => {return (i < dettagliProd.length / 2)});
     var col2Dettagli = dettagliProd?.filter((elem, i) => {return (i >= dettagliProd.length / 2)});
@@ -32,18 +33,18 @@ export default function ProductPage({prodotto, cat, formObject = null}){
 
     const {setCurrentPageTitle} = useStore();
     useEffect(() => {
-        setCurrentPageTitle(`${cat.name} ${prodotto.title.rendered}`);
+        setCurrentPageTitle(`${childCat.name} ${prodotto.title.rendered}`);
     },[setCurrentPageTitle])
     
     const singleColClass="flex items-start justify-start flex-col";
     return <>
-        <Breadcrumbs items={[{href:cat.slug, label: cat.name}, {label: prodotto.title.rendered}]} />
+        <Breadcrumbs items={[{href:mainCat.slug, label: mainCat.name}, {label: prodotto.title.rendered}]} />
         <section className="w-full relative h-auto py-8 testata-product flex flex-col items-center max-s:gap-5 max-mobileHeader:pt-13">
             {/* {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100%-200px)] w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>} */}
             {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100vh-200px)] w-auto max-s:w-full max-s:h-auto max-s:max-h-[100vh-200px] object-cover max-s:object-contain relative object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>}
             <div className={`boxed relative -mt-8 max-[1700px]:-m-2 w-full flex items-end justify-between max-[1700px]:flex-col max-[1700px]:items-start max-[1700px]:gap-3`}>
                 <div className={`w-[40%] max-[1700px]:w-full`}>
-                    <BigText className="h3 sub" Tag="h2">{cat.name}</BigText>
+                    <BigText className="h3 sub" Tag="h2">{childCat.name}</BigText>
                     <BigText Tag="h1" className="font-extrabold">{prodotto.title.rendered}</BigText>
                 </div>
                 <div className={`flex items-end justify-between w-[55%] max-[1700px]:w-full max-[1700px]:flex-wrap max-[1700px]:gap-3`}>
@@ -101,16 +102,16 @@ export default function ProductPage({prodotto, cat, formObject = null}){
             }
         </section>
         <section className="w-full relative mt-25 max-xl:mt-14 max-s:mt-10">
-            {cat.acf.testo_gamma && <BigText className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]" Tag="h3">{cat.acf.testo_gamma}</BigText>}
+            {mainCat.acf.testo_gamma && <BigText className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]" Tag="h3">{mainCat.acf.testo_gamma}</BigText>}
             {prodotto.acf.immagine_full? <div className="w-full product-image big-boxed mt-5">
                  <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
             </div>:<div className="h-20 max-m:h-10 w-full"></div>}
-            <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-25 max-xl:pb-14 max-m:pb-5 gradient-before`}>
+            <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-[30px] gradient-before`}>
                 <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
-                {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)] transition-all duration-500 [&:hover:not(.open)]:py-[5px]`}>
+                {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} line w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)] transition-all duration-500 hover:border-[var(--color-primary)]`}>
                     <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
                         <span className='uppercase'>{t("Disegni tecnici")}</span>
-                        <div className={`w-3 h-3 relative`}>
+                        <div className={`w-3 h-3 relative transition-all duration-500 [.line:hover:not(.open)_&]:rotate-180`}>
                             <div className='hor absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px]'></div>
                             <div className='vert absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px] rotate-[-90deg] transition-all duration-[0.3s] ease [.open_&]:opacity-0'></div>
                         </div>

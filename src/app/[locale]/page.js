@@ -57,11 +57,13 @@ export default async function Home({params}) {
           {
             categorie.map(elem => {
               var italianID = (locale == 'it')?elem.id:elem.wpml_translations?.it_IT?.id;
-              return <div style={{order: (order+1 == 2)?order+=2:order++}} key={elem.id} className={`relative flex flex-col items-center product-image product-image-card ${italianID==284?'w-[40%] max-xl:w-[60%] xl:px-0 max-xl:!order-1':'w-[calc(60%/3)] max-xl:w-[40%]'} ${italianID == 314 && 'max-xl:!w-[60%] !order-10'} px-4 max-s:!w-full`}>
-                {elem.acf.immagine_categoria && <Image className={`mb-3 max-m:mb-2 w-full s:h-[30vh] m:h-[40vh] object-contain object-bottom ${italianID == 314 && "max-xl:!w-[70%] max-s:!w-full"}`} src={elem.acf.immagine_categoria.url} width={elem.acf.immagine_categoria.width} height={elem.acf.immagine_categoria.height} alt={elem.name} />}
-                <BigText Tag="h3" className=" text-[32px] font-semibold text-center">{elem.name}</BigText>
-                <Paragraph className="block mb-3" Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
-                <CustomButton className="mt-auto" href={`${locale!=='it'?locale:''}/${elem.slug}`}>{t('Vedi soluzioni')}</CustomButton>
+              return <div style={{order: (order+1 == 2)?order+=2:order++}} key={elem.id} className={`relative product-image product-image-card ${italianID==284?'w-[37%] max-xl:w-[60%] max-xl:!order-1':'w-[calc(63%/3)] max-xl:w-[40%]'} ${italianID == 314 && 'max-xl:!w-[60%] !order-10'} px-4 max-s:!w-full`}>
+                <Link className="flex flex-col items-center w-full [&:hover_.btn]:!text-[var(--background)] [&_.btn_*]:transition-all [&_.btn_*]:duration-300 [&:hover_.btn_.back]:w-full" href={`${locale!=='it'?locale:''}/${elem.slug}`}>
+                  {elem.acf.immagine_categoria && <Image className={`mb-3 max-m:mb-2 w-full s:h-[30vh] m:h-[40vh] object-contain object-bottom ${italianID == 314 && "max-xl:!w-[70%] max-s:!w-full"}`} src={elem.acf.immagine_categoria.url} width={elem.acf.immagine_categoria.width} height={elem.acf.immagine_categoria.height} alt={elem.name} />}
+                  <BigText Tag="h3" className=" text-[32px] font-semibold text-center">{elem.name}</BigText>
+                  <Paragraph className="block mb-3" Tag="span">{elem.acf.sottotitolo || ''}</Paragraph>
+                  <CustomButton className="mt-auto" Tag={'div'}>{t('Vedi soluzioni')}</CustomButton>
+                </Link>
               </div>
             })
           }

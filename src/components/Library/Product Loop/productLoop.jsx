@@ -13,6 +13,7 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
     const t = useTranslations('strings');
     var activeProducts = [...products];
     var mainCat = {}; //categoria da assegnare alle card "spacer"
+
     if(activeProducts && activeProducts.length){
         if(activeProducts[activeProducts.length - 1]?.category_info){
             mainCat = activeProducts[activeProducts.length - 1].category_info[0]
@@ -54,7 +55,7 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
     }
 
     return <div className="flex flex-col">
-        {title && <div className="px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] flex s:-mb-5"><BigText Tag="h2" className="font-semibold text-[var(--color-primary)] h2">{title}</BigText></div>}
+        {title && <div className="px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] flex s:-mb-5 justify-center"><BigText Tag="h2" className="font-semibold text-[var(--color-primary)] h2 text-center">{title}</BigText></div>}
         {filters && <section className="relative mt-5 boxed flex items-center gap-2 z-[100] max-l:flex-col max-l:items-start">
             <BigText Tag="span" className="font-semibold text-[var(--color-primary)] h3">{t('Categorie macchinari')}</BigText>
             <div className="relative inline-flex m:min-w-40 max-m:w-30 max-w-full">

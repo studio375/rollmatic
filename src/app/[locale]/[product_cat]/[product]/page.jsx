@@ -36,7 +36,7 @@ export default async function Page({params}){
         lang: locale
     });
     if(!prodotto) notFound();
-    const cat = prodotto?._embedded['wp:term'][0][0];
+    const cat = prodotto.category_info;
     var form = await fetchAPI('forms/1', {}, true);
     return <ProductPage prodotto={prodotto} cat={cat} formObject={form} />;
 }

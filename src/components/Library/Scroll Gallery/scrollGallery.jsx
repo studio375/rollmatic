@@ -106,7 +106,6 @@ export default function ScrollGallery({images, ...props}){
         var totalSlides = slides.length;
         var stObj = tmlObject.scrollTrigger; 
         var newProgress = (1/(totalSlides))*index;
-        console.log(index);
         var stTotalScroll = stObj.end - stObj.start; //calcolo il totale del valore dello scroll della tml
         var dest = stObj.start + (stTotalScroll * newProgress); //parto dall'inizio e scrollo per il valore del nuovo progress
         stObj.scroll(dest);
