@@ -47,11 +47,13 @@ export default async function Page({params}){
                 </div>
                 <Paragraph className="flex-1">{page.acf.ricerca_e_sviluppo.paragrafo}</Paragraph>
             </div>
-            <IncrementNumber page={page} className="w-full relative flex justify-between items-start mt-4 max-s:mt-8 gap-5 max-s:flex-col max-s:items-center" />
-            <WorldParticles className="absolute top-10 left-1/2 -translate-x-1/2"  />
-            {/* <Image className="absolute top-10 left-1/2 -translate-x-1/2" src={page.acf.ricerca_e_sviluppo.immagine_mondo.url} width={page.acf.ricerca_e_sviluppo.immagine_mondo.width} height={page.acf.ricerca_e_sviluppo.immagine_mondo.height} alt={page.acf.ricerca_e_sviluppo.immagine_mondo.alt || ''} /> */}
+            <div className="mt-10 max-s:mt-8 w-full relative flex flex-col items-center gap-8">
+                <IncrementNumber page={page} className="w-full s:absolute s:top-1/2 s:left-0 s:-translate-y-1/2 flex justify-between items-start gap-5 max-s:flex-col max-s:items-center" />
+                <WorldParticles className="relative w-[90%] max-m:w-full"  />
+                {/* <Image className="absolute top-10 left-1/2 -translate-x-1/2" src={page.acf.ricerca_e_sviluppo.immagine_mondo.url} width={page.acf.ricerca_e_sviluppo.immagine_mondo.width} height={page.acf.ricerca_e_sviluppo.immagine_mondo.height} alt={page.acf.ricerca_e_sviluppo.immagine_mondo.alt || ''} /> */}
+            </div>
         </section>
-        <section className="w-full relative big-boxed mt-40 max-xl:mt-25 max-m:mt-10 max-xs:mt-8">
+        <section className="w-full relative big-boxed mt-13 max-m:mt-8 max-xs:mt-8">
             <div className={textSectionClass}>
                 <div className="flex-1 relative flex flex-col items-start justify-start gap-[25px]">
                     <BigText Tag="h3" className={`!text-[15px] !uppercase relative font-bold pb-[7px] ${beforeClass}`}>{page.acf.mercati.titolo_piccolo}</BigText>
