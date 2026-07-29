@@ -69,7 +69,7 @@ export default function Timeline({page, ...props}){
                     if(index%2===0 && !isLeft){ //se è pari e a destra, spostalo a sinistra
                         order = index+1;
                     }
-                    
+                    console.log(elem);
                     return <div key={index} style={{order}} className={`relative flex flex-col w-1/2 relative ${isLeft?'items-start':'items-end'} [&:nth-child(2n)]:mt-20 [&:nth-last-child(2)]:mt-20 max-s:w-full max-s:items-start max-s:!mt-10 max-xs:!mt-5 max-s:!order-[unset]`}>
                         {
                             index !== page.acf.storia.length-1 ? <div className={`relative w-full flex flex-col`}>
@@ -78,9 +78,9 @@ export default function Timeline({page, ...props}){
                                     <div className={`fade-effect w-2 h-2 rounded-full bg-[var(--color-primary)] absolute top-1/2 transform -translate-y-1/2 ${isLeft ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'} max-s:left-0 max-s:-translate-x-1/2`}></div>
                                     <div className="w-full line h-[1px] bg-[var(--color-primary)]"></div>
                                 </div>
-                            </div> : elem.immagini.map((img, index) => {
+                            </div> : (elem.immagini && elem.immagini.map((img, index) => {
                                 return <Image preload key={index} className="w-[calc(100%-370px)] h-auto mt-1 fade-effect max-s:ml-5 max-s:w-[calc(100%-100px)] max-xs:ml-[5vw]" src={img.url} width={img.width} height={img.height} alt={img.alt || ''} />
-                            })
+                            }))
                         }
                         
                         <div className={`w-[calc(100%-200px)] relative flex flex-col items-start mt-3 fade-effect max-xl:w-[calc(100%-70px)] max-xs:w-full max-s:pl-5 max-xs:pl-[5vw]`}>
@@ -88,7 +88,7 @@ export default function Timeline({page, ...props}){
                             <div className="flex flex-col items-center px-5 py-[45px] bg-[#7D5B5B1A] rounded-[10px] mt-[35px] max-l:p-2">
                                 <Paragraph className="mb-3">{elem.paragrafo}</Paragraph>
                                 {
-                                    index !== page.acf.storia.length-1 && elem.immagini.map((img, index) => {
+                                    (index !== page.acf.storia.length-1 && elem.immagini) && elem.immagini.map((img, index) => {
                                         return <Image preload key={index} className="w-full h-auto mt-1" src={img.url} width={img.width} height={img.height} alt={img.alt || ''} />
                                     })
                                 }
