@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import IncrementNumber from "@/components/Library/Increment number/incrementNumber";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import Timeline from "@/components/Library/Timeline/timeline";
+import WorldParticles from "@/components/Library/WorldParticles/worldParticles";
 import { fetchAPI } from "@/helpers/api/fetch-api";
 import { buildMetadata } from "@/helpers/seo/metadata";
 import { setRequestLocale } from "next-intl/server";
@@ -47,7 +48,8 @@ export default async function Page({params}){
                 <Paragraph className="flex-1">{page.acf.ricerca_e_sviluppo.paragrafo}</Paragraph>
             </div>
             <IncrementNumber page={page} className="w-full relative flex justify-between items-start mt-4 max-s:mt-8 gap-5 max-s:flex-col max-s:items-center" />
-            <Image className="absolute top-10 left-1/2 -translate-x-1/2" src={page.acf.ricerca_e_sviluppo.immagine_mondo.url} width={page.acf.ricerca_e_sviluppo.immagine_mondo.width} height={page.acf.ricerca_e_sviluppo.immagine_mondo.height} alt={page.acf.ricerca_e_sviluppo.immagine_mondo.alt || ''} />
+            <WorldParticles className="absolute top-10 left-1/2 -translate-x-1/2"  />
+            {/* <Image className="absolute top-10 left-1/2 -translate-x-1/2" src={page.acf.ricerca_e_sviluppo.immagine_mondo.url} width={page.acf.ricerca_e_sviluppo.immagine_mondo.width} height={page.acf.ricerca_e_sviluppo.immagine_mondo.height} alt={page.acf.ricerca_e_sviluppo.immagine_mondo.alt || ''} /> */}
         </section>
         <section className="w-full relative big-boxed mt-40 max-xl:mt-25 max-m:mt-10 max-xs:mt-8">
             <div className={textSectionClass}>

@@ -1,6 +1,8 @@
 import { gsap } from "gsap";
 import CustomEase from "gsap/CustomEase";
+import { CustomWiggle } from "gsap/CustomWiggle";
 import Observer from "gsap/dist/Observer";
+import { Draggable } from "gsap/Draggable";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitText from "gsap/SplitText";
@@ -12,6 +14,8 @@ gsap.registerPlugin(
   SplitText,
   ScrollToPlugin,
   Observer,
+  CustomWiggle,
+  Draggable
 );
 
 // Constants
@@ -47,4 +51,4 @@ gsap.defaults({
 gsap.ticker.lagSmoothing(0);
 gsap.ticker.fps(-1);
 
-export { gsap, CustomEase, ScrollTrigger, SplitText, ScrollToPlugin, Observer };
+export { gsap, CustomEase, ScrollTrigger, SplitText, ScrollToPlugin, Observer, CustomWiggle, Draggable };
