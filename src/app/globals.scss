@@ -126,6 +126,11 @@ p{margin: 0;}
   background: linear-gradient(0deg, #D2D3D4 0%, #D5D6D8 14%, #D5D5D5 34.13%, #8E8E8E 47.12%, #646465 65.38%, #2B2B2B 100%);
 }
 
+
+.single-char{
+  transform: translateY(10px); opacity: 0.2;
+}
+
 @media only screen and (max-width: 1500px){
   .big-boxed{padding-left: 76px; padding-right: 76px;}
   h1, .h1{font-size: 70px; line-height: 80px;}

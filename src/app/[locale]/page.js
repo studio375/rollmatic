@@ -45,8 +45,8 @@ export default async function Home({params}) {
         <div className="absolute top-0 left-0 w-full h-28 sfumatura-dark z-2 rotate-[180deg]"></div>
         <VideoHtml className="z-0" videoObj={page.acf.video_testata} />
         <div className="absolute bottom-9 w-full boxed s:px-4 flex items-end justify-between flex-wrap z-3 max-l:flex-col max-l:items-start">
-          <BigText Tag="h1" className="!text-[var(--color-background)] !normal-case">{page.acf.titolo}</BigText>
-          <Paragraph className="l:text-end !text-[var(--color-background)] max-l:mt-2">{page.acf.paragrafo}</Paragraph>
+          <BigText Tag="h1" className="no-animation !text-[var(--color-background)] !normal-case">{page.acf.titolo}</BigText>
+          <Paragraph className="no-animation l:text-end !text-[var(--color-background)] max-l:mt-2">{page.acf.paragrafo}</Paragraph>
           <div className="relative bottom-0 left-0 w-full h-px bg-[var(--color-primary)] mt-4"></div>
         </div>
         <div className="absolute bottom-0 left-0 w-full h-28 sfumatura-dark z-2"></div>
@@ -84,7 +84,7 @@ export default async function Home({params}) {
                 return <Link key={elem.id} className="w-full min-w-full s:h-screen relative" data-slide-id={elem.id} href={`${t('Slug settori')}/${elem.slug}`}>
                   <Image preload={true} className="w-full h-full object-cover max-xs:aspect-2/1.5" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
                   <div className="s:!hidden absolute flex flex-col items-end right-[35px] bottom-[35px] max-l:items-end max-s:bottom-3 max-s:right-3">
-                      <BigText tag="span" className="font-bold text-[30px] s:text-[40px] text-[var(--color-background)] text-right">{elem.title.rendered}</BigText>
+                      <BigText tag="span" className="no-animation font-bold text-[30px] s:text-[40px] text-[var(--color-background)] text-right">{elem.title.rendered}</BigText>
                       <Image className="mt-2" src="/next-arrow-light.svg" width={50} height={20} alt=""/>                 
                   </div>
                 </Link>

@@ -24,7 +24,7 @@ export default async function Page({params}){
     return <>
         <Breadcrumbs items={[{label: page.title.rendered}]} />
         <section className="w-full relative">
-            <Image className="w-full h-auto max-s:h-[50vh] object-cover" src={page.acf.immagine_testata.url} width={page.acf.immagine_testata.width} height={page.acf.immagine_testata.height} alt={page.title.rendered} />
+            <Image className="w-full h-auto max-h-[calc(100vh-200px)] max-s:h-[50vh] object-cover" src={page.acf.immagine_testata.url} width={page.acf.immagine_testata.width} height={page.acf.immagine_testata.height} alt={page.title.rendered} />
         </section>
         <section className="w-full relative big-boxed mt-10 max-xs:mt-6">
             <div className={textSectionClass}>
