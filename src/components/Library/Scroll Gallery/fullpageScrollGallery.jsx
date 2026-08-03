@@ -42,6 +42,7 @@ export default function FullpageScrollGallery({elements,children}){
                 pin: true,
                 scrub: true,
                 invalidateOnRefresh: true,
+                refreshPriority: 0,
             }
         });
         slidesArray.forEach((element, index) => {

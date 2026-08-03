@@ -20,7 +20,6 @@ export default async function Page({params}){
         _embed: true,
         acf_format: 'standard'
     });
-
     return <>
         <Breadcrumbs items={[{label:page.title.rendered}]} />
         <section className="w-full big-boxed mt-15 max-m:mt-13">
@@ -29,7 +28,7 @@ export default async function Page({params}){
         <section className="big-boxed w-full mt-[35px] mb-15 max-s:mb-10 flex flex-wrap gap-y-13 max-xl:gap-y-6">
             {
                 posts.map((elem, index) => {
-                    return <NewsCard key={elem.id} news={elem} index={index} />
+                    return <NewsCard className="no-animation" key={elem.id} news={elem} index={index} />
                 })
             }
         </section>

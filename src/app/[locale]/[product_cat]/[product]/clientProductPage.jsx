@@ -51,8 +51,8 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
             {prodotto.acf.immagine_testata && <Image className='h-[calc(100vh-200px)] w-auto max-s:w-full max-s:h-auto max-s:max-h-[calc(100vh-200px)] object-cover max-s:object-contain relative object-bottom' src={prodotto.acf.immagine_testata.url} width={prodotto.acf.immagine_testata.width} height={prodotto.acf.immagine_testata.height} alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}/>}
             <div className={`boxed relative -mt-8 max-[1700px]:-m-2 w-full flex items-end justify-between max-[1700px]:flex-col max-[1700px]:items-start max-[1700px]:gap-3`}>
                 <div className={`w-[40%] max-[1700px]:w-full`}>
-                    <BigText className="h3 sub" Tag="h2">{childCat?.name}</BigText>
-                    <BigText Tag="h1" className="font-extrabold">{prodotto.title.rendered}</BigText>
+                    <BigText className="no-animation h3 sub" Tag="h2">{childCat?.name}</BigText>
+                    <BigText Tag="h1" className="no-animation font-extrabold">{prodotto.title.rendered}</BigText>
                 </div>
                 <div className={`flex items-end justify-between w-[55%] max-[1700px]:w-full max-[1700px]:flex-wrap max-[1700px]:gap-3`}>
                     <div className={`${singleColClass}`}>

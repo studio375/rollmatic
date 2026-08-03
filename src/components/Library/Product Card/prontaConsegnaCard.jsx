@@ -31,8 +31,8 @@ export default function ProntaConsegnaCard({prodObject, ...props}){
         {prodObject.cat && <span className="mt-1 block text-center">{prodObject.cat.name}</span>}
         <span className="font-extrabold text-[30px] text-[var(--color-primary)] mt-[5px] text-center">{parse(prodObject.title)}</span>
         <div className="flex items-center justify-center gap-1 mt-2 max-[450px]:flex-col max-[450px]:gap-1">
-            <CustomButton className="!text-[var(--color-foreground)] !border-[var(--color-foreground)] text-[14px] max-[450px]:w-full justify-center" href="" target="_blank">{t('Specifiche tecniche')}</CustomButton>
-            <CustomButton onClick={() => handleClickRequest(prodObject.title)} className="!text-[var(--color-foreground)] !border-[var(--color-foreground)] text-[14px] max-[450px]:w-full justify-center" Tag={'div'}>{t('Richiedi offerta').replace('<br/>', ' ')}</CustomButton>
+            <CustomButton className="no-animation !text-[var(--color-foreground)] !border-[var(--color-foreground)] text-[14px] max-[450px]:w-full justify-center" href="" target="_blank">{t('Specifiche tecniche')}</CustomButton>
+            <CustomButton onClick={() => handleClickRequest(prodObject.title)} className="no-animation !text-[var(--color-foreground)] !border-[var(--color-foreground)] text-[14px] max-[450px]:w-full justify-center" Tag={'div'}>{t('Richiedi offerta').replace('<br/>', ' ')}</CustomButton>
         </div>
     </div>
 }

@@ -5,12 +5,14 @@ import BigText from "../Big Text/bigText"
 import Paragraph from "../Paragraph/paragraph";
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { fadeAnimation } from "@/helpers/animations";
 
 export default function Timeline({page, ...props}){
     var order = 0;
     var ref = useRef(null);
     var lineRef = useRef(null);
     useEffect(() => {
+        fadeAnimation();
         if(!ref.current) return;
         if(!lineRef.current) return;
         var tml = gsap.timeline({});
@@ -69,7 +71,6 @@ export default function Timeline({page, ...props}){
                     if(index%2===0 && !isLeft){ //se è pari e a destra, spostalo a sinistra
                         order = index+1;
                     }
-                    console.log(elem);
                     return <div key={index} style={{order}} className={`relative flex flex-col w-1/2 relative ${isLeft?'items-start':'items-end'} [&:nth-child(2n)]:mt-20 [&:nth-last-child(2)]:mt-20 max-s:w-full max-s:items-start max-s:!mt-10 max-xs:!mt-5 max-s:!order-[unset]`}>
                         {
                             index !== page.acf.storia.length-1 ? <div className={`relative w-full flex flex-col`}>
@@ -79,7 +80,7 @@ export default function Timeline({page, ...props}){
                                     <div className="w-full line h-[1px] bg-[var(--color-primary)]"></div>
                                 </div>
                             </div> : (elem.immagini && elem.immagini.map((img, index) => {
-                                return <Image preload key={index} className="w-[calc(100%-370px)] h-auto mt-1 fade-effect max-s:ml-5 max-s:w-[calc(100%-100px)] max-xs:ml-[5vw]" src={img.url} width={img.width} height={img.height} alt={img.alt || ''} />
+                                return <Image preload key={index} className="fade-animation w-[calc(100%-370px)] h-auto mt-1 fade-effect max-s:ml-5 max-s:w-[calc(100%-100px)] max-xs:ml-[5vw]" src={img.url} width={img.width} height={img.height} alt={img.alt || ''} />
                             }))
                         }
                         
@@ -89,7 +90,7 @@ export default function Timeline({page, ...props}){
                                 <Paragraph className="mb-3">{elem.paragrafo}</Paragraph>
                                 {
                                     (index !== page.acf.storia.length-1 && elem.immagini) && elem.immagini.map((img, index) => {
-                                        return <Image preload key={index} className="w-full h-auto mt-1" src={img.url} width={img.width} height={img.height} alt={img.alt || ''} />
+                                        return <Image preload key={index} className="fade-animation w-full h-auto mt-1" src={img.url} width={img.width} height={img.height} alt={img.alt || ''} />
                                     })
                                 }
                             </div>

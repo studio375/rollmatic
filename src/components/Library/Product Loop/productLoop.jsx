@@ -57,7 +57,7 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
     return <div className="flex flex-col">
         {title && <div className="px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] flex s:-mb-5 justify-center"><BigText Tag="h2" className="font-semibold text-[var(--color-primary)] h2 text-center">{title}</BigText></div>}
         {filters && <section className="relative mt-5 boxed flex items-center gap-2 z-[100] max-l:flex-col max-l:items-start">
-            <BigText Tag="span" className="font-semibold text-[var(--color-primary)] h3">{t('Categorie macchinari')}</BigText>
+            <BigText Tag="span" className="no-animation font-semibold text-[var(--color-primary)] h3">{t('Categorie macchinari')}</BigText>
             <div className="relative inline-flex m:min-w-40 max-m:w-30 max-w-full">
                 <div className="py-1 px-2 bg-[var(--color-primary)] min-w-full [&_span]:text-[var(--background)] cursor-pointer filters-handle flex items-center justify-between gap-2 rounded-[5px]" onClick={() => setFilterOpen(!filterOpen)}><span>{activeCat?activeCat.name:t('Tutte')}</span><Image className={`ml-auto transition-all duration-300 ease ${filterOpen && 'rotate-[-180deg]'}`} src={'/expand-more.svg'} width={25} height={25} alt="expand more" /></div>
                 

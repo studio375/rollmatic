@@ -10,6 +10,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { buildMetadata } from "@/helpers/seo/metadata";
+import Object3DScene from "@/components/Library/Scene/object3DScene";
 
 
 export default async function Home({params}) {
@@ -73,9 +74,7 @@ export default async function Home({params}) {
         <BigText Tag="span" className="h2 font-semibold text-center">{page.acf.paragrafo_azienda}</BigText>
         <CustomButton href={page.acf.cta.url}>{page.acf.cta.title}</CustomButton>
       </section>
-      <section className="mt-10 min-h-50 flex items-center justify-center">
-          OGGETTO 3D
-      </section>
+      <Object3DScene className="mt-10" />
       <section className="mt-20 w-full relative max-w-full overflow-hidden">
           <FullpageScrollGallery elements={settori}>
             {
