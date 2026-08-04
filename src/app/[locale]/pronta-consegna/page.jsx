@@ -42,7 +42,7 @@ export default async function Page({params}){
         </section>
         <section className="relative w-full big-boxed my-10 max-s:mt-6 flex flex-col items-start gap-5 max-s:gap-3">
             <BigText Tag="h2" className="classic-title">Faq</BigText>
-            <Faq faq={page.acf.faq} />
+            {(page.acf.faq && page.acf.faq.length > 0) && <Faq faq={page.acf.faq} />}
         </section>
     </>
 }

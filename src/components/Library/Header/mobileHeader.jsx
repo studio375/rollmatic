@@ -49,7 +49,7 @@ export default function MobileHeader({menu_items}){
                         const hasChildren = children && children.length > 0;
                         return <div className={`menu-item relative py-[15px] flex flex-col items-center ${hasChildren && 'has-children'}`} key={elem.object_id}>
                                 {
-                                    (elem.classes.indexOf('btn')>=0)?<CustomButton href={elem.url} Tag={Link}>{elem.title.rendered}</CustomButton>
+                                    (elem.classes.indexOf('btn')>=0)?<CustomButton href={elem.url} Tag={Link} className="no-animation">{elem.title.rendered}</CustomButton>
                                     :<Link className={`${commonClasses} main-item [.menu-item:hover_&]:!underline relative`} href={elem.url}>{elem.title.rendered} {hasChildren && <><div className='text-[20px] absolute -right-1 translate-x-full top-0 block [.menu-item.submenu-open_&]:hidden'>+</div><div className='text-[20px] absolute -right-1 translate-x-full top-0 hidden [.menu-item.submenu-open_&]:block'>-</div></>}</Link>
                                 }
                                 {
