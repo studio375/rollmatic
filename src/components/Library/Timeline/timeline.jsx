@@ -23,7 +23,8 @@ export default function Timeline({page, ...props}){
                     start: "top 70%",
                     end: "bottom 20%",
                     toggleActions: "play none none reverse",
-                    invalidateOnRefresh: true
+                    invalidateOnRefresh: true,
+                    refreshPriority: 2
                 },
                 defaults: {ease: 'none'}
             });

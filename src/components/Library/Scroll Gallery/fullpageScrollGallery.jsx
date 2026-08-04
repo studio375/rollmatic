@@ -10,6 +10,7 @@ export default function FullpageScrollGallery({elements,children}){
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const ref = useRef(null);
     const [isMobile, setIsMobile] = useState(false);
+    const startPx = useRef(null);
     const t = useTranslations('strings');
     const handleScroll = (distance, count) => {
         var galleryProgress = (window.scrollY - distance);
@@ -43,18 +44,23 @@ export default function FullpageScrollGallery({elements,children}){
                 scrub: true,
                 invalidateOnRefresh: true,
                 refreshPriority: 0,
+                onRefresh: (self) => {
+                    startPx.current = self.start;
+                },
             }
         });
         slidesArray.forEach((element, index) => {
             if(index == (slidesArray.length - 1)) return;
             tml.to(element, {marginLeft: `-${element.offsetWidth}px`, ease: 'none'});
         });
-        var dist = ref.current.getBoundingClientRect().top + window.scrollY;
-        window.addEventListener("scroll", () => handleScroll(dist, slidesArray.length));
+
+        const onScroll = () => handleScroll(startPx.current, slidesArray.length);
+        window.addEventListener('scroll', onScroll);
+
         return () => {
             tml.scrollTrigger.kill();
             tml.kill();
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', onScroll);
         }
     }, [isMobile]);
     return <div className="w-full s:h-screen relative" ref={ref}>

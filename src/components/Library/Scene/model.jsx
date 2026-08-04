@@ -2,64 +2,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useThree } from '@react-three/fiber';
-import { gsap } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useGSAP } from '@gsap/react';
 
-export function Model({containerRef, ...props}) {
+export function Model({onRefsReady, ...props}) {
   const { nodes, materials } = useGLTF('/S50.opt.glb')
-  const {viewport} = useThree();
   const refs = useRef({});
-  const originalPositions = useRef({});
-  useGSAP(() => {
-    if (!refs.current || !containerRef?.current) return;    
-    const mainGroup = refs.current.main;
-    const tl = gsap.timeline({ 
-      defaults: { duration: 1.1, ease: 'power3.out' },
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 0',
-        end: '+=2000px',
-        markers: true,
-        scrub: true,
-        pin: true,
-        pinType: 'transform',
-        invalidateOnRefresh: true,
-        refreshPriority: 1
-      }
-    });
-    const degToRad = (deg) => deg * (Math.PI / 180);
-    tl.to(mainGroup.rotation, {y:degToRad(-330), duration: 3, ease: 'none'});
-    
-    Object.entries(refs.current).forEach(([key, el], i) => {
-      if (!el) return;
-      if(key == 'main') return;
-  
-      // salvo la posizione originale solo se non l'ho già salvata
-      if (originalPositions.current[key] === undefined) {
-        var axis = 'x';
-        var val = '+=600';
-        switch(key){
-          case 'tappo': 
-          axis = 'z'; break;
-          case 'interruttore':
-          case 'sportello':
-            axis = 'y'; val='-=600'; break;
-        }
-        originalPositions.current[key] = {
-          axis: axis,
-          position: el.position[axis],
-          value: val
-        };
-      }
-      gsap.set(el.position, { [originalPositions.current[key].axis]: originalPositions.current[key].value });
-      tl.to(el.position, { [originalPositions.current[key].axis]: originalPositions.current[key].position, duration: 3, delay: 0.1*i }, '<');
-    });
-  
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
-    };
-  }, {scope: containerRef, revertOnUpdate: true});
+  useEffect(() => {
+    onRefsReady(refs.current); //passo tutti i ref
+  }, []);
   return (
     <group ref={(el) => refs.current.main=el} {...props} dispose={null} scale={0.01} position={[0, -0.5, 0]}>
       <group ref={(el) => refs.current.sportello=el} position={[34.322, 52.331, 26.066]}> //sportello

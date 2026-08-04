@@ -45,16 +45,16 @@ export default async function Home({params}) {
       <section className="w-full h-screen relative">
         <div className="absolute top-0 left-0 w-full h-28 sfumatura-dark z-2 rotate-[180deg]"></div>
         <VideoHtml className="z-0" videoObj={page.acf.video_testata} />
-        <div className="absolute bottom-9 w-full boxed s:px-4 flex items-end justify-between flex-wrap z-3 max-l:flex-col max-l:items-start">
-          <BigText Tag="h1" className="no-animation !text-[var(--color-background)] !normal-case">{page.acf.titolo}</BigText>
-          <Paragraph className="no-animation l:text-end !text-[var(--color-background)] max-l:mt-2">{page.acf.paragrafo}</Paragraph>
+        <div className="absolute bottom-9 w-full boxed s:px-4 flex items-end justify-between flex-wrap max-xl:flex-col max-xl:items-start z-3 max-l:flex-col max-l:items-start">
+          <BigText Tag="h1" className="no-animation !text-[var(--color-background)] !normal-case xl:w-[60%]">{page.acf.titolo}</BigText>
+          <Paragraph className="no-animation xl:text-end !text-[var(--color-background)] max-l:mt-2 xl:w-1/3 max-xl:mt-2">{page.acf.paragrafo}</Paragraph>
           <div className="relative bottom-0 left-0 w-full h-px bg-[var(--color-primary)] mt-4"></div>
         </div>
         <div className="absolute bottom-0 left-0 w-full h-28 sfumatura-dark z-2"></div>
       </section>
       <section className="w-full pt-10 flex flex-col items-center">
         <BigText className="font-semibold text-center boxed">{page.acf.titolo_categorie}</BigText>
-        <div className="mt-15 max-l:mt-10 flex items-stretch w-full max-xl:flex-wrap max-xl:gap-y-8">
+        <div className="max-xl:mt-10 flex items-stretch w-full max-xl:flex-wrap max-xl:gap-y-8">
           {
             categorie.map(elem => {
               var italianID = (locale == 'it')?elem.id:elem.wpml_translations?.it_IT?.id;
@@ -71,7 +71,7 @@ export default async function Home({params}) {
         </div>
       </section>  
       <section className="mt-23 max-l:mt-18 max-m:mt-12 big-boxed flex flex-col items-center gap-7">
-        <BigText Tag="span" className="h2 font-semibold text-center">{page.acf.paragrafo_azienda}</BigText>
+        <BigText Tag="span" className="h3 text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]">{page.acf.paragrafo_azienda}</BigText>
         <CustomButton href={page.acf.cta.url}>{page.acf.cta.title}</CustomButton>
       </section>
       <Object3DScene className="mt-10" />

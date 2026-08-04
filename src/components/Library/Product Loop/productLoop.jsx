@@ -76,7 +76,7 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
             </div>
         </section>}
         {
-            (activeProducts && activeProducts.length) ? <section className={`mt-10 flex flex-wrap items-stretch gap-x-0 gap-y-5 max-m:mt-5`}>
+            (activeProducts && activeProducts.length > 0) ? <section className={`mt-10 flex flex-wrap items-stretch gap-x-0 gap-y-5 max-m:mt-5`}>
                 {
                     activeProducts.map((elem, index) => {
                         if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} className={`spacer it-id-${mainCat.main_cat_italian_id}`} />:<ProductCard key={index} prodObject={null} className={`spacer it-id-${mainCat.main_cat_italian_id}`} />
