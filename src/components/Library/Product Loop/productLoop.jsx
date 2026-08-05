@@ -83,11 +83,11 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
                         var prodObject = {
                             ID: elem.id || elem.ID,
                             thumbnail_data: elem.thumbnail_data,
-                            cat: elem.category_info[1] ? elem.category_info[1] : elem.category_info[0],
+                            cat: elem.category_info,
                             slug: elem.slug || elem.post_name,
                             title: elem.title?.rendered || elem.post_title
                         };
-                        return (prontaConsegna)?<ProntaConsegnaCard prodObject={prodObject} key={prodObject.ID} />:<ProductCard key={prodObject.ID} prodObject={prodObject} />
+                        return (prontaConsegna)?<ProntaConsegnaCard className={`it-id-${mainCat.main_cat_italian_id}`} prodObject={prodObject} key={prodObject.ID} />:<ProductCard className={`it-id-${mainCat.main_cat_italian_id}`} key={prodObject.ID} prodObject={prodObject} />
                     })
                 }
             </section> : <span></span>

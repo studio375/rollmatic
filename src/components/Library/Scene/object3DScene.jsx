@@ -12,6 +12,11 @@ export default function Object3DScene({...props}){
     const [modelRefs, setModelRefs] = useState(null);
     const originalPositions = useRef({});
     const cameraRef = useRef();
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 550);
+        window.addEventListener("resize", () => {setIsMobile(window.innerWidth <= 550);});
+    }, []);
     useGSAP(() => {
         if (!modelRefs || !containerRef.current) return;  
         const mainGroup = modelRefs.main;
@@ -106,15 +111,15 @@ export default function Object3DScene({...props}){
         });
 
         tl.from(cameraRef.current.position, {x:5, y:-1.4, ease: 'none', duration:3, onComplete: () => {console.log('finish')}},'0.5')   
-        .to(cameraRef.current, {zoom: 1.8, ease: 'none', duration: 3, onUpdate: () => cameraRef.current.updateProjectionMatrix()}, '0.8')         
-    },{dependencies: [modelRefs], scope: containerRef, revertOnUpdate: true});
+        .to(cameraRef.current, {zoom: isMobile?1.2:1.8, ease: 'none', duration: 3, onUpdate: () => cameraRef.current.updateProjectionMatrix()}, '0.8')         
+    },{dependencies: [modelRefs, isMobile], scope: containerRef, revertOnUpdate: true});
     return <div ref={containerRef} id="scene-container" {...props}>
         <Canvas className="w-full !h-screen">
             {/* <axesHelper /> */}
             <PerspectiveCamera ref={cameraRef} makeDefault position={[5.6, 1.5, 0.1]} rotation={[-82, 80, 82]} fov={50} zoom={1.2} />
             <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} target={[0, 0, 0]} />
             <Environment preset="sunset" />
-            <Model onRefsReady={setModelRefs}  />
+            <Model onRefsReady={setModelRefs} isMobile={isMobile}  />
         </Canvas>
     </div>
 }

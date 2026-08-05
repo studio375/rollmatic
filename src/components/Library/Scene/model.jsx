@@ -5,14 +5,14 @@ import { useThree } from '@react-three/fiber';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useGSAP } from '@gsap/react';
 
-export function Model({onRefsReady, ...props}) {
+export function Model({onRefsReady, isMobile, ...props}) {
   const { nodes, materials } = useGLTF('/S50.opt.glb')
   const refs = useRef({});
   useEffect(() => {
     onRefsReady(refs.current); //passo tutti i ref
   }, []);
   return (
-    <group ref={(el) => refs.current.main=el} {...props} dispose={null} scale={0.015} position={[0, -0.9, 0]}  rotation={[0, -Math.PI * 1.2, 0]}>
+    <group ref={(el) => refs.current.main=el} {...props} dispose={null} scale={0.015} position={[0, isMobile?-0.7:-0.9, 0]}  rotation={[0, -Math.PI * 1.2, 0]}>
       <group ref={(el) => { if(el) { el.orderIndex = 15; refs.current.sportello = el; } }} position={[34.322, 52.331, 26.066]}> //sportello
         <mesh
           geometry={nodes['sportello-paint_gray_2'].geometry}
