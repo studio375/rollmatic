@@ -45,7 +45,7 @@ export default async function Page({params}){
                 <Paragraph className="w-[calc(100%/3*2.1)] max-l:w-full">{settore.acf.paragrafo}</Paragraph>
             </div>
         </section>
-        <section className="flex flex-col items-start gap-5">
+        <section className="flex flex-col items-start gap-5 mb-8 max-m:mb-4">
         {
             Object.keys(prodAllCat).map((catName) => (
                 <ProductLoop key={catName} title={catName} catFilters={null} filters={false} products={prodAllCat[catName]} />
@@ -53,7 +53,7 @@ export default async function Page({params}){
         }
         </section>
         {
-            // settore.acf.faq && <section className="mt-8 max-m:mt-4 big-boxed w-full relative pb-15 max-s:pb-10">
+            // settore.acf.faq && <section className="big-boxed w-full relative pb-15 max-s:pb-10">
             //     <BigText Tag="h2" className="classic-title">FAQ</BigText>
             //     <div className="mt-5 max-m:mt-3">
             //         <Faq faq={settore.acf.faq} />
