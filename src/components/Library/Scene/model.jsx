@@ -12,7 +12,7 @@ export function Model({onRefsReady, ...props}) {
     onRefsReady(refs.current); //passo tutti i ref
   }, []);
   return (
-    <group ref={(el) => refs.current.main=el} {...props} dispose={null} scale={0.015} position={[0, -0.75, 0]}  rotation={[0, -Math.PI * 1.2, 0]}>
+    <group ref={(el) => refs.current.main=el} {...props} dispose={null} scale={0.015} position={[0, -0.9, 0]}  rotation={[0, -Math.PI * 1.2, 0]}>
       <group ref={(el) => { if(el) { el.orderIndex = 15; refs.current.sportello = el; } }} position={[34.322, 52.331, 26.066]}> //sportello
         <mesh
           geometry={nodes['sportello-paint_gray_2'].geometry}
@@ -233,7 +233,7 @@ export function Model({onRefsReady, ...props}) {
           scale={48.9}
         />
       </group>
-      <group ref={(el) => refs.current.fermapane=el} position={[2.119, 88.307, -45.865]}> //fermapane
+      <group ref={(el) =>{if(el){el.orderIndex=9; refs.current.fermapane=el;}}} position={[2.119, 88.307, -45.865]}> //fermapane
         <mesh
           geometry={nodes['fermapane-Chrome'].geometry}
           material={nodes['fermapane-Chrome'].material}

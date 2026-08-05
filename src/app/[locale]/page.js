@@ -74,7 +74,7 @@ export default async function Home({params}) {
         <BigText Tag="span" className="h3 text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]">{page.acf.paragrafo_azienda}</BigText>
         <CustomButton href={page.acf.cta.url}>{page.acf.cta.title}</CustomButton>
       </section>
-      <Object3DScene className="mt-10" />
+      <Object3DScene />
       <section className="mt-20 w-full relative max-w-full overflow-hidden">
           <FullpageScrollGallery elements={settori}>
             {
