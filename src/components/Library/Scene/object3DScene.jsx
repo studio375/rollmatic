@@ -91,11 +91,11 @@ export default function Object3DScene({...props}){
             if (el.children.length > 0) {
                 el.traverse(child => {
                     if (child.isMesh && child.material) {
-                        tl.to(child.material, { opacity: 1, ease: 'none' }, '<');
+                        tl.to(child.material, { opacity: 1, ease: 'none', duration: 0.5 }, '<');
                     }
                 });
             } else if (el.material) {
-                tl.to(el.material, { opacity: 1, ease: 'none' }, '<');
+                tl.to(el.material, { opacity: 1, ease: 'none', duration: 0.5 }, '<');
             }
         });
     },{dependencies: [modelRefs], scope: containerRef, revertOnUpdate: true});
