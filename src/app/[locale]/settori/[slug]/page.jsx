@@ -53,12 +53,12 @@ export default async function Page({params}){
         }
         </section>
         {
-            settore.acf.faq && <section className="mt-8 max-m:mt-4 big-boxed w-full relative pb-15 max-s:pb-10">
-                <BigText Tag="h2" className="classic-title">FAQ</BigText>
-                <div className="mt-5 max-m:mt-3">
-                    <Faq faq={settore.acf.faq} />
-                </div>
-            </section>
+            // settore.acf.faq && <section className="mt-8 max-m:mt-4 big-boxed w-full relative pb-15 max-s:pb-10">
+            //     <BigText Tag="h2" className="classic-title">FAQ</BigText>
+            //     <div className="mt-5 max-m:mt-3">
+            //         <Faq faq={settore.acf.faq} />
+            //     </div>
+            // </section>
         }
     </>
 }

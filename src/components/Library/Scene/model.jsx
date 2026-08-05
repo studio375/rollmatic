@@ -12,8 +12,8 @@ export function Model({onRefsReady, ...props}) {
     onRefsReady(refs.current); //passo tutti i ref
   }, []);
   return (
-    <group ref={(el) => refs.current.main=el} {...props} dispose={null} scale={0.01} position={[0, -0.5, 0]}>
-      <group ref={(el) => refs.current.sportello=el} position={[34.322, 52.331, 26.066]}> //sportello
+    <group ref={(el) => refs.current.main=el} {...props} dispose={null} scale={0.015} position={[0, -0.75, 0]}>
+      <group ref={(el) => refs.current.sportello={...el, orderIndex: 15}} position={[34.322, 52.331, 26.066]}> //sportello
         <mesh
           geometry={nodes['sportello-paint_gray_2'].geometry}
           material={nodes['sportello-paint_gray_2'].material}
@@ -74,7 +74,7 @@ export function Model({onRefsReady, ...props}) {
           scale={2.4}
         />
       </group>
-      <group ref={(el) => refs.current.touch=el} position={[32.325, 89.672, -38.684]}> //touchscreen
+      <group ref={(el) => refs.current.touch={...el, orderIndex: 17}} position={[32.325, 89.672, -38.684]}> //touchscreen
         <mesh
           geometry={nodes.touchscreen_1.geometry}
           material={nodes.touchscreen_1.material}
@@ -117,16 +117,16 @@ export function Model({onRefsReady, ...props}) {
         material={nodes.vaschetta.material}
         position={[7.371, 18.398, 17.866]}
         scale={24.85}
-        ref={(el) => refs.current.vaschetta_int=el}
+        ref={(el) => refs.current.vaschetta_int={...el, orderIndex: 12}}
       />
       <mesh //pala
         geometry={nodes.NAUO246.geometry}
         material={nodes.NAUO246.material}
         position={[34.881, 91.236, 19.818]}
         scale={28.148}
-        ref={(el) => refs.current.pala=el}
+        ref={(el) => refs.current.pala={...el, orderIndex: 15}}
       />
-      <group ref={(el) => refs.current.pannello_post=el} position={[-38.529, 52.148, -24.884]}> //pannello posteriore
+      <group ref={(el) => refs.current.pannello_post={...el, orderIndex: -1}} position={[-38.529, 52.148, -24.884]}> //pannello posteriore
         <mesh
           geometry={nodes['pannello_posteriore-paint_gray_2'].geometry}
           material={nodes['pannello_posteriore-paint_gray_2'].material}
@@ -146,7 +146,7 @@ export function Model({onRefsReady, ...props}) {
           scale={47.025}
         />
       </group>
-      <group ref={(el) => refs.current.ruote=el} position={[-2.579, 10.648, -0.134]}> //ruote
+      <group ref={(el) => refs.current.ruote={...el, orderIndex: -2}} position={[-2.579, 10.648, -0.134]}> //ruote
         <mesh
           geometry={nodes['ruote-Synthetic_-_ABS_Matte_RAL2001'].geometry}
           material={nodes['ruote-Synthetic_-_ABS_Matte_RAL2001'].material}
@@ -180,7 +180,7 @@ export function Model({onRefsReady, ...props}) {
           scale={49.2}
         />
       </group>
-      <group position={[-4.091, 56.698, -12.509]} ref={(el) => refs.current.scocca=el}> //contenitore esterno
+      <group position={[-4.091, 56.698, -12.509]} ref={(el) => refs.current.scocca={...el, orderIndex:14}}> //contenitore esterno
         <mesh
           geometry={nodes['contenitore-Plastica'].geometry}
           material={nodes['contenitore-Plastica'].material}
@@ -200,7 +200,7 @@ export function Model({onRefsReady, ...props}) {
           scale={49.5}
         />
       </group>
-      <group ref={(el) => refs.current.anta_sup=el} position={[9.081, 99.033, -0.134]}> //anta superiore
+      <group ref={(el) => refs.current.anta_sup={...el, orderIndex: 13}} position={[9.081, 99.033, -0.134]}> //anta superiore
         <mesh
           geometry={nodes['Anta-gomma'].geometry}
           material={nodes['Anta-gomma'].material}

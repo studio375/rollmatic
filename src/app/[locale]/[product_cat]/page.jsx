@@ -43,10 +43,10 @@ export default async function Page({params}){
         </section>
        <ProductLoop catFilters={catChild} products={products} />
        {
-        cat.acf.faq ? <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
-            <BigText Tag="h2" className="classic-title">Faq</BigText>
-            <Faq faq={cat.acf.faq} />
-        </section>:<div className="h-10"></div>
+        // cat.acf.faq ? <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
+        //     <BigText Tag="h2" className="classic-title">Faq</BigText>
+        //     <Faq faq={cat.acf.faq} />
+        // </section>:<div className="h-10"></div>
        }       
     </>;
 }

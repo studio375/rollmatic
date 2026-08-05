@@ -40,10 +40,10 @@ export default async function Page({params}){
             <BigText className={`m:w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi offerta").replace('<br/>', ' ')}</BigText>
             <GravityForm className={`m:!w-[calc(200%/3)]`} formObject={form} />
         </section>
-        <section className="relative w-full big-boxed my-10 max-s:mt-6 flex flex-col items-start gap-5 max-s:gap-3">
+        {/* <section className="relative w-full big-boxed my-10 max-s:mt-6 flex flex-col items-start gap-5 max-s:gap-3">
             <BigText Tag="h2" className="classic-title">Faq</BigText>
             {(page.acf.faq && page.acf.faq.length > 0) && <Faq faq={page.acf.faq} />}
-        </section>
+        </section> */}
     </>
 }
 
