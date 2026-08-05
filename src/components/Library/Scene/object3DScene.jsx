@@ -28,11 +28,33 @@ export default function Object3DScene({...props}){
             }
         });
         const degToRad = (deg) => deg * (Math.PI / 180);
-        tl.to(mainGroup.rotation, {y:degToRad(-330), ease: 'none', duration: 3});
+        const firstBlockStartingY = modelRefs.divisori_int.position['y'];
+        gsap.set(modelRefs.divisori_int.position, { y: '-300px' });
+        tl.to(mainGroup.rotation, {y:degToRad(-330), ease: 'none', duration: 4,})
+          .to(modelRefs.divisori_int.position, { y: firstBlockStartingY}, '<')              
 
         var modelsArray = Object.entries(modelRefs)
-        .map(([key, el], i) => ({ key, el })) //per ogni modello mi salvo un oggetto con chiave e elemento
-        .filter(({ key, el }) => key !== 'main' && el) // filtro qui, non nel forEach
+        .map(([key, el], i) => {
+            if(el.orderIndex && el.orderIndex>7){
+                if(el.children.length){
+                    el.traverse(child => {
+                        if (child.isMesh && child.material) {
+                            child.material = child.material.clone();
+                            child.material.transparent = true;
+                            gsap.set(child.material, { opacity: 0 });
+                            child.material.needsUpdate = true;
+                        }
+                    });
+                }else{
+                    el.material = el.material.clone();
+                    el.material.transparent = true;
+                    gsap.set(el.material, { opacity: 0 });
+                    el.material.needsUpdate = true;
+                }
+            }
+            return { key, el, i };
+        }) //per ogni modello mi salvo un oggetto con chiave e elemento
+        .filter(({ key, el }) => key !== 'main' && key !== 'divisori_int' && el) // filtro qui, non nel forEach
         .sort((a, b) => {
             //ordino tutti elementi in base all'index salvato (se è salvato)
             const orderA = a.el.orderIndex ?? 1; 
@@ -45,17 +67,18 @@ export default function Object3DScene({...props}){
             var el = elem.el;
             if (originalPositions.current[key] === undefined) {  // salvo la posizione originale solo se non l'ho già salvata
                 var axis = 'x';
-                var val = '+=600';
+                var val = '+=600px';
                 switch(key){
-                    case 'tappo': 
+                    case 'tappoz': 
                     axis = 'z'; break;
-                    case 'interruttore':
-                    //case 'sportello':
+                    case 'fermapane':
+                    axis = 'y'; val='-=500px'; break;
                     case 'ruote':
                     case 'pannello_post':
-                    case 'divisori_int':
-                    case 'fermapane':
-                    axis = 'y'; val='-=600'; break;
+                    case 'tappo':
+                    case 'interruttore':
+                    case 'bullone':
+                    val = '-=600px'; break;
                 }
                 originalPositions.current[key] = {
                     axis: axis,
@@ -64,21 +87,16 @@ export default function Object3DScene({...props}){
                 };
             }
             gsap.set(el.position, { [originalPositions.current[key].axis]: originalPositions.current[key].value });
-            // if(el.children.length){
-            //     el.children.forEach(child => {
-            //         if (child.isMesh && child.material) {
-            //             child.material.transparent = true;
-            //             gsap.set(child.material, { opacity: 0 }); // stato iniziale
-            //             child.material.needsUpdate = true;
-            //         }
-            //     });
-            // }else{
-            //     el.material.transparent = true;
-            //     gsap.set(el.material, { opacity: 0 });
-            //     el.material.needsUpdate = true;
-            // }
-            tl.to(el.position, { [originalPositions.current[key].axis]: originalPositions.current[key].position, duration: 3, delay: 0.1*i}, '<+=0.2') //15*(1/modelsArray.length*(i+1))
-            // .to((el.children.length > 0?el.children.material:el.material), {opacity: 1, duration: 5}, '<')
+            tl.to(el.position, { [originalPositions.current[key].axis]: originalPositions.current[key].position, delay: 0.02*i}, '<+=0.11') //15*(1/modelsArray.length*(i+1))
+            if (el.children.length > 0) {
+                el.traverse(child => {
+                    if (child.isMesh && child.material) {
+                        tl.to(child.material, { opacity: 1, ease: 'none' }, '<');
+                    }
+                });
+            } else if (el.material) {
+                tl.to(el.material, { opacity: 1, ease: 'none' }, '<');
+            }
         });
     },{dependencies: [modelRefs], scope: containerRef, revertOnUpdate: true});
     return <div ref={containerRef} id="scene-container" {...props}>
