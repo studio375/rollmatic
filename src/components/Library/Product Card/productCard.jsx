@@ -28,7 +28,7 @@ export default function ProductCard({prodObject, ...props}){
     var childCat = cat.filter(elem => elem.parent==mainCat.term_id)[0];
     if(!childCat) childCat=mainCat;
     return <div {...props} className={`card w-[calc(100%/3)] max-m:w-1/2 max-xs:w-full relative flex [&:not(.it-id-284)]:min-[1920px]:!w-[calc(100%/4)]`}>
-        <Link className={`flex flex-col items-center w-full ${commonClass} ${props.className || ''} it-id-${prodObject.cat.main_cat_italian_id}`} href={`/${prodObject.cat.slug}/${prodObject.slug}`}>
+        <Link className={`flex flex-col items-center w-full ${commonClass} ${props.className || ''} it-id-${mainCat.main_cat_italian_id}`} href={`/${mainCat.slug}/${prodObject.slug}`}>
             {img && <div className="w-full relative pb-2">
                 <Image className="w-full h-auto object-contain z-10 relative" src={img[0]} width={img[1]} height={img[2]} alt={prodObject.title}/>
                 <div className="w-full h-[1px] bg-[var(--color-primary)] absolute bottom-0 left-0 transition-all duration-500 [.card:hover_&]:h-full z-0"></div>
