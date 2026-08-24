@@ -29,9 +29,10 @@ export default async function Page({params}){
         acf_format: 'standard',
         _embed: true,
         per_page: 100,
-        lang: locale
+        lang: locale,
     });
     
+    var imgTestata = (cat.acf.immagine_testata)?cat.acf.immagine_testata:cat.acf.immagine_categoria;
     return <>
         <Breadcrumbs items={[{label: cat.name}]} />
         <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 max-m:pt-12 max-m:pb-5 boxed xl:!px-15 flex items-center justify-between max-m:flex-col max-m:gap-4">
@@ -39,7 +40,7 @@ export default async function Page({params}){
                     <BigText Tag="h1" className="classic-title">{cat.name}</BigText>
                     <Paragraph className="text-[var(--color-foreground)]">{cat.acf.paragrafo}</Paragraph>
                 </div>
-                {cat.acf.immagine_categoria && <Image className="w-full h-auto m:h-[60vh] s:object-contain  w-auto object-cover m:max-w-[calc(100%-400px)]" src={cat.acf.immagine_categoria.url} width={cat.acf.immagine_categoria.width} height={cat.acf.immagine_categoria.height} alt={cat.name}/>}
+                {imgTestata && <Image className="w-full h-auto m:h-[60vh] s:object-contain  w-auto object-cover m:max-w-[calc(100%-400px)]" src={imgTestata.url} width={imgTestata.width} height={imgTestata.height} alt={cat.name}/>}
         </section>
        <ProductLoop catFilters={catChild} products={products} />
        {

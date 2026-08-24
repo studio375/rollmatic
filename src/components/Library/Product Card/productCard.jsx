@@ -31,7 +31,7 @@ export default function ProductCard({prodObject, ...props}){
         <Link className={`flex flex-col items-center w-full ${commonClass} ${props.className || ''} it-id-${mainCat.main_cat_italian_id}`} href={`/${mainCat.slug}/${prodObject.slug}`}>
             {img && <div className="w-full relative pb-2">
                 <Image className="w-full h-auto object-contain z-10 relative" src={img[0]} width={img[1]} height={img[2]} alt={prodObject.title}/>
-                <div className="w-full h-[1px] bg-[var(--color-primary)] absolute bottom-0 left-0 transition-all duration-500 [.card:hover_&]:h-full z-0"></div>
+                <div className="w-full h-[1px] bg-[#00000021] absolute bottom-0 left-0 transition-all duration-500 [.card:hover_&]:h-full z-0"></div>
             </div>}
             <span className="mt-1 block text-center">{childCat.name}</span>
             <span className="font-extrabold text-[30px] text-[var(--color-primary)] mt-[5px] text-center">{parse(prodObject.title)}</span>

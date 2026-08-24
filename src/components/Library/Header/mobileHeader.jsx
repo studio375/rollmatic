@@ -8,7 +8,7 @@ import { useStore } from "@/store/useStore";
 import { useParams, useSearchParams } from "next/navigation";
 
 
-export default function MobileHeader({menu_items}){
+export default function MobileHeader({menu_items, isTransparent}){
     const commonClasses = 'uppercase font-medium';
     const [isOpen, setIsOpen] = useState(false);
     const pathName = usePathname();
@@ -16,10 +16,16 @@ export default function MobileHeader({menu_items}){
     const {lenis} = useStore();
     const toggleSetOpen = (val) => {
         setIsOpen(val);
-        if(val)
+        if(val){
             lenis.stop();
-        else if(document.querySelector('html').classList.contains('lenis-stopped'))
+            if(isTransparent)
+                document.getElementById('site-header').classList.remove("transparent");
+        }
+        else if(document.querySelector('html').classList.contains('lenis-stopped')){
             lenis.start();
+            if(isTransparent && window.scrollY <= 300)
+                document.getElementById('site-header').classList.add("transparent");
+        }
     }
     useEffect(() => {
         toggleSetOpen(false);
@@ -37,7 +43,7 @@ export default function MobileHeader({menu_items}){
     return <>
         <div className="z-1 cursor-pointer mobileHeader:hidden" onClick={() => toggleSetOpen(!isOpen)}>
             {
-                isOpen ? <Image src="/close.svg" width={30} height={30} alt="Close Menu" /> : <Image src="/hamburger.svg" width={30} height={30} alt="Hamburger Menu" />
+                isOpen ? <Image src="/close.svg" width={30} height={30} alt="Close Menu" className="max-xs:w-[25px] max-xs:h-[25px]" /> : <><Image className="[#site-header.transparent_&]:hidden" src="/hamburger.svg" width={30} height={30} alt="Hamburger Menu" /><Image className="[#site-header:not(.transparent)_&]:hidden" src="/hamburger_light.svg" width={30} height={30} alt="Hamburger Menu" /></>
             }
         </div>
         <div className={`fixed top-0 left-0 w-screen h-screen bg-[var(--background)] flex items-start justify-center ${!isOpen && '!hidden' }`}>

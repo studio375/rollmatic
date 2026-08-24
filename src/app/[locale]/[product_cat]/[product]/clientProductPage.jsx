@@ -51,10 +51,10 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
             {prodotto.acf.immagine_testata && <Image className='h-[calc(100vh-200px)] w-auto max-s:w-full max-s:h-auto max-s:max-h-[calc(100vh-200px)] object-cover max-s:object-contain relative object-bottom' src={prodotto.acf.immagine_testata.url} width={prodotto.acf.immagine_testata.width} height={prodotto.acf.immagine_testata.height} alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}/>}
             <div className={`boxed relative -mt-8 max-[1700px]:-m-2 w-full flex items-end justify-between max-[1700px]:flex-col max-[1700px]:items-start max-[1700px]:gap-3`}>
                 <div className={`w-[40%] max-[1700px]:w-full`}>
-                    <BigText className="no-animation h3 sub" Tag="h2">{childCat?.name}</BigText>
+                    <BigText className="no-animation h3 max-xs:!text-[16px] sub" Tag="h2">{childCat?.name}</BigText>
                     <BigText Tag="h1" className="no-animation font-extrabold">{prodotto.title.rendered}</BigText>
                 </div>
-                <div className={`flex items-end justify-between w-[55%] max-[1700px]:w-full max-[1700px]:flex-wrap max-[1700px]:gap-3`}>
+                <div className={`flex items-end max-s:items-start justify-between w-[55%] max-[1700px]:w-full max-[1700px]:flex-wrap max-[1700px]:gap-3`}>
                     <div className={`${singleColClass}`}>
                         <span>{parse(prodotto.acf.potenza)}</span>
                         <span>{parse(prodotto.acf.frequenza)}</span>
@@ -109,10 +109,10 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
             }
         </section>
         <section className="w-full relative mt-25 max-xl:mt-14 max-s:mt-10">
-            {mainCat?.acf?.testo_gamma && <BigText className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]" Tag="h3">{mainCat.acf.testo_gamma}</BigText>}
+            {(mainCat?.acf?.testo_gamma && !prodotto.acf.nascondi_testo_gamma) && <BigText className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]" Tag="h3">{mainCat.acf.testo_gamma}</BigText>}
             {prodotto.acf.immagine_full? <div className="w-full product-image big-boxed mt-5">
                  <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
-            </div>:<div className="h-20 max-m:h-10 w-full"></div>}
+            </div>:<div className="h-10 max-m:h-5 w-full"></div>}
             <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-[30px] gradient-before`}>
                 <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
                 {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} line w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)] transition-all duration-500 hover:border-[var(--color-primary)]`}>

@@ -68,7 +68,7 @@ export default function LangSwitcher({}){
 
     return <div className="flex relative lang-selector">
         <div className="current flex">
-            <span className={`py-[15px] uppercase ${commonClasses}`}>{locale} +</span>
+            <span className={`s:py-[15px] uppercase ${commonClasses}`}>{locale} +</span>
         </div>
        <div className="absolute top-[100%] left-[50%] translate-x-[-50%] bg-[var(--color-primary)] flex-col items-center p-[15px] rounded-[5px] gap-1 hidden [.lang-selector:hover_&]:!flex">
             {

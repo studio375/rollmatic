@@ -20,7 +20,6 @@ export default function HeaderClient({menu_items}){
     const [isMobile, setIsMobile] = useState(false);
     const handleScroll = () => {
         if(!ref.current) return;
-        if(isMobile) return;
         if(window.scrollY > 300){
             ref.current.classList.remove("transparent");
         } else {
@@ -38,9 +37,9 @@ export default function HeaderClient({menu_items}){
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [transparent, isMobile]);
-    return <header id="site-header" ref={ref} className={`fixed ${(transparent && !isMobile)?'transparent':''} top-0 w-[100vw] left-0 px-4 py-1 max-m:px-[5vw] flex items-center justify-start z-[99999] bg-[var(--color-background)] [&.transparent]:!bg-transparent max-mobileHeader:justify-between`}>
-        <MobileHeader menu_items={menu_items} />
-        <div className={`mr-4 z-1 max-mobileHeader:absolute max-mobileHeader:left-1/2 max-mobileHeader:-translate-x-1/2 z-1`}><Link href={`${locale=='it'?'/':`/${locale}`}`}><Image className="max-xl:w-20" src={"/Logo.svg"} width={250} height={65} alt="Logo Rollmatic" /></Link></div>
+    return <header id="site-header" ref={ref} className={`fixed ${(transparent)?'transparent':''} top-0 w-[100vw] left-0 px-4 py-1 max-m:px-[5vw] max-s:py-[15px] flex items-center justify-start z-[99999] bg-[var(--color-background)] [&.transparent]:!bg-transparent max-mobileHeader:justify-between`}>
+        <MobileHeader menu_items={menu_items} isTransparent={transparent} />
+        <div className={`mr-4 z-1 max-mobileHeader:absolute max-mobileHeader:left-1/2 max-mobileHeader:-translate-x-1/2 z-1`}><Link href={`${locale=='it'?'/':`/${locale}`}`}><Image className="max-xl:w-20 max-s:w-15" src={"/Logo.svg"} width={250} height={65} alt="Logo Rollmatic" /></Link></div>
         <div className={`flex items-center justify-center rounded-[5px] w-auto gap-[45px] max-xl:gap-3 ml-auto max-mobileHeader:hidden`}>
             {
                 menu_items.map(elem => {

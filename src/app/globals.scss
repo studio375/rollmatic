@@ -159,6 +159,9 @@ p{margin: 0;}
       &::after{height: 180px;}
     }
   }
+  body{
+    font-size: 14px; line-height: 18px;
+  }
 }
 
 @media only screen and (max-width:450px){
@@ -168,4 +171,6 @@ p{margin: 0;}
       &::after{height: 165px;}
     }
   }
+  h1, .h1{font-size: 34px; line-height: 38px;}
+  h2, .h2{font-size: 28px;}
 }

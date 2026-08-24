@@ -72,8 +72,8 @@ export default function Timeline({page, ...props}){
                     if(index%2===0 && !isLeft){ //se è pari e a destra, spostalo a sinistra
                         order = index+1;
                     }
-                    return <div key={index} style={{order}} className={`relative flex flex-col w-1/2 relative ${isLeft?'items-start':'items-end'} [&:nth-child(2n)]:mt-20 [&:nth-last-child(2)]:mt-20 max-s:w-full max-s:items-start max-s:!mt-10 max-xs:!mt-5 max-s:!order-[unset]`}>
-                        {
+                    return <div key={index} style={{order}} className={`single-step relative flex flex-col w-1/2 relative ${isLeft?'items-start':'items-end'} [&:nth-child(2n)]:mt-20 [&:nth-last-child(2)]:mt-20 s:[&:nth-last-child(1)]:!mt-50 max-s:w-full max-s:items-start max-s:!mt-10 max-xs:!mt-5 max-s:!order-[unset]`}>
+                        {/* {
                             index !== page.acf.storia.length-1 ? <div className={`relative w-full flex flex-col`}>
                                 <BigText Tag="span" className={`fade-effect h1 text-[var(--color-primary)] font-extrabold px-[25px] ${isLeft ? 'text-right' : 'text-left'} max-s:text-start max-s:px-5 max-xs:px-[5vw]`}>{elem.anno}</BigText>
                                 <div className={`w-full relative flex items-center ${isLeft?'flex-row-reverse':'flex-row'} max-s:flex-row`} >
@@ -81,10 +81,24 @@ export default function Timeline({page, ...props}){
                                     <div className="w-full line h-[1px] bg-[var(--color-primary)]"></div>
                                 </div>
                             </div> : (elem.immagini && elem.immagini.map((img, index) => {
-                                return <Image preload key={index} className="fade-animation w-[calc(100%-370px)] h-auto mt-1 fade-effect max-s:ml-5 max-s:w-[calc(100%-100px)] max-xs:ml-[5vw]" src={img.url} width={img.width} height={img.height} alt={img.alt || ''} />
+                                return <div className={`relative w-full flex flex-col`}>
+                                    <Image preload key={index} className="fade-animation w-[calc(100%-370px)] h-auto mt-1 fade-effect max-s:ml-5 max-s:w-[calc(100%-100px)] max-xs:ml-[5vw]" src={img.url} width={img.width} height={img.height} alt={img.alt || ''} />
+                                    <div className={`w-full relative flex items-center ${isLeft?'flex-row-reverse':'flex-row'} max-s:flex-row`} >
+                                        <div className={`fade-effect w-2 h-2 rounded-full bg-[var(--color-primary)] absolute top-1/2 transform -translate-y-1/2 ${isLeft ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'} max-s:left-0 max-s:-translate-x-1/2`}></div>
+                                        <div className="w-full line h-[1px] bg-[var(--color-primary)]"></div>
+                                    </div>
+                                </div>
                             }))
-                        }
-                        
+                        } */}
+                        <div className={`relative w-full flex flex-col`}>
+                            {
+                                index !== page.acf.storia.length-1?<BigText Tag="span" className={`fade-effect h1 text-[var(--color-primary)] font-extrabold px-[25px] ${isLeft ? 'text-right' : 'text-left'} max-s:text-start max-s:px-5 max-xs:px-[5vw]`}>{elem.anno}</BigText>:<Image preload key={index} className="fade-animation w-[50%] h-auto mt-1 fade-effect max-s:ml-5 max-s:w-[calc(100%-100px)] max-xs:ml-[5vw]" src={elem.immagini[0].url} width={elem.immagini[0].width} height={elem.immagini[0].height} alt={elem.immagini[0].alt || ''} />
+                            }
+                            <div className={`w-full relative [.single-step:last-child_&]:!absolute [.single-step:last-child_&]:!bottom-[23%] flex items-center ${isLeft?'flex-row-reverse':'flex-row'} max-s:flex-row`} >
+                                <div className={`fade-effect w-2 h-2 rounded-full bg-[var(--color-primary)] absolute top-1/2 transform -translate-y-1/2 ${isLeft ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'} max-s:left-0 max-s:-translate-x-1/2`}></div>
+                                <div className="w-full line h-[1px] bg-[var(--color-primary)]"></div>
+                            </div>
+                        </div>
                         <div className={`w-[calc(100%-200px)] relative flex flex-col items-start mt-3 fade-effect max-xl:w-[calc(100%-70px)] max-xs:w-full max-s:pl-5 max-xs:pl-[5vw]`}>
                             <BigText Tag="h2" className="!text-[15px] uppercase relative pb-1 !font-bold before:content-[''] before:absolute before:left-0 before:bottom-0 before:w-[85px] before:h-[3px] before:bg-[var(--color-primary)]">{elem.titolo}</BigText>
                             <div className="flex flex-col items-center px-5 py-[45px] bg-[#7D5B5B1A] rounded-[10px] mt-[35px] max-l:p-2">
