@@ -12,6 +12,7 @@ import { useLocale, useTranslations } from "next-intl";
 import parse from 'html-react-parser';
 import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import { ScrollTrigger } from "@/lib/gsap";
+import Table from "@/components/Library/Table/table";
 
 export default function ProductPage({prodotto, cat=[...cat], formObject = null}){
     const [open, setOpen] = useState(false);
@@ -157,6 +158,11 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
                         </ul>
                     </div>
                 </div>
+                {
+                    prodotto.acf.tabella && <div className={`flex items-start justify-start gap-18 max-xl:gap-9 w-full max-m:flex-col max-m:gap-0 relative overflow-x-auto shadow-xs rounded-base border border-none`}>
+                        <Table repeater={prodotto.acf.tabella}  />
+                    </div>
+                } 
             </div>
             
         </section>

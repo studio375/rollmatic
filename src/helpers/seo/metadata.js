@@ -14,7 +14,7 @@ function translatedSlug(translations, locale) {
 // Trovo le translations di un termine tassonomia dentro wpml_translations_tax cercando per slug corrente
 function taxTranslations(translationsTax, taxonomy, slug) {
   const terms = translationsTax?.[taxonomy] || {};
-  const term = Object.values(terms).find((t) => t?.slug === slug);
+  const term = Object.values(terms).find((t) => t?.slug.toLowerCase() === slug.toLowerCase());
   return term?.translations || null;
 }
 
@@ -43,15 +43,12 @@ export function buildMetadata({
   translationsTax,
 }) {
   if (!yoast) return {};
-
   const params = [...pathname.matchAll(/\[(\w+)\]/g)].map((m) => m[1]); //cerco nel pathname stringhe come "[xxxx]"
   const lastParam = params.at(-1);
   const taxParams = params.slice(0, -1);
-
   const taxParamsTranslations = taxParams.map((_, i) =>
     taxTranslations(translationsTax, taxonomies[i], taxValues[i]),
   );
-
 
   const buildParams = (targetLocale) => {
     const result = {};

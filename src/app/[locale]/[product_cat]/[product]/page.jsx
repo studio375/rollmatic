@@ -13,7 +13,6 @@ export async function generateMetadata({ params }) {
         slug: product,
         lang: locale,
     });
-    
     return buildMetadata({
         yoast: page?.yoast_head_json,
         pathname: "/[product_cat]/[product]",

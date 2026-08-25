@@ -17,6 +17,11 @@
     "Richiedi informazioni":"Richiedi<br/>Informazioni",
     "Richiedi offerta": "Richiedi<br/>offerta",
     "Altre news":"Altre news",
-    "Specifiche tecniche":"Specifiche tecniche"
+    "Specifiche tecniche":"Specifiche tecniche",
+    "numero_di_divisioni":"Numero di Divisioni",
+    "grammatura_min":"Grammatura min (grammi)",
+    "grammatura_max":"Grammatura max (grammi)",
+    "capacita":"Capacità (chilogrammi)",
+    "capacita_oraria":"Capacità oraria (numero di palline)"
   }
 }

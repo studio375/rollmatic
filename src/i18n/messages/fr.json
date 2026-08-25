@@ -17,6 +17,11 @@
     "Richiedi informazioni": "Demander des<br/>informations",
     "Richiedi offerta": "Demander un<br/>devis",
     "Altre news": "Autres actualités",
-    "Specifiche tecniche":"Spécifications techniques"
+    "Specifiche tecniche":"Spécifications techniques",
+    "numero_di_divisioni":"Nombre de divisions",
+    "grammatura_min":"Poids min. (grammes)",
+    "grammatura_max":"Poids max. (grammes)",
+    "capacita":"Capacité (kilogrammes)",
+    "capacita_oraria":"Capacité horaire (nombre de pâtons)"
   }
 }

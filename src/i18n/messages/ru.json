@@ -17,6 +17,11 @@
     "Richiedi informazioni": "Запросить<br/>информацию",
     "Richiedi offerta": "Запросить ценовое предложение",
     "Altre news": "Другие новости",
-    "Specifiche tecniche":"Технические характеристики"
+    "Specifiche tecniche":"Технические характеристики",
+    "numero_di_divisioni":"Количество делений",
+    "grammatura_min":"Мин. вес (грамм)",
+    "grammatura_max":"Макс. вес (грамм)",
+    "capacita":"Вместимость / Производительность (килограмм)",
+    "capacita_oraria":"Почасовая производительность (кол-во заготовок)"
   }
 }

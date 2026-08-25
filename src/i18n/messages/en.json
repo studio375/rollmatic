@@ -17,6 +17,11 @@
     "Richiedi informazioni": "Request<br/>Information",
     "Richiedi offerta": "Request a<br/>Quote",
     "Altre news": "More news",
-    "Specifiche tecniche":"Technical specifications"
+    "Specifiche tecniche":"Technical specifications",
+    "numero_di_divisioni":"Number of Divisions",
+    "grammatura_min":"Min. weight (grams)",
+    "grammatura_max":"Max. weight (grams)",
+    "capacita":"Capacity (kilograms)",
+    "capacita_oraria":"Hourly capacity (number of dough balls)"
   }
 }

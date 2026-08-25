@@ -17,6 +17,11 @@
     "Richiedi informazioni": "Solicitar<br/>información",
     "Richiedi offerta": "Solicitar<br/>presupuesto",
     "Altre news": "Más noticias",
-    "Specifiche tecniche":"Especificaciones técnicas"
+    "Specifiche tecniche":"Especificaciones técnicas",
+    "numero_di_divisioni":"Número de divisiones",
+    "grammatura_min":"Peso mín. (gramos)",
+    "grammatura_max":"Peso máx. (gramos)",
+    "capacita":"Capacidad (kilogramos)",
+    "capacita_oraria":"Capacidad por hora (número de bolas)"
   }
 }
