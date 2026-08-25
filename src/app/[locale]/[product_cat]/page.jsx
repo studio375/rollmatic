@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
+import VideoCarousel from "@/components/Library/Video Carousel/videoCarousel";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
 import { buildMetadata } from "@/helpers/seo/metadata";
 import { routing } from "@/i18n/routing";
@@ -43,6 +44,9 @@ export default async function Page({params}){
                 {imgTestata && <Image className="w-full h-auto m:h-[60vh] s:object-contain  w-auto object-cover m:max-w-[calc(100%-400px)]" src={imgTestata.url} width={imgTestata.width} height={imgTestata.height} alt={cat.name}/>}
         </section>
        <ProductLoop catFilters={catChild} products={products} />
+       {
+        cat.acf.foto_emotional && <section className="px-[75px] max-xl:px-3 mb-10 mt-5"><VideoCarousel videoIds={null} images={cat.acf.foto_emotional} /></section>
+       }
        {
         // cat.acf.faq ? <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
         //     <BigText Tag="h2" className="classic-title">Faq</BigText>

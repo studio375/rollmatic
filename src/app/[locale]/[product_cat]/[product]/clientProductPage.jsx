@@ -11,6 +11,7 @@ import { useStore } from '@/store/useStore.js';
 import { useLocale, useTranslations } from "next-intl";
 import parse from 'html-react-parser';
 import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
+import { ScrollTrigger } from "@/lib/gsap";
 
 export default function ProductPage({prodotto, cat=[...cat], formObject = null}){
     const [open, setOpen] = useState(false);
@@ -23,6 +24,9 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
         setOpen(isOpen);
         var height = drawsInner.current.getBoundingClientRect().height;
         setDrawsHeight((isOpen)?height:'0');
+        setTimeout(() => {
+            ScrollTrigger.refresh();    
+        }, 800);
     }
     var mainCat = cat.filter(elem => {
         if(locale !== 'it')

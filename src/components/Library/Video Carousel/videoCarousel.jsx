@@ -1,3 +1,4 @@
+"use client"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import VideoPlayer from '../video Player/videoPlayer';
@@ -5,9 +6,10 @@ import { useState } from 'react';
 import CarouselActions from './carouselActions';
 import 'swiper/css/effect-cards';
 import { EffectCards } from 'swiper/modules';
+import Image from 'next/image';
 
 
-export default function VideoCarousel({videoIds}){
+export default function VideoCarousel({videoIds, images = null}){
     const [swiperInstance, setSwiperInstance] = useState(null);
 
     return <div className='video-carousel-section overflow-hidden'>
@@ -20,7 +22,10 @@ export default function VideoCarousel({videoIds}){
                     cardsEffect={{rotate: false, perSlideOffset: 30}}
                 >
                     {
-                        videoIds.map(elem => {
+                        images? images.map((elem, i) => {
+                            return <SwiperSlide key={i}><Image src={elem.url} width={elem.width} height={elem.height} alt='' className='aspect-5/3 object-cover w-full' /></SwiperSlide>
+                        })
+                        : videoIds.map(elem => {
                             return <SwiperSlide key={elem}><VideoPlayer videoId={elem} /></SwiperSlide>
                         })
                     }
