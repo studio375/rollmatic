@@ -6,7 +6,13 @@ import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useGSAP } from '@gsap/react';
 
 export function Model({onRefsReady, isMobile, ...props}) {
-  const { nodes, materials } = useGLTF('/S50-def.opt.glb')
+  const { nodes, materials, scene } = useGLTF('/S50-def.opt.glb');
+  scene.traverse((child) => {
+      if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+      }
+  });
   const refs = useRef({});
   useEffect(() => {
     onRefsReady(refs.current); //passo tutti i ref
@@ -58,7 +64,7 @@ export function Model({onRefsReady, isMobile, ...props}) {
         <mesh castShadow receiveShadow geometry={nodes['pannello_posteriore-Mat53'].geometry} material={materials.Chrome} position={[1.347, 4.925, 24.75]} scale={47.025} />
       </group>
 
-      <group ref={(el) => { if(el) { el.orderIndex = -1; refs.current.ruote = el; } }} position={[-2.579, 10.648, -0.134]}> {/* ruote */}
+      <group ref={(el) => { if(el) { el.orderIndex = 0; refs.current.ruote = el; } }} position={[-2.579, 10.648, -0.134]}> {/* ruote */}
         <mesh castShadow receiveShadow geometry={nodes['ruote-Synthetic_-_ruote'].geometry} material={nodes['ruote-Synthetic_-_ruote'].material} position={[3.749, -6.7, 0.067]} scale={42.275} />
         <mesh castShadow receiveShadow geometry={nodes['ruote-Mat53'].geometry} material={materials.Chrome} position={[4.93, -3.95, 0]} scale={44.55} />
         <mesh castShadow receiveShadow geometry={nodes['ruote-paint_gray_2'].geometry} material={materials['Paint Gray']} position={[0, 1.05, 0]} scale={42.7} />

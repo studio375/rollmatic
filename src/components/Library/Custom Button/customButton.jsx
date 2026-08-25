@@ -7,7 +7,7 @@ export default function CustomButton({Tag=Link, children, ...props}){
     const ref = useRef(null);
     useEffect(() => {
         if(ref.current.classList.contains('no-animation')) return;
-        var tml = fadeAnimation(ref.current);
+        var tml = fadeAnimation(ref.current, true);
         return () => {
             if(tml)
                 tml.scrollTrigger?.kill();

@@ -42,7 +42,7 @@ export function titleAnimation(target = '.title-animation'){
     return tml; 
 }
 
-export function fadeAnimation(target = '.fade-animation'){
+export function fadeAnimation(target = '.fade-animation', isButton = false){
     var tml = null;
     if(typeof target == "string"){
         gsap.utils.toArray(target).forEach(elem => {
@@ -50,18 +50,19 @@ export function fadeAnimation(target = '.fade-animation'){
                 scrollTrigger: {
                     trigger: elem,
                     start: 'top 70%',
-                    end: `+=200px`,
+                    end: `+=${isButton?50:200}px`,
                     scrub:true,
                 }
             });
+            console.log(elem);
             tml.to(elem, {opacity: 1, duration: 1, ease: 'none'});
         })
     }else{
         var tml = gsap.timeline({
             scrollTrigger: {
                 trigger: target,
-                start: 'top 70%',
-                end: `+=200px`,
+                start: 'top 80%',
+                end: `+=${isButton?50:200}px`,
                 scrub:true,
             }
         });
