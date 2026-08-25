@@ -20,7 +20,6 @@ export default function Object3DScene({...props}){
     useGSAP(() => {
         if (!modelRefs || !containerRef.current) return;  
         const mainGroup = modelRefs.main;
-        console.log(modelRefs);
         var distance = window.innerHeight*2;
         var triggerPin = ScrollTrigger.create({
             trigger: containerRef.current,
@@ -98,7 +97,7 @@ export default function Object3DScene({...props}){
                 };
             }
             gsap.set(el.position, { [originalPositions.current[key].axis]: originalPositions.current[key].value });
-            tl.to(el.position, { [originalPositions.current[key].axis]: originalPositions.current[key].position, delay: 0.02*i}, '<+=0.11') //15*(1/modelsArray.length*(i+1))
+            tl.to(el.position, { [originalPositions.current[key].axis]: originalPositions.current[key].position, delay: 0.015*i}, '<+=0.05') //15*(1/modelsArray.length*(i+1))
             if (el.children.length > 0) {
                 el.traverse(child => {
                     if (child.isMesh && child.material) {
