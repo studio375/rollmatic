@@ -30,7 +30,7 @@ export default async function LocaleLayout({ children, params }) {
       <body className={`${aspekta.variable} antialiased`}>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            {/* <Header /> */}
+            <Header />
             <SmoothScroll>{children}</SmoothScroll>
             <Footer />
           </NextIntlClientProvider>

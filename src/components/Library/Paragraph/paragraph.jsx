@@ -14,5 +14,6 @@ export default function Paragraph({Tag = 'span', children, ...props}){
             }
        }
     }, []);
-    return <Tag ref={ref} {...props} className={` ${props.className || ''} [&_.single-line]:opacity-50`}><p>{parse(children.replace('<br>', '</p><br><p>'))}</p></Tag>
+    var text = `<p>${children.replace('<br>', '</p><br><p>')}</p>`;
+    return <Tag ref={ref} {...props} className={` ${props.className || ''} [&_.single-line]:opacity-50`}>{parse(text.replace('<p><p>', '<p>').replace('</p></p>', '</p>'))}</Tag>
 }
