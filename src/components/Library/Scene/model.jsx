@@ -6,7 +6,7 @@ import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useGSAP } from '@gsap/react';
 
 export function Model({onRefsReady, isMobile, ...props}) {
-  const { nodes, materials, scene } = useGLTF('/S50-def.opt.glb');
+  const { nodes, materials, scene } = useGLTF('/S50-def-scuro.opt.glb');
   scene.traverse((child) => {
       if (child.isMesh) {
           child.castShadow = true;
@@ -110,4 +110,4 @@ export function Model({onRefsReady, isMobile, ...props}) {
   )
 }
 
-useGLTF.preload('/S50-def.opt.glb')
+useGLTF.preload('/S50-def-scuro.opt.glb')
