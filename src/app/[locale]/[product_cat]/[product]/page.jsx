@@ -35,6 +35,7 @@ export default async function Page({params}){
         lang: locale
     });
     if(!prodotto) notFound();
+    console.log(prodotto);
     const cat = prodotto.category_info;
     var form = await fetchAPI('forms/1', {}, true);
     return <ProductPage prodotto={prodotto} cat={cat} formObject={form} />;
