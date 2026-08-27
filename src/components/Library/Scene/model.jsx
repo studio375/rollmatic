@@ -6,7 +6,7 @@ import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useGSAP } from '@gsap/react';
 
 export function Model({onRefsReady, isMobile, ...props}) {
-  const { nodes, materials, scene } = useGLTF('/S50-def-scuro.opt.glb');
+  const { nodes, materials, scene } = useGLTF('/S50-def.opt.glb');
   scene.traverse((child) => {
       if (child.isMesh) {
           child.castShadow = true;
@@ -54,7 +54,7 @@ export function Model({onRefsReady, isMobile, ...props}) {
         <mesh castShadow receiveShadow geometry={nodes['Touchscreen-Plastica_nero'].geometry} material={materials['Plastic Black']} position={[-0.266, -0.266, 0]} scale={6.4} />
       </group>
 
-      <mesh ref={(el) => { if(el) { el.orderIndex = 12; refs.current.vaschetta_int = el; } }} castShadow receiveShadow geometry={nodes.vaschetta.geometry} material={materials['Plastic White']} position={[7.371, 18.398, 19.713]} scale={24.85} /> {/* vaschetta interna */}
+      <mesh ref={(el) => { if(el) { el.orderIndex = 12; refs.current.vaschetta_int = el; } }} castShadow receiveShadow geometry={nodes.vaschetta.geometry} material={materials['Plastic White']} position={[7.371, 18.398, 18]} scale={24.85} /> {/* vaschetta interna */}
 
       <mesh ref={(el) => { if(el) { el.orderIndex = 15; refs.current.pala = el; } }} castShadow receiveShadow geometry={nodes.NAUO246.geometry} material={materials['Inox Brushed']} position={[34.881, 91.236, 19.818]} scale={28.148} /> {/* pala */}
 
@@ -110,4 +110,4 @@ export function Model({onRefsReady, isMobile, ...props}) {
   )
 }
 
-useGLTF.preload('/S50-def-scuro.opt.glb')
+useGLTF.preload('/S50-def.opt.glb')
