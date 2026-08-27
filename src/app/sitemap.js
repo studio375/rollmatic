@@ -71,16 +71,9 @@ export default async function sitemap() {
 
   //controllo se ci sono dei post_type o tassonomie dinamiche
   if(DYNAMIC_POST_TYPE && DYNAMIC_POST_TYPE.length > 0){
-    //fetch per tutte le lingue
-    const results = await Promise.all(
-      LOCALES.map((locale) => getAllPostsByLocale(locale))
-    );
-    //creo un oggetto che associa lingua - post trovati in quella lingua
-    const postsByLocale = Object.fromEntries(
-      LOCALES.map((locale, i) => [locale, results[i]])
-    );
-
-    dynamicEntries = await buildDynamicEntries({ localesData: postsByLocale });
+    //fetch di tutti i post solo nella lingua di default
+    const defaultLang_data = getAllPostsByLocale(DEFAULT_LOCALE);
+    dynamicEntries = await buildDynamicEntries({ localesData: defaultLang_data });
   }
 
   return [...staticEntries, ...dynamicEntries];
@@ -112,15 +105,14 @@ function makeEntry(pathname, params = {}, lastModified = null) {
 }
 
 //funzione generica per costruire le entries dinamiche
-async function buildDynamicEntries({ localesData,  priority = 0.8 }) {
-  const baseLocalePosts = localesData[DEFAULT_LOCALE]; //mi prendo tutti i post nella lingua principale
-  return baseLocalePosts.map((item) => { //per ogni post devo trovare le traduzioni
+async function buildDynamicEntries({ defaultLang_data,  priority = 0.8 }) {
+  return defaultLang_data.map((item) => { //per ogni post devo trovare le traduzioni
     const languages = {};
     for (const locale of LOCALES) { //per tutte le lingue trovo il post corrente in quella lingua
       const match =
         locale === DEFAULT_LOCALE
           ? item //se è la lingua principale restituisco l'oggetto del post corrente
-          : getTranslatedElement(localesData[locale], item); //oggetto del post corrente nella lingua corrente
+          : getTranslatedElement(item, locale); //oggetto del post corrente nella lingua corrente
       
       if (match) { //se trova un oggetto
         var path = buildPath(match, locale); //ottengo il path "centrale"    
@@ -144,13 +136,9 @@ async function buildDynamicEntries({ localesData,  priority = 0.8 }) {
 // **** UTILITIES ****
 
 //funzione per ottenere l'oggetto del post tradotto nella lingua corrente
-function getTranslatedElement(posts, main_lang_post_object){
-  var result = posts?.find((post) => {
-    //tra le traduzioni del post corrente trovo quella della lingua principale 
-    var [mainLangTranslationKey, mainLangTranslationObj] = Object.entries(post.wpml_translations)?.filter(elem => elem[0].includes(DEFAULT_LOCALE))[0];
-    return mainLangTranslationObj.id === main_lang_post_object.id;
-  });
-  return result;
+function getTranslatedElement(default_lang_item, newLocale){
+  var [translationKey, translatedObject] = Object.entries(default_lang_item.wpml_translations)?.filter(elem => elem[0].includes(newLocale))[0];
+  return translatedObject || null;
 }
 
 // Fetch dei post da WP per il post_type / tassonomia selezionato nella lingua selezionata
