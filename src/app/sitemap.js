@@ -46,8 +46,8 @@ const getTranslationOfSlug = (slug, locale) => { //funzione per la traduzione di
 }
 
 //funzione per costruire il path "centrale" tra l'url del sito e lo slug dell'item (ad esempio se in mezzo deve esserci una parola statica o una categoria dinamica ecc)
-function buildPath(item, locale){
-  if(item.type === 'prodotto'){
+function buildPath(item, locale, type){
+  if(type === 'prodotto'){
     var cat = item.category_info.filter(elem => {
         if(locale !== 'it')
             return elem.parent==0 && elem.term_id != elem.main_cat_italian_id; //controllo perchè in alcune categorie dall'import si è salvata anche la categoria italiana
@@ -56,7 +56,7 @@ function buildPath(item, locale){
     })[0];
     return cat.slug;
   }
-  if(item.type === 'settore'){
+  if(type === 'settore'){
     return getTranslationOfSlug('settori', locale);
   }
   return null;
@@ -113,9 +113,8 @@ function buildDynamicEntries(defaultLang_data,  priority = 0.8) {
         locale === DEFAULT_LOCALE
           ? item //se è la lingua principale restituisco l'oggetto del post corrente
           : getTranslatedElement(item, locale); //oggetto del post corrente nella lingua corrente
-      
       if (match) { //se trova un oggetto
-        var path = buildPath(match, locale); //ottengo il path "centrale"    
+        var path = buildPath(match, locale, item.type); //ottengo il path "centrale"    
         //costruirsco l'url finale
         languages[locale] =
           locale === DEFAULT_LOCALE
