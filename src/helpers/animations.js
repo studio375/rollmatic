@@ -54,7 +54,6 @@ export function fadeAnimation(target = '.fade-animation', isButton = false){
                     scrub:true,
                 }
             });
-            console.log(elem);
             tml.to(elem, {opacity: 1, duration: 1, ease: 'none'});
         })
     }else{

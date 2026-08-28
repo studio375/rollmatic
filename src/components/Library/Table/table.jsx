@@ -2,7 +2,6 @@
 import { useTranslations } from "next-intl";
 
 export default function Table({repeater, ...props}){
-    console.log(repeater);
     var t = useTranslations('strings');
     return <table className="w-full text-sm text-left rtl:text-right text-body">
         <thead className="text-sm text-body border-b rounded-base border-default">

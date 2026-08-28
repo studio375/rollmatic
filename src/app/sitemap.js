@@ -72,8 +72,8 @@ export default async function sitemap() {
   //controllo se ci sono dei post_type o tassonomie dinamiche
   if(DYNAMIC_POST_TYPE && DYNAMIC_POST_TYPE.length > 0){
     //fetch di tutti i post solo nella lingua di default
-    const defaultLang_data = getAllPostsByLocale(DEFAULT_LOCALE);
-    dynamicEntries = await buildDynamicEntries({ localesData: defaultLang_data });
+    const defaultLang_data = await getAllPostsByLocale(DEFAULT_LOCALE);
+    dynamicEntries = buildDynamicEntries(defaultLang_data);
   }
 
   return [...staticEntries, ...dynamicEntries];
@@ -105,8 +105,8 @@ function makeEntry(pathname, params = {}, lastModified = null) {
 }
 
 //funzione generica per costruire le entries dinamiche
-async function buildDynamicEntries({ defaultLang_data,  priority = 0.8 }) {
-  return defaultLang_data.map((item) => { //per ogni post devo trovare le traduzioni
+function buildDynamicEntries(defaultLang_data,  priority = 0.8) {
+  return defaultLang_data?.map((item) => { //per ogni post devo trovare le traduzioni
     const languages = {};
     for (const locale of LOCALES) { //per tutte le lingue trovo il post corrente in quella lingua
       const match =
@@ -137,7 +137,9 @@ async function buildDynamicEntries({ defaultLang_data,  priority = 0.8 }) {
 
 //funzione per ottenere l'oggetto del post tradotto nella lingua corrente
 function getTranslatedElement(default_lang_item, newLocale){
-  var [translationKey, translatedObject] = Object.entries(default_lang_item.wpml_translations)?.filter(elem => elem[0].includes(newLocale))[0];
+  const translations = default_lang_item.wpml_translations;
+  if(!translations || Object.keys(translations).length === 0) return null;
+  var [translationKey, translatedObject] = Object.entries(translations)?.filter(elem => elem[0].includes(newLocale))[0] || [];
   return translatedObject || null;
 }
 
