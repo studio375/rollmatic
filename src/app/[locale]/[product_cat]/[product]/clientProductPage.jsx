@@ -3,179 +3,324 @@ import Image from "next/image";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import BigText from "@/components/Library/Big Text/bigText";
 import CustomButton from "@/components/Library/Custom Button/customButton";
-import { useEffect, useRef, useState } from 'react';
-import ScrollGallery from '@/components/Library/Scroll Gallery/scrollGallery';
-import VideoCarousel from '@/components/Library/Video Carousel/videoCarousel';
-import GravityForm from '@/components/Library/Gravity Form/gravityForm';
-import { useStore } from '@/store/useStore.js';
+import { useEffect, useRef, useState } from "react";
+import ScrollGallery from "@/components/Library/Scroll Gallery/scrollGallery";
+import VideoCarousel from "@/components/Library/Video Carousel/videoCarousel";
+import GravityForm from "@/components/Library/Gravity Form/gravityForm";
+import { useStore } from "@/store/useStore.js";
 import { useLocale, useTranslations } from "next-intl";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import { ScrollTrigger } from "@/lib/gsap";
 import Table from "@/components/Library/Table/table";
+import Faq from "@/components/Library/Faq/faq";
 
-export default function ProductPage({prodotto, cat=[...cat], formObject = null}){
-    const [open, setOpen] = useState(false);
-    const [drawsHeight, setDrawsHeight] = useState(0);
-    const drawsInner = useRef(null);
-    const locale = useLocale();
-    const t = useTranslations('strings');
-    function handeClickDraws(){
-        var isOpen = !open;
-        setOpen(isOpen);
-        var height = drawsInner.current.getBoundingClientRect().height;
-        setDrawsHeight((isOpen)?height:'0');
-        setTimeout(() => {
-            ScrollTrigger.refresh();    
-        }, 800);
-    }
-    var mainCat = cat.filter(elem => {
-        if(locale !== 'it')
-            return elem.parent==0 && elem.term_id != elem.main_cat_italian_id; //controllo perchè in alcune categorie dall'import si è salvata anche la categoria italiana
-        else
-            return elem.parent==0;
-    })[0];
-    var childCat = cat.filter(elem => elem.parent==mainCat.term_id)[0];
-    if(!childCat) childCat=mainCat;
-    var dettagliProd = prodotto.acf.dettagli_prodotto;
-    var col1Dettagli = dettagliProd?.filter((elem, i) => {return (i < dettagliProd.length / 2)});
-    var col2Dettagli = dettagliProd?.filter((elem, i) => {return (i >= dettagliProd.length / 2)});
+export default function ProductPage({
+  prodotto,
+  cat = [...cat],
+  formObject = null,
+}) {
+  const [open, setOpen] = useState(false);
+  const [drawsHeight, setDrawsHeight] = useState(0);
+  const drawsInner = useRef(null);
+  const locale = useLocale();
+  const t = useTranslations("strings");
+  function handeClickDraws() {
+    var isOpen = !open;
+    setOpen(isOpen);
+    var height = drawsInner.current.getBoundingClientRect().height;
+    setDrawsHeight(isOpen ? height : "0");
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 800);
+  }
+  var mainCat = cat.filter((elem) => {
+    if (locale !== "it")
+      return elem.parent == 0 && elem.term_id != elem.main_cat_italian_id; //controllo perchè in alcune categorie dall'import si è salvata anche la categoria italiana
+    else return elem.parent == 0;
+  })[0];
+  var childCat = cat.filter((elem) => elem.parent == mainCat.term_id)[0];
+  if (!childCat) childCat = mainCat;
+  var dettagliProd = prodotto.acf.dettagli_prodotto;
+  var col1Dettagli = dettagliProd?.filter((elem, i) => {
+    return i < dettagliProd.length / 2;
+  });
+  var col2Dettagli = dettagliProd?.filter((elem, i) => {
+    return i >= dettagliProd.length / 2;
+  });
 
-    var videoIds = prodotto.acf.galleria_video && prodotto.acf.galleria_video.map(elem => {return elem.id_video_yt});
+  var videoIds =
+    prodotto.acf.galleria_video &&
+    prodotto.acf.galleria_video.map((elem) => {
+      return elem.id_video_yt;
+    });
 
-    const {setCurrentPageTitle} = useStore();
-    useEffect(() => {
-        setCurrentPageTitle(`${childCat?.name} ${prodotto.title.rendered}`);
-    },[setCurrentPageTitle])
-    
-    const singleColClass="flex items-start justify-start flex-col";
-    return <>
-        <Breadcrumbs items={[{href:mainCat?.slug, label: mainCat?.name}, {label: prodotto.title.rendered}]} />
-        <section className="w-full relative h-auto py-8 testata-product flex flex-col items-center max-s:gap-5 max-mobileHeader:pt-13">
-            {/* {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100%-200px)] w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>} */}
-            {prodotto.acf.immagine_testata && <Image className='h-[calc(100vh-200px)] w-auto max-s:w-full max-s:h-auto max-s:max-h-[calc(100vh-200px)] object-cover max-s:object-contain relative object-bottom' src={prodotto.acf.immagine_testata.url} width={prodotto.acf.immagine_testata.width} height={prodotto.acf.immagine_testata.height} alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}/>}
-            <div className={`boxed relative -mt-8 max-[1700px]:-m-2 w-full flex items-end justify-between max-[1700px]:flex-col max-[1700px]:items-start max-[1700px]:gap-3`}>
-                <div className={`w-[40%] max-[1700px]:w-full`}>
-                    <BigText className="no-animation h3 max-xs:!text-[16px] sub" Tag="h2">{childCat?.name}</BigText>
-                    <BigText Tag="h1" className="no-animation font-extrabold">{prodotto.title.rendered}</BigText>
-                </div>
-                <div className={`flex items-end max-s:items-start justify-between w-[55%] max-[1700px]:w-full max-[1700px]:flex-wrap max-[1700px]:gap-3`}>
-                    <div className={`${singleColClass}`}>
-                        <span>{parse(prodotto.acf.potenza)}</span>
-                        <span>{parse(prodotto.acf.frequenza)}</span>
-                        <span>{parse(prodotto.acf.tensione)}</span>
-                    </div>
-                    {
-                        prodotto.acf.larghezza_tavolo && <div className={`${singleColClass}`}>
-                            <span>{t("Larghezza tavolo")}</span>
-                            <span>{parse(prodotto.acf.larghezza_tavolo)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.lunghezza_tavolo && <div className={`${singleColClass}`}>
-                            <span>{t("Lunghezza tavolo")}</span>
-                            <span>{parse(prodotto.acf.lunghezza_tavolo)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.litri_planetaria && <div className={`${singleColClass}`}>
-                            <span>{t("Litri planetaria")}</span>
-                            <span>{parse(prodotto.acf.litri_planetaria)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.num_programmi_spazza_arrotondatrice && <div className={`${singleColClass}`}>
-                            <span>{t("Numero programmi")}</span>
-                            <span>{parse(prodotto.acf.num_programmi_spazza_arrotondatrice)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.passo_lame && <div className={`${singleColClass}`}>
-                            <span>{t("Passo lame")}</span>
-                            <span>{parse(prodotto.acf.passo_lame)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.dimensione_max_pane && <div className={`${singleColClass}`}>
-                            <span>{t("Dimensione massima pane")}</span>
-                            <span>{parse(prodotto.acf.dimensione_max_pane)}</span>
-                        </div>
-                    }
-                </div>
+  const { setCurrentPageTitle } = useStore();
+  useEffect(() => {
+    setCurrentPageTitle(`${childCat?.name} ${prodotto.title.rendered}`);
+  }, [setCurrentPageTitle]);
+
+  const singleColClass = "flex items-start justify-start flex-col";
+  return (
+    <>
+      <Breadcrumbs
+        items={[
+          { href: mainCat?.slug, label: mainCat?.name },
+          { label: prodotto.title.rendered },
+        ]}
+      />
+      <section className="w-full relative h-auto py-8 testata-product flex flex-col items-center max-s:gap-5 max-mobileHeader:pt-13">
+        {/* {prodotto._embedded['wp:featuredmedia'] && <Image className='h-[calc(100%-200px)] w-auto object-cover absolute left-1/2 bottom-12 -translate-x-1/2 object-bottom' src={prodotto._embedded['wp:featuredmedia'][0].source_url} width={prodotto._embedded['wp:featuredmedia'][0].media_details.width} height={prodotto._embedded['wp:featuredmedia'][0].media_details.height} alt={prodotto._embedded['wp:featuredmedia'][0].alt_text || prodotto.title.rendered}/>} */}
+        {prodotto.acf.immagine_testata && (
+          <Image
+            className="h-[calc(100vh-200px)] w-auto max-s:w-full max-s:h-auto max-s:max-h-[calc(100vh-200px)] object-cover max-s:object-contain relative object-bottom"
+            src={prodotto.acf.immagine_testata.url}
+            width={prodotto.acf.immagine_testata.width}
+            height={prodotto.acf.immagine_testata.height}
+            alt={prodotto.acf.immagine_testata.alt || prodotto.title.rendered}
+          />
+        )}
+        <div
+          className={`boxed relative -mt-8 max-[1700px]:-m-2 w-full flex items-end justify-between max-[1700px]:flex-col max-[1700px]:items-start max-[1700px]:gap-3`}
+        >
+          <div className={`w-[40%] max-[1700px]:w-full`}>
+            <BigText
+              className="no-animation h3 max-xs:!text-[16px] sub"
+              Tag="h2"
+            >
+              {childCat?.name}
+            </BigText>
+            <BigText Tag="h1" className="no-animation font-extrabold">
+              {prodotto.title.rendered}
+            </BigText>
+          </div>
+          <div
+            className={`flex items-end max-s:items-start justify-between w-[55%] max-[1700px]:w-full max-[1700px]:flex-wrap max-[1700px]:gap-3`}
+          >
+            <div className={`${singleColClass}`}>
+              <span>{parse(prodotto.acf.potenza)}</span>
+              <span>{parse(prodotto.acf.frequenza)}</span>
+              <span>{parse(prodotto.acf.tensione)}</span>
             </div>
-        </section>
-        <section className="boxed flex items-start pt-13 max-s:pt-5 max-l:flex-col max-l:gap-5">
-            <div className={`w-[40%] max-xl:w-[50%] max-l:w-full pr-20 max-xl:pr-10 max-l:pr-0 z-[10] relative`}><Paragraph>{prodotto.acf.paragrafo}</Paragraph></div>
-            {
-            prodotto.acf.galleria && 
-                <div className={`w-[calc(60%)] max-xl:w-[50%] max-l:w-full z-[10] relative`}>
-                    {prodotto.acf.galleria.length > 1?<ScrollGallery images={prodotto.acf.galleria}/>:<Image className="w-full h-auto rounded-[5px] l:max-w-85 ml-auto" src={prodotto.acf.galleria[0].url} width={prodotto.acf.galleria[0].width} height={prodotto.acf.galleria[0].height} alt={prodotto.acf.galleria[0].alt || 'Immagine di galleria'}/>}
+            {prodotto.acf.larghezza_tavolo && (
+              <div className={`${singleColClass}`}>
+                <span>{t("Larghezza tavolo")}</span>
+                <span>{parse(prodotto.acf.larghezza_tavolo)}</span>
+              </div>
+            )}
+            {prodotto.acf.lunghezza_tavolo && (
+              <div className={`${singleColClass}`}>
+                <span>{t("Lunghezza tavolo")}</span>
+                <span>{parse(prodotto.acf.lunghezza_tavolo)}</span>
+              </div>
+            )}
+            {prodotto.acf.litri_planetaria && (
+              <div className={`${singleColClass}`}>
+                <span>{t("Litri planetaria")}</span>
+                <span>{parse(prodotto.acf.litri_planetaria)}</span>
+              </div>
+            )}
+            {prodotto.acf.num_programmi_spazza_arrotondatrice && (
+              <div className={`${singleColClass}`}>
+                <span>{t("Numero programmi")}</span>
+                <span>
+                  {parse(prodotto.acf.num_programmi_spazza_arrotondatrice)}
+                </span>
+              </div>
+            )}
+            {prodotto.acf.passo_lame && (
+              <div className={`${singleColClass}`}>
+                <span>{t("Passo lame")}</span>
+                <span>{parse(prodotto.acf.passo_lame)}</span>
+              </div>
+            )}
+            {prodotto.acf.dimensione_max_pane && (
+              <div className={`${singleColClass}`}>
+                <span>{t("Dimensione massima pane")}</span>
+                <span>{parse(prodotto.acf.dimensione_max_pane)}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+      <section className="boxed flex items-start pt-13 max-s:pt-5 max-l:flex-col max-l:gap-5">
+        <div
+          className={`w-[40%] max-xl:w-[50%] max-l:w-full pr-20 max-xl:pr-10 max-l:pr-0 z-[10] relative`}
+        >
+          <Paragraph>{prodotto.acf.paragrafo}</Paragraph>
+        </div>
+        {prodotto.acf.galleria && (
+          <div
+            className={`w-[calc(60%)] max-xl:w-[50%] max-l:w-full z-[10] relative`}
+          >
+            {prodotto.acf.galleria.length > 1 ? (
+              <ScrollGallery images={prodotto.acf.galleria} />
+            ) : (
+              <Image
+                className="w-full h-auto rounded-[5px] l:max-w-85 ml-auto"
+                src={prodotto.acf.galleria[0].url}
+                width={prodotto.acf.galleria[0].width}
+                height={prodotto.acf.galleria[0].height}
+                alt={prodotto.acf.galleria[0].alt || "Immagine di galleria"}
+              />
+            )}
+          </div>
+        )}
+      </section>
+      <section className="w-full relative mt-25 max-xl:mt-14 max-s:mt-10">
+        {mainCat?.acf?.testo_gamma && !prodotto.acf.nascondi_testo_gamma && (
+          <BigText
+            className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]"
+            Tag="h3"
+          >
+            {mainCat.acf.testo_gamma}
+          </BigText>
+        )}
+        {prodotto.acf.immagine_full ? (
+          <div className="w-full product-image big-boxed mt-5">
+            <Image
+              className="w-full h-auto top-0 left-0"
+              src={prodotto.acf.immagine_full.url}
+              width={prodotto.acf.immagine_full.width}
+              height={prodotto.acf.immagine_full.height}
+              alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}
+            />
+          </div>
+        ) : (
+          <div className="h-10 max-m:h-5 w-full"></div>
+        )}
+        <div
+          className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-[30px] gradient-before`}
+        >
+          <CustomButton
+            href={prodotto.acf.scheda_tecnica.url || ""}
+            className={``}
+          >
+            {t("Scheda tecnica")}
+          </CustomButton>
+          {prodotto.acf.disegni_tecnici && (
+            <div
+              className={`${open ? "open" : ""} line w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)] transition-all duration-500 hover:border-[var(--color-primary)]`}
+            >
+              <div
+                className={`flex justify-between items-center w-full cursor-pointer py-[15px]`}
+                onClick={handeClickDraws}
+              >
+                <span className="uppercase">{t("Disegni tecnici")}</span>
+                <div
+                  className={`w-3 h-3 relative transition-all duration-500 [.line:hover:not(.open)_&]:rotate-180`}
+                >
+                  <div className="hor absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px]"></div>
+                  <div className="vert absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px] rotate-[-90deg] transition-all duration-[0.3s] ease [.open_&]:opacity-0"></div>
                 </div>
-            }
-        </section>
-        <section className="w-full relative mt-25 max-xl:mt-14 max-s:mt-10">
-            {(mainCat?.acf?.testo_gamma && !prodotto.acf.nascondi_testo_gamma) && <BigText className="text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]" Tag="h3">{mainCat.acf.testo_gamma}</BigText>}
-            {prodotto.acf.immagine_full? <div className="w-full product-image big-boxed mt-5">
-                 <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
-            </div>:<div className="h-10 max-m:h-5 w-full"></div>}
-            <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-[30px] gradient-before`}>
-                <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
-                {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} line w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)] transition-all duration-500 hover:border-[var(--color-primary)]`}>
-                    <div className={`flex justify-between items-center w-full cursor-pointer py-[15px]`} onClick={handeClickDraws}>
-                        <span className='uppercase'>{t("Disegni tecnici")}</span>
-                        <div className={`w-3 h-3 relative transition-all duration-500 [.line:hover:not(.open)_&]:rotate-180`}>
-                            <div className='hor absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px]'></div>
-                            <div className='vert absolute top-[50%] translate-y-[-50%] h-[2px] w-full bg-[var(--color-foreground)] rounded-[2px] rotate-[-90deg] transition-all duration-[0.3s] ease [.open_&]:opacity-0'></div>
-                        </div>
-                    </div>
-                    <div className={`h-0 overflow-hidden w-full transition-all duration-[0.5s] ease`} style={{height: drawsHeight}}>
-                        <div className={`flex items-stretch flex-wrap gap-3 w-full pt-[15px] pb-3 max-s:flex-col`} ref={drawsInner}>
-                        {
-                            prodotto.acf.disegni_tecnici.map(elem => {
-                                return <Image className='w-[calc(50%-15px)] max-s:w-full h-auto' src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'disegno tecnico'} key={elem.ID} />
-                            })
-                        }
-                        </div>
-                    </div>
-                </div>}
-                <div className={`flex items-start justify-start gap-18 max-xl:gap-9 w-full max-m:flex-col max-m:gap-0`}>
-                    <div className={`relative w-[calc(50%-90px)] max-xl:w-[calc(50%-45px)] max-m:w-full`}>
-                        <ul>
-                        {
-                            col1Dettagli.map((elem,i) => {
-                                return <div key={i}><span className="absolute left-0">•</span><Paragraph className={`${i > 0 && 'mt-[5px]'} pl-2`} Tag='li'>{elem.testo}</Paragraph></div>;
-                            })
-                        }
-                        </ul>
-                    </div>
-                    <div className={`relative w-[calc(50%-90px)] max-xl:w-[calc(50%-45px)] max-m:w-full`}>
-                        <ul>
-                        {
-                            col2Dettagli.map((elem,i) => {
-                                return <div key={i}><span className="absolute left-0">•</span><Paragraph className={`${i > 0 && 'mt-[5px]'} pl-2`} Tag='li'>{elem.testo}</Paragraph></div>;
-                            })
-                        }
-                        </ul>
-                    </div>
+              </div>
+              <div
+                className={`h-0 overflow-hidden w-full transition-all duration-[0.5s] ease`}
+                style={{ height: drawsHeight }}
+              >
+                <div
+                  className={`flex items-stretch flex-wrap gap-3 w-full pt-[15px] pb-3 max-s:flex-col`}
+                  ref={drawsInner}
+                >
+                  {prodotto.acf.disegni_tecnici.map((elem) => {
+                    return (
+                      <Image
+                        className="w-[calc(50%-15px)] max-s:w-full h-auto"
+                        src={elem.url}
+                        width={elem.width}
+                        height={elem.height}
+                        alt={elem.alt || "disegno tecnico"}
+                        key={elem.ID}
+                      />
+                    );
+                  })}
                 </div>
-                {
-                    prodotto.acf.tabella && <div className={`flex items-start justify-start gap-18 max-xl:gap-9 w-full max-m:flex-col max-m:gap-0 relative overflow-x-auto shadow-xs rounded-base border border-none`}>
-                        <Table repeater={prodotto.acf.tabella}  />
+              </div>
+            </div>
+          )}
+          <div
+            className={`flex items-start justify-start gap-18 max-xl:gap-9 w-full max-m:flex-col max-m:gap-0`}
+          >
+            <div
+              className={`relative w-[calc(50%-90px)] max-xl:w-[calc(50%-45px)] max-m:w-full`}
+            >
+              <ul>
+                {col1Dettagli.map((elem, i) => {
+                  return (
+                    <div key={i}>
+                      <span className="absolute left-0">•</span>
+                      <Paragraph
+                        className={`${i > 0 && "mt-[5px]"} pl-2`}
+                        Tag="li"
+                      >
+                        {elem.testo}
+                      </Paragraph>
                     </div>
-                } 
+                  );
+                })}
+              </ul>
             </div>
-            
-        </section>
-        <section className="big-boxed s:mt-5 mb-12 max-s:mb-7 relative z-[10] flex items-start flex-col gap-[115px] max-m:gap-5">
-            <div className="divisor"></div>
-            <div className={`flex items-start w-full relative max-m:flex-col max-m:gap-3`}>
-                <BigText className={`m:w-[calc(100%/3)] !text-[36px] !font-bold`} Tag="h3">{t("Richiedi informazioni")}</BigText>
-                <GravityForm className={`m:!w-[calc(200%/3)]`} formObject={formObject} />
+            <div
+              className={`relative w-[calc(50%-90px)] max-xl:w-[calc(50%-45px)] max-m:w-full`}
+            >
+              <ul>
+                {col2Dettagli.map((elem, i) => {
+                  return (
+                    <div key={i}>
+                      <span className="absolute left-0">•</span>
+                      <Paragraph
+                        className={`${i > 0 && "mt-[5px]"} pl-2`}
+                        Tag="li"
+                      >
+                        {elem.testo}
+                      </Paragraph>
+                    </div>
+                  );
+                })}
+              </ul>
             </div>
+          </div>
+          {prodotto.acf.tabella && (
+            <div
+              className={`flex items-start justify-start gap-18 max-xl:gap-9 w-full max-m:flex-col max-m:gap-0 relative overflow-x-auto shadow-xs rounded-base border border-none`}
+            >
+              <Table repeater={prodotto.acf.tabella} />
+            </div>
+          )}
+        </div>
+      </section>
+      <section className="big-boxed s:mt-5 mb-12 max-s:mb-7 relative z-[10] flex items-start flex-col gap-[115px] max-m:gap-5">
+        <div className="divisor"></div>
+        <div
+          className={`flex items-start w-full relative max-m:flex-col max-m:gap-3`}
+        >
+          <BigText
+            className={`m:w-[calc(100%/3)] !text-[36px] !font-bold`}
+            Tag="h3"
+          >
+            {t("Richiedi informazioni")}
+          </BigText>
+          <GravityForm
+            className={`m:!w-[calc(200%/3)]`}
+            formObject={formObject}
+          />
+        </div>
+      </section>
+
+      {videoIds && (
+        <section className="big-boxed mb-[178px] max-s:mb-10">
+          <VideoCarousel videoIds={videoIds} />
         </section>
-        
-        {videoIds && <section className="big-boxed mb-[178px] max-s:mb-10">
-            <VideoCarousel videoIds={videoIds} />
-        </section>}
-    </>;
+      )}
+
+      {prodotto.faq && prodotto.faq.length > 0 && (
+        <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
+          <BigText Tag="h2" className="classic-title">
+            Faq
+          </BigText>
+          <Faq faq={prodotto.faq} />
+        </section>
+      )}
+    </>
+  );
 }
