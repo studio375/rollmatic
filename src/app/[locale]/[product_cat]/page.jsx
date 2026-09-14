@@ -11,12 +11,18 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }) {
-  const { product_cat, locale } = await params;
-  const cat = await fetchAPI("categoria", {
-    slug: product_cat,
-    acf_format: "standard",
-    lang: locale,
-  });
+    const {product_cat, locale} = await params;
+    const cat = await fetchAPI('categoria',{
+        slug: product_cat,
+        acf_format: 'standard',
+        lang: locale
+    });
+    
+    if(!cat) notFound();
+    const catChild = await fetchAPI('categoria', {
+        parent: cat.id,
+        lang: locale
+    });
 
     var products = await fetchAPI('prodotto', {
         'categoria': [cat.id].concat(catChild.map(el => {return el.id;})),
@@ -55,6 +61,7 @@ export default async function Page({ params }) {
         ) : (
             <div className="h-10"></div>
         )}
+        
     </>;
 }
 
