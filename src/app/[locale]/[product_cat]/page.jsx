@@ -3,7 +3,6 @@ import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import Faq from "@/components/Library/Faq/faq";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import ProductLoop from "@/components/Library/Product Loop/productLoop";
-import VideoCarousel from "@/components/Library/Video Carousel/videoCarousel";
 import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
 import { buildMetadata } from "@/helpers/seo/metadata";
 import { routing } from "@/i18n/routing";
@@ -11,19 +10,13 @@ import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export default async function Page({params}){ 
-    const {product_cat, locale} = await params;
-    const cat = await fetchAPI('categoria',{
-        slug: product_cat,
-        acf_format: 'standard',
-        lang: locale
-    });
-    
-    if(!cat) notFound();
-    const catChild = await fetchAPI('categoria', {
-        parent: cat.id,
-        lang: locale
-    });
+export default async function Page({ params }) {
+  const { product_cat, locale } = await params;
+  const cat = await fetchAPI("categoria", {
+    slug: product_cat,
+    acf_format: "standard",
+    lang: locale,
+  });
 
     var products = await fetchAPI('prodotto', {
         'categoria': [cat.id].concat(catChild.map(el => {return el.id;})),
@@ -52,40 +45,44 @@ export default async function Page({params}){
                 </div>
         </section>
        <ProductLoop catFilters={catChild} products={products} />
-       {
-        // cat.acf.faq ? <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
-        //     <BigText Tag="h2" className="classic-title">Faq</BigText>
-        //     <Faq faq={cat.acf.faq} />
-        // </section>:<div className="h-10"></div>
-       }       
+       {cat.acf.faq && cat.acf.faq.length > 0 ? (
+            <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
+                <BigText Tag="h2" className="classic-title">
+                    Faq
+                </BigText>
+                <Faq faq={cat.acf.faq} />
+            </section>
+        ) : (
+            <div className="h-10"></div>
+        )}
     </>;
 }
 
 export async function generateStaticParams() {
-    const params = [];
-    for (const locale of routing.locales) {
-        const slugs = await getAllSlugs("categoria", locale);
-        for (const {slug, id} of slugs) {
-            const product_cat = slug;
-            params.push({ locale, product_cat });
-        }
+  const params = [];
+  for (const locale of routing.locales) {
+    const slugs = await getAllSlugs("categoria", locale);
+    for (const { slug, id } of slugs) {
+      const product_cat = slug;
+      params.push({ locale, product_cat });
     }
-    return params;
+  }
+  return params;
 }
 
 export async function generateMetadata({ params }) {
-    const {product_cat, locale} = await params;
-    setRequestLocale(locale);
-    const page = await fetchAPI('categoria',{
-        slug: product_cat,
-        lang: locale
-    });
+  const { product_cat, locale } = await params;
+  setRequestLocale(locale);
+  const page = await fetchAPI("categoria", {
+    slug: product_cat,
+    lang: locale,
+  });
 
-    return buildMetadata({
-        yoast: page?.yoast_head_json,
-        pathname: "/[product_cat]",
-        locale,
-        value: product_cat,
-        translations: page?.wpml_translations,
-    });
+  return buildMetadata({
+    yoast: page?.yoast_head_json,
+    pathname: "/[product_cat]",
+    locale,
+    value: product_cat,
+    translations: page?.wpml_translations,
+  });
 }
