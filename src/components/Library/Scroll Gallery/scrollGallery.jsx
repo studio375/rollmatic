@@ -31,7 +31,7 @@ export default function ScrollGallery({images, ...props}){
             zIndex: 100 - index, 
             top: 20 * index
         }
-        return <Image className={`slide h-auto absolute object-cover rounded-[5px] w-[calc(100%-200px)] ${index == 0?'max-m:relative':''} max-m:!w-full max-m:!right-0 max-m:!h-auto max-m:!max-h-[60vh] max-s:!max-h-[unset] max-m:!top-0`} key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
+        return <Image className={`slide h-auto absolute object-cover rounded-[5px] w-[calc(100%-200px)] ${index == 0?'max-m:relative':''} max-m:!w-full max-m:!right-0 max-m:aspect-[2] max-m:!h-auto max-m:!top-0`} key={elem.ID} src={elem.url} width={elem.width} height={elem.height} alt={elem.alt || 'Immagine di galleria'} style={styleObject}/>
     })
     useEffect(() => {
         setIsMobile(window.innerWidth < 1025);

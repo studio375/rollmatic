@@ -49,6 +49,7 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
     },[setCurrentPageTitle])
     
     const singleColClass="flex items-start justify-start flex-col";
+    const foto_emotional = prodotto?.acf?.foto_emotional ?? mainCat?.acf?.foto_emotional ?? null;
     return <>
         <Breadcrumbs items={[{href:mainCat?.slug, label: mainCat?.name}, {label: prodotto.title.rendered}]} />
         <section className="w-full relative h-auto py-8 testata-product flex flex-col items-center max-s:gap-5 max-mobileHeader:pt-13">
@@ -166,6 +167,9 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
             </div>
             
         </section>
+        {
+            foto_emotional && <section className="px-[75px] max-xl:px-3 mb-10 mt-5 max-s:mb-7"><VideoCarousel videoIds={null} images={foto_emotional} /></section>
+        }
         <section className="big-boxed s:mt-5 mb-12 max-s:mb-7 relative z-[10] flex items-start flex-col gap-[115px] max-m:gap-5">
             <div className="divisor"></div>
             <div className={`flex items-start w-full relative max-m:flex-col max-m:gap-3`}>

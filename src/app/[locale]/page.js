@@ -40,6 +40,19 @@ export default async function Home({params}) {
   });
   const t = await getTranslations('strings');
   var order = 0;
+
+  //pulsante link al prodotto
+  var productLink = page.acf.prodotto_pulsante;
+  if(productLink){
+    var productLinkCat = (productLink.category_info && productLink.category_info.length > 0)?[...productLink.category_info]:null;
+    var mainProductLinkCat = productLinkCat.filter(elem => {
+        if(locale !== 'it')
+            return elem.parent==0 && elem.term_id != elem.main_cat_italian_id; //controllo perchè in alcune categorie dall'import si è salvata anche la categoria italiana
+        else
+            return elem.parent==0;
+    })[0];
+  }
+
   return (
     <>
       <section className="w-full h-screen relative">
@@ -75,6 +88,11 @@ export default async function Home({params}) {
         <CustomButton href={page.acf.cta.url}>{page.acf.cta.title}</CustomButton>
       </section>
       <Object3DScene />
+      {
+        productLink && <div className="mb-10 flex justify-center boxed">
+          <CustomButton className="text-center" href={`/${mainProductLinkCat.slug}/${productLink.post_name}`}>{t('testo_pulsante_home')}</CustomButton>
+        </div>
+      }
       <section className="mt-0 w-full relative max-w-full overflow-hidden">
           <FullpageScrollGallery elements={settori}>
             {

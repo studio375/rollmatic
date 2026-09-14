@@ -22,6 +22,7 @@
     "grammatura_min":"Min. weight (grams)",
     "grammatura_max":"Max. weight (grams)",
     "capacita":"Capacity (kilograms)",
-    "capacita_oraria":"Hourly capacity (number of dough balls)"
+    "capacita_oraria":"Hourly capacity (number of dough balls)",
+    "testo_pulsante_home":"Discover our adjustable-thickness slicer"
   }
 }
