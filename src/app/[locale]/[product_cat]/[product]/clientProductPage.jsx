@@ -13,6 +13,7 @@ import parse from 'html-react-parser';
 import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 import { ScrollTrigger } from "@/lib/gsap";
 import Table from "@/components/Library/Table/table";
+import Faq from "@/components/Library/Faq/faq";
 
 export default function ProductPage({prodotto, cat=[...cat], formObject = null}){
     const [open, setOpen] = useState(false);
@@ -185,9 +186,7 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
 
         {prodotto.faq && prodotto.faq.length > 0 && (
             <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
-            <BigText Tag="h2" className="classic-title">
-                Faq
-            </BigText>
+            <BigText Tag="h2" className="classic-title">Faq</BigText>
             <Faq faq={prodotto.faq} />
             </section>
         )}
