@@ -31,8 +31,10 @@ export default async function Page({ params }) {
         per_page: 100,
         lang: locale,
     });
+
     
     var imgTestata = (cat.acf.immagine_testata)?cat.acf.immagine_testata:cat.acf.immagine_categoria;
+    imgTestata = imgTestata || cat.img_testata_parent;
     return <>
         <Breadcrumbs items={[{label: cat.name}]} />
         {/* <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 max-m:pt-12 max-m:pb-5 boxed xl:!px-15 flex items-center justify-between max-m:flex-col max-m:gap-4">
@@ -42,7 +44,7 @@ export default async function Page({ params }) {
                 </div>
                 {imgTestata && <Image className="w-full h-auto m:h-[60vh] s:object-contain  w-auto object-cover m:max-w-[calc(100%-400px)]" src={imgTestata.url} width={imgTestata.width} height={imgTestata.height} alt={cat.name}/>}
         </section> */}
-        <section className="w-full flex h-auto relative min-h-[80vh] testata-product boxed xl:!px-15 flex items-center justify-center">
+        <section className="w-full flex h-auto relative pt-28 pb-20 max-xl:pt-18 max-xl:pb-10 testata-product boxed xl:!px-15 flex items-center justify-center">
                 {imgTestata && <Image className="absolute left-0 top-0 w-full h-full object-cover object-center" src={imgTestata.url} width={imgTestata.width} height={imgTestata.height} alt={cat.name}/>}
                 <div className="absolute w-full h-full left-0 top-0 bg-[#00000080]"></div>
                 <div className="relative flex flex-col items-center gap-[15px] w-full max-m:[&_>*]:w-full">
