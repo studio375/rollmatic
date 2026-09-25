@@ -145,7 +145,7 @@ function getTranslatedElement(default_lang_item, newLocale){
 // Fetch dei post da WP per il post_type / tassonomia selezionato nella lingua selezionata
 async function getPostsByLocale(locale, postType){
   const res = await fetch(
-    `${WP_API}/${postType}?lang=${locale}&per_page=100&_fields=id,slug,modified,${ADD_VARIABLES_ON_FETCH}`,
+    `${WP_API}/${postType}?lang=${locale}&per_page=100&_fields=id,slug,modified,${ADD_VARIABLES_ON_FETCH}&exclude-acf=true`,
     { next: { revalidate: 3600 } },
   );
   if (!res.ok) return [];

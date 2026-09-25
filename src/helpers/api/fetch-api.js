@@ -61,3 +61,14 @@ export async function getAllSlugs(path, locale, more_opt = {}) {
     return {slug:p.slug, id: p.id}
   });
 }
+
+export async function fetchBySlug(path, locale, slug, category = false) {
+  return fetchAPI(path, {
+    lang: locale,
+    slug,
+    ...(category ? { "categoria_slug": category } : {}),
+    acf_format: "standard",
+    _embed: "true",
+    context: "edit",
+  });
+};

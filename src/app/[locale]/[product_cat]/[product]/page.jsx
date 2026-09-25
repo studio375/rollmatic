@@ -1,4 +1,4 @@
-import { fetchAPI, getAllSlugs } from "@/helpers/api/fetch-api";
+import { fetchAPI, fetchBySlug, getAllSlugs } from "@/helpers/api/fetch-api";
 import { notFound } from "next/navigation";
 import ProductPage from "./clientProductPage";
 import { routing } from "@/i18n/routing";
@@ -28,12 +28,7 @@ export async function generateMetadata({ params }) {
 export default async function Page({params}){
     const {product_cat, product, locale} = await params;
     
-    const prodotto = await fetchAPI('prodotto', {
-        slug: product,
-        acf_format: "standard",
-        _embed: true,
-        lang: locale
-    });
+    const prodotto = await fetchBySlug("prodotto", locale, product, product_cat);
     if(!prodotto) notFound();
     const cat = prodotto.category_info;
     var form = await fetchAPI('forms/1', {}, true);
