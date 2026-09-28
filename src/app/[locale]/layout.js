@@ -7,6 +7,7 @@ import { routing } from '@/i18n/routing';
 import { getMessages, setRequestLocale } from "next-intl/server";
 import Providers from "@/components/providers";
 import localFont from "next/font/local";
+import Script from "next/script";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -27,6 +28,9 @@ export default async function LocaleLayout({ children, params }) {
   return (
     <>
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <Script src="https://chat.daliatechnologies.ai/embed.min.js?chatbotId=698d0c4bfaab1933e7aba0c2" defer></Script>
+      </head>
       <body className={`${aspekta.variable} antialiased`}>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
