@@ -1,5 +1,5 @@
 export default {
-    locales: ['it', 'en', 'fr', 'es', 'ru'],
+    locales: ['it', 'en', 'fr', 'es', 'de', 'ru'],
     defaultLocale: 'it',
     localePrefix: "as-needed",
     localeDetection: false,
@@ -11,6 +11,7 @@ export default {
             en: "/[product_cat]",
             fr: "/[product_cat]",
             es: "/[product_cat]",
+            de: "/[product_cat]",
             ru: "/[product_cat]",
         },
         "/[product_cat]/[product]": {
@@ -18,12 +19,14 @@ export default {
             en: "/[product_cat]/[product]",
             fr: "/[product_cat]/[product]",
             es: "/[product_cat]/[product]",
+            de: "/[product_cat]/[product]",
             ru: "/[product_cat]/[product]",
         },
         '/settori' : {
             it: '/settori',
             en: '/sectors',
             fr: '/secteurs',
+            de: '/sektoren',
             ru: '/секторы',
             es: '/sectores'
         },
@@ -31,6 +34,7 @@ export default {
             it: '/settori/[slug]',
             en: '/sectors/[slug]',
             fr: '/secteurs/[slug]',
+            de: '/sektoren/[slug]',
             ru: '/секторы/[slug]',
             es: '/sectores/[slug]'
         },
@@ -38,6 +42,7 @@ export default {
             it:'/news',
             en:'/news',
             fr:'/nouvelles',
+            de:'/nachricht',
             es:'/noticias',
             ru:'/новости',
         },
@@ -46,6 +51,7 @@ export default {
             en:'/news/[slug]',
             fr:'/nouvelles/[slug]',
             es:'/noticias/[slug]',
+            de:'/nachricht/[slug]',
             ru:'/новости/[slug]',
         },
         '/azienda':{
@@ -53,6 +59,7 @@ export default {
             en:'/company',
             fr:'/agence',
             es:'/agencia',
+            de:'/agentur',
             ru:'/агентство'
         },
         '/pronta-consegna':{
@@ -60,6 +67,7 @@ export default {
             en:'/ready-for-delivery',
             fr:'/prêt-à-être-livré',
             es:'/listo-para-entrega',
+            de:'/lieferbereit',
             ru:'/готово-к-доставке'
         },
         '/contatti':{
@@ -67,6 +75,7 @@ export default {
             en:'/contacts',
             fr:'/contacts',
             es:'/contactos',
+            de:'/kontakte',
             ru:'/контакты'
         },
         '/grazie':{
@@ -74,6 +83,7 @@ export default {
             en:'/thank-you',
             fr:'/merci',
             es:'/gracias',
+            de:'/danke',
             ru:'/спасибо'
         }
     },

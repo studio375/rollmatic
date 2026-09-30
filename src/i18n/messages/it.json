@@ -23,6 +23,7 @@
     "grammatura_max":"Grammatura max (grammi)",
     "capacita":"Capacità (chilogrammi)",
     "capacita_oraria":"Capacità oraria (numero di palline)",
-    "testo_pulsante_home":"Scopri la nostra taglierina con spessore regolabile"
+    "testo_pulsante_home":"Scopri la nostra taglierina con spessore regolabile",
+    "Torna alla home":"Torna alla home"
   }
 }

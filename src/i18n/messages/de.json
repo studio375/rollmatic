@@ -1,0 +1,29 @@
+{
+    "strings": {
+      "Vedi soluzioni": "Lösungen ansehen",
+      "News": "News",
+      "Slug settori": "/de/sektoren",
+      "Settori": "Sektoren",
+      "Tutte": "Alle",
+      "Categorie macchinari": "Maschinenkategorien",
+      "Larghezza tavolo": "Tischbreite",
+      "Lunghezza tavolo": "Tischlänge",
+      "Litri planetaria": "Liter Planetenmischer",
+      "Numero programmi": "Anzahl Programme",
+      "Passo lame": "Messerabstand",
+      "Dimensione massima pane": "Maximale Brotgröße",
+      "Scheda tecnica": "Datenblatt",
+      "Disegni tecnici": "Technische Zeichnungen",
+      "Richiedi informazioni": "Informationen<br/>anfordern",
+      "Richiedi offerta": "Angebot<br/>anfordern",
+      "Altre news": "Weitere News",
+      "Specifiche tecniche": "Technische Daten",
+      "numero_di_divisioni": "Anzahl der Teilungen",
+      "grammatura_min": "Mindestgewicht (Gramm)",
+      "grammatura_max": "Höchstgewicht (Gramm)",
+      "capacita": "Kapazität (Kilogramm)",
+      "capacita_oraria": "Stundenleistung (Anzahl Teigkugeln)",
+      "testo_pulsante_home": "Entdecken Sie unsere Schneidemaschine mit einstellbarer Schnittstärke",
+      "Torna alla home":"Zur Startseite"
+    }
+}

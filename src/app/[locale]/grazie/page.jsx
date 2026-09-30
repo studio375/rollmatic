@@ -4,12 +4,13 @@ import BigText from "@/components/Library/Big Text/bigText";
 import Paragraph from "@/components/Library/Paragraph/paragraph";
 import CustomButton from "@/components/Library/Custom Button/customButton";
 import { buildMetadata } from "@/helpers/seo/metadata";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Library/Breadcrumbs/breadcrumbs";
 
 export default async function Page({params}){
     const {locale} = await params;
     setRequestLocale(locale);
+    const t = await getTranslations('strings');
     const page = await fetchAPI('pages',{
         slug: 'grazie',
         acf_format: 'standard',
@@ -22,7 +23,7 @@ export default async function Page({params}){
           <div className={`flex flex-col items-center w-full gap-3`}>
               <BigText Tag="h1" className={`h2 text-center`}>{page.acf.titolo}</BigText>
               <Paragraph Tag="span" className={`text-center`}>{page.acf.testo}</Paragraph>
-              <CustomButton href="/" className={``}>Torna alla home</CustomButton>
+              <CustomButton href="/" className={``}>{t("Torna alla home")}</CustomButton>
           </div>
       </section>
     </>;

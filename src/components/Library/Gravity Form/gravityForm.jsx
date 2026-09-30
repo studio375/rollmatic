@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function GravityForm({formObject, ...props}){
+    console.log(formObject);
     const router = useRouter();
     async function onSubmit(data){
         var _data = JSON.stringify(data).replace('true', '"1"');

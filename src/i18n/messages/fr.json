@@ -23,6 +23,7 @@
     "grammatura_max":"Poids max. (grammes)",
     "capacita":"Capacité (kilogrammes)",
     "capacita_oraria":"Capacité horaire (nombre de pâtons)",
-    "testo_pulsante_home":"Découvrez notre coupe-légumes à épaisseur réglable"
+    "testo_pulsante_home":"Découvrez notre coupe-légumes à épaisseur réglable",
+    "Torna alla home":"Retour à l’accueil"
   }
 }
