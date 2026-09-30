@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@next/third-parties": "^16.3.7",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.7.0",
     "@types/three": "^0.185.3",
@@ -17,7 +18,7 @@
     "html-react-parser": "^5.2.17",
     "leva": "^0.10.1",
     "locomotive-scroll": "^5.0.1",
-    "next": "16.1.6",
+    "next": "^16.3.7",
     "next-intl": "^4.12.0",
     "next-transition-router": "^0.2.11",
     "plyr": "^3.8.4",

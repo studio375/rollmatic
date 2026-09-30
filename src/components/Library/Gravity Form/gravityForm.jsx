@@ -4,6 +4,7 @@ import CustomButton from '../Custom Button/customButton';
 import SingleField from './singleField';
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 export default function GravityForm({formObject, ...props}){
     console.log(formObject);
@@ -13,6 +14,7 @@ export default function GravityForm({formObject, ...props}){
         var submission = await fetch(`/api/form-submission?form_id=${1}&form_data=${_data}`);
         const response = await submission.json();
         if(response.data.is_valid){
+            sendGTMEvent({ event: 'form_submit_success', form_name: 'contatti' })
             router.push('/grazie');
         }else{
             console.log(response)
