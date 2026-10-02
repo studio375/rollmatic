@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { sendGTMEvent } from '@next/third-parties/google';
 
 export default function GravityForm({formObject, ...props}){
-    console.log(formObject);
     const router = useRouter();
     async function onSubmit(data){
         var _data = JSON.stringify(data).replace('true', '"1"');

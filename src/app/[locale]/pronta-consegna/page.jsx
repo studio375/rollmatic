@@ -20,7 +20,7 @@ export default async function Page({ params }) {
     lang: locale,
   });
   if (!page) notFound();
-  var products = await fetchAPI("pronta-consegna", {
+  var products = await fetchAPI("prodotto", {
     acf_format: "standard",
     _embed: true,
     per_page: 100,
