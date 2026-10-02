@@ -26,7 +26,7 @@ export default async function Page({params}){
         <section className="w-full relative">
             <Image className="w-full h-auto max-h-[calc(100vh-200px)] max-s:h-[50vh] object-cover" src={page.acf.immagine_testata.url} width={page.acf.immagine_testata.width} height={page.acf.immagine_testata.height} alt={page.title.rendered} />
         </section>
-        <section className="w-full relative big-boxed mt-10 max-xs:mt-6">
+        <section className="w-full relative big-boxed pt-10 max-xs:pt-6" id="sec-1">
             <div className={textSectionClass}>
                 <div className="flex-1 relative flex flex-col items-start justify-start gap-[25px]">
                     <BigText Tag="h3" className={`!text-[15px] !uppercase relative font-bold pb-[7px] ${beforeClass}`}>{page.acf.produzione_e_metodo.titolo_piccolo}</BigText>
@@ -39,7 +39,7 @@ export default async function Page({params}){
                 <Image className="w-[calc(50%-25px)] h-auto relative h-auto max-xs:w-full" src={page.acf.produzione_e_metodo.immagine_dx.url} width={page.acf.produzione_e_metodo.immagine_dx.width} height={page.acf.produzione_e_metodo.immagine_dx.height} alt={page.acf.produzione_e_metodo.immagine_dx.alt || ''} />
             </div>
         </section>
-        <section className="w-full relative big-boxed mt-10 max-xs:mt-6">
+        <section className="w-full relative big-boxed pt-10 max-xs:pt-6" id="sec-2">
             <div className={textSectionClass}>
                 <div className="flex-1 relative flex flex-col items-start justify-start gap-[25px]">
                     <BigText Tag="h3" className={`!text-[15px] !uppercase relative font-bold pb-[7px] ${beforeClass}`}>{page.acf.ricerca_e_sviluppo.titolo_piccolo}</BigText>
@@ -53,7 +53,7 @@ export default async function Page({params}){
                 {/* <Image className="absolute top-10 left-1/2 -translate-x-1/2" src={page.acf.ricerca_e_sviluppo.immagine_mondo.url} width={page.acf.ricerca_e_sviluppo.immagine_mondo.width} height={page.acf.ricerca_e_sviluppo.immagine_mondo.height} alt={page.acf.ricerca_e_sviluppo.immagine_mondo.alt || ''} /> */}
             </div>
         </section>
-        <section className="w-full relative big-boxed mt-13 max-m:mt-8 max-xs:mt-8">
+        <section className="w-full relative big-boxed pt-13 max-m:pt-8 max-xs:pt-8" id="sec-3">
             <div className={textSectionClass}>
                 <div className="flex-1 relative flex flex-col items-start justify-start gap-[25px]">
                     <BigText Tag="h3" className={`!text-[15px] !uppercase relative font-bold pb-[7px] ${beforeClass}`}>{page.acf.mercati.titolo_piccolo}</BigText>
@@ -62,7 +62,7 @@ export default async function Page({params}){
                 <Paragraph className="flex-1">{page.acf.mercati.paragrafo}</Paragraph>
             </div>
         </section>
-        <section className="w-full relative big-boxed mt-10 max-xs:mt-6">
+        <section className="w-full relative big-boxed pt-10 max-xs:pt-6" id="sec-4">
             <div className={textSectionClass}>
                 <div className="flex-1 relative flex flex-col items-start justify-start gap-[25px]">
                     <BigText Tag="h3" className={`!text-[15px] !uppercase relative font-bold pb-[7px] ${beforeClass}`}>{page.acf.codice_etico.titolo_piccolo}</BigText>

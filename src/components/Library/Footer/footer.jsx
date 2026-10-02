@@ -8,6 +8,5 @@ export default async function Footer({}){
     var widgets = await fetchAPI("widgets", {
         lang: locale
     });
-    console.log(widgets);
     return <FooterClient widgets={widgets} />
 }
