@@ -14,6 +14,11 @@ const nextConfig = {
         hostname: "rollmatic.375.studio",
         pathname: "/wp-content/uploads/**", // This is for WP
       },
+      {
+        protocol: "https",
+        hostname: "admin.rollmatic.com",
+        pathname: "/wp-content/uploads/**", // This is for WP
+      },
     ],
     
   },
