@@ -11,60 +11,79 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }) {
-    const {product_cat, locale} = await params;
-    const cat = await fetchAPI('categoria',{
-        slug: product_cat,
-        acf_format: 'standard',
-        lang: locale
-    });
-    
-    if(!cat) notFound();
-    const catChild = await fetchAPI('categoria', {
-        parent: cat.id,
-        lang: locale
-    });
+  const { product_cat, locale } = await params;
+  const cat = await fetchAPI("categoria", {
+    slug: product_cat,
+    acf_format: "standard",
+    lang: locale,
+  });
 
-    var products = await fetchAPI('prodotto', {
-        'categoria': [cat.id].concat(catChild.map(el => {return el.id;})),
-        acf_format: 'standard',
-        _embed: true,
-        per_page: 100,
-        lang: locale,
-    });
+  if (!cat) notFound();
+  const catChild = await fetchAPI("categoria", {
+    parent: cat.id,
+    lang: locale,
+  });
 
-    
-    var imgTestata = (cat.acf.immagine_testata)?cat.acf.immagine_testata:cat.acf.immagine_categoria;
-    imgTestata = imgTestata || cat.img_testata_parent;
-    return <>
-        <Breadcrumbs items={[{label: cat.name}]} />
-        {/* <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 max-m:pt-12 max-m:pb-5 boxed xl:!px-15 flex items-center justify-between max-m:flex-col max-m:gap-4">
+  var products = await fetchAPI("prodotto", {
+    categoria: [cat.id].concat(
+      catChild.map((el) => {
+        return el.id;
+      }),
+    ),
+    acf_format: "standard",
+    per_page: 100,
+    lang: locale,
+    _fields:
+      "id,slug,title,category_info,thumbnail_data,wpml_translations.locale,acf.scheda_tecnica",
+  });
+
+  var imgTestata = cat.acf.immagine_testata
+    ? cat.acf.immagine_testata
+    : cat.acf.immagine_categoria;
+  imgTestata = imgTestata || cat.img_testata_parent;
+  return (
+    <>
+      <Breadcrumbs items={[{ label: cat.name }]} />
+      {/* <section className="w-full flex h-auto relative min-h-[50vh] testata-product pt-10 max-m:pt-12 max-m:pb-5 boxed xl:!px-15 flex items-center justify-between max-m:flex-col max-m:gap-4">
                 <div className="relative flex flex-col items-start gap-[15px] w-40 max-m:w-full max-m:[&_>*]:w-full">
                     <BigText Tag="h1" className="classic-title">{cat.name}</BigText>
                     <Paragraph className="text-[var(--color-foreground)]">{cat.acf.paragrafo}</Paragraph>
                 </div>
                 {imgTestata && <Image className="w-full h-auto m:h-[60vh] s:object-contain  w-auto object-cover m:max-w-[calc(100%-400px)]" src={imgTestata.url} width={imgTestata.width} height={imgTestata.height} alt={cat.name}/>}
         </section> */}
-        <section className="w-full flex h-auto relative pt-28 pb-20 max-xl:pt-18 max-xl:pb-10 testata-product boxed xl:!px-15 flex items-center justify-center">
-                {imgTestata && <Image className="absolute left-0 top-0 w-full h-full object-cover object-center" src={imgTestata.url} width={imgTestata.width} height={imgTestata.height} alt={cat.name}/>}
-                <div className="absolute w-full h-full left-0 top-0 bg-[#00000080]"></div>
-                <div className="relative flex flex-col items-center gap-[15px] w-full max-m:[&_>*]:w-full">
-                    <BigText Tag="h1" className="classic-title text-center !text-white">{cat.name}</BigText>
-                    <Paragraph className="text-[var(--color-foreground)] w-1/2 max-s:w-full !text-white [&_span]:!text-center">{cat.acf.paragrafo}</Paragraph>
-                </div>
-        </section>
-       <ProductLoop catFilters={catChild} products={products} />
-       {cat.acf.faq && cat.acf.faq.length > 0 ? (
-            <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
-                <BigText Tag="h2" className="classic-title">
-                    Faq
-                </BigText>
-                <Faq faq={cat.acf.faq} />
-            </section>
-        ) : (
-            <div className="h-10"></div>
+      <section className="w-full flex h-auto relative pt-28 pb-20 max-xl:pt-18 max-xl:pb-10 testata-product boxed xl:!px-15 flex items-center justify-center">
+        {imgTestata && (
+          <Image
+            className="absolute left-0 top-0 w-full h-full object-cover object-center"
+            src={imgTestata.url}
+            width={imgTestata.width}
+            height={imgTestata.height}
+            alt={cat.name}
+          />
         )}
-        
-    </>;
+        <div className="absolute w-full h-full left-0 top-0 bg-[#00000080]"></div>
+        <div className="relative flex flex-col items-center gap-[15px] w-full max-m:[&_>*]:w-full">
+          <BigText Tag="h1" className="classic-title text-center !text-white">
+            {cat.name}
+          </BigText>
+          <Paragraph className="text-[var(--color-foreground)] w-1/2 max-s:w-full !text-white [&_span]:!text-center">
+            {cat.acf.paragrafo}
+          </Paragraph>
+        </div>
+      </section>
+      <ProductLoop catFilters={catChild} products={products} />
+      {cat.acf.faq && cat.acf.faq.length > 0 ? (
+        <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
+          <BigText Tag="h2" className="classic-title">
+            Faq
+          </BigText>
+          <Faq faq={cat.acf.faq} />
+        </section>
+      ) : (
+        <div className="h-10"></div>
+      )}
+    </>
+  );
 }
 
 export async function generateStaticParams() {

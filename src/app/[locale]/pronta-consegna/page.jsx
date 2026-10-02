@@ -20,15 +20,21 @@ export default async function Page({ params }) {
     lang: locale,
   });
   if (!page) notFound();
+
   var products = await fetchAPI("prodotto", {
     acf_format: "standard",
-    _embed: true,
     per_page: 100,
     lang: locale,
+    _fields:
+      "id,slug,title,category_info,thumbnail_data,wpml_translations.locale,acf.pronta_consegna,acf.scheda_tecnica",
   });
-  var form = await fetchAPI("forms/1", {
-    lang:locale
-  }, true);
+  var form = await fetchAPI(
+    "forms/1",
+    {
+      lang: locale,
+    },
+    true,
+  );
   return (
     <>
       <Breadcrumbs items={[{ label: page.title.rendered }]} />

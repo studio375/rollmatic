@@ -82,12 +82,12 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
                         if(elem == null) return (prontaConsegna)?<ProntaConsegnaCard prodObject={null} key={index} className={`spacer it-id-${mainCat.main_cat_italian_id}`} />:<ProductCard key={index} prodObject={null} className={`spacer it-id-${mainCat.main_cat_italian_id}`} />
                         if(prontaConsegna && !elem.acf.pronta_consegna) return null;
                         var prodObject = {
-                            ID: elem.id || elem.ID,
-                            thumbnail_data: elem.thumbnail_data,
-                            cat: elem.category_info,
-                            slug: elem.slug || elem.post_name,
-                            title: elem.title?.rendered || elem.post_title,
-                            scheda_tecnica: elem.acf.scheda_tecnica
+                            ID: elem?.id || elem.ID,
+                            thumbnail_data: elem?.thumbnail_data,
+                            cat: elem?.category_info,
+                            slug: elem?.slug || elem.post_name,
+                            title: elem?.title?.rendered || elem.post_title,
+                            scheda_tecnica: elem.acf?.scheda_tecnica
                         };
                         return (prontaConsegna)?<ProntaConsegnaCard className={`it-id-${mainCat.main_cat_italian_id}`} prodObject={prodObject} key={prodObject.ID} />:<ProductCard className={`it-id-${mainCat.main_cat_italian_id}`} key={prodObject.ID} prodObject={prodObject} />
                     })
