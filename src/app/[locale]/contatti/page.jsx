@@ -20,7 +20,9 @@ export default async function Page({params}){
     if(!page) notFound();
     const t = await getTranslations('strings');
     const social = page.acf.social;
-    var form = await fetchAPI('forms/1', {}, true);
+    var form = await fetchAPI('forms/1', {
+        lang:locale
+    }, true);
     return <>
         <Breadcrumbs items={[{label:page.title.rendered}]} />
         <section className="mt-20 big-boxed flex items-start max-m:flex-col max-m:gap-5 max-m:mt-13">

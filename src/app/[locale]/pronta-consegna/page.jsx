@@ -26,7 +26,9 @@ export default async function Page({ params }) {
     per_page: 100,
     lang: locale,
   });
-  var form = await fetchAPI("forms/1", {}, true);
+  var form = await fetchAPI("forms/1", {
+    lang:locale
+  }, true);
   return (
     <>
       <Breadcrumbs items={[{ label: page.title.rendered }]} />
