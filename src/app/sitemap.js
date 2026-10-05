@@ -124,7 +124,7 @@ function buildDynamicEntries(defaultLang_data,  priority = 0.8) {
     }
     return {
       url: languages[DEFAULT_LOCALE],
-      lastModified: item.modified || new Date(),
+      lastModified: item.modified?new Date(item.modified):new Date(),
       priority,
       alternates: { languages },
     };
