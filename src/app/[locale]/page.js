@@ -28,9 +28,10 @@ export default async function Home({params}) {
     lang: locale
   });
   const settori = await fetchAPI('settore', {
-    acf_format: 'standard',
     _embed: true,
-    lang: locale
+    lang:locale,
+    acf_format: 'standard',
+    _fields:"id,slug,title, _links,_embedded"
   });
   const articoli = await fetchAPI('posts', {
     per_page: 2,
@@ -83,7 +84,7 @@ export default async function Home({params}) {
           }
         </div>
       </section>  
-      <section className="mt-23 max-l:mt-18 max-m:mt-12 big-boxed flex flex-col items-center gap-7 -mb-15 max-s:-mb-5">
+      <section className="mt-23 max-l:mt-18 max-m:mt-12 big-boxed flex flex-col items-center gap-7 -mb-15 max-s:-mb-5 z-100 relative">
         <BigText Tag="span" className="h3 text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]">{page.acf.paragrafo_azienda}</BigText>
         <CustomButton href={page.acf.cta.url}>{page.acf.cta.title}</CustomButton>
       </section>

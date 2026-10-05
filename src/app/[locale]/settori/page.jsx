@@ -20,9 +20,10 @@ export default async function Page({params}){
     if(!page) notFound();
     const t = await getTranslations('strings');
     const settori = await fetchAPI('settore', {
-        acf_format: 'standard',
         _embed: true,
-        lang:locale
+        lang:locale,
+        acf_format: 'standard',
+        _fields:"id,slug,title, _links,_embedded"
     });
     return <>
         <Breadcrumbs items={[{label:page.title.rendered}]} />

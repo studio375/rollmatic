@@ -150,7 +150,7 @@ export default function Object3DScene({...props}){
     //     },
     // });
     return <div ref={containerRef} id="scene-container" {...props}>
-        <Canvas className="w-full !h-screen" shadows>
+        <Canvas className="w-full !h-screen !pointer-events-none" shadows>
             <PerspectiveCamera ref={cameraRef} makeDefault position={[5.6, 1.5, 0.1]} rotation={[-82, 80, 82]} fov={50} zoom={1.2} />
             <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} target={[0, 0, 0]} />
             <Environment 
