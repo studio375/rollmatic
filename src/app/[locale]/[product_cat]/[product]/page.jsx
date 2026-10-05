@@ -1,5 +1,5 @@
 import { fetchAPI, fetchBySlug, getAllSlugs } from "@/helpers/api/fetch-api";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import ProductPage from "./clientProductPage";
 import { routing } from "@/i18n/routing";
 import { buildMetadata } from "@/helpers/seo/metadata";
@@ -31,6 +31,10 @@ export default async function Page({params}){
     const prodotto = await fetchBySlug("prodotto", locale, product, product_cat);
     if(!prodotto) notFound();
     const cat = prodotto.category_info;
+    var mainCat = cat.filter(elem => elem.parent == 0)[0];
+    if(product_cat != mainCat.slug)
+        permanentRedirect(`${locale!=='it'?`/${locale}`:''}/${mainCat.slug}/${product}`, 'push');
+    
     var form = await fetchAPI('forms/1', {
         lang:locale
     }, true);

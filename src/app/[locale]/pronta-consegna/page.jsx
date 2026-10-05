@@ -28,6 +28,9 @@ export default async function Page({ params }) {
     _fields:
       "id,slug,title,category_info,thumbnail_data,wpml_translations.locale,acf.pronta_consegna,acf.scheda_tecnica",
   });
+  products = products.filter(elem => {
+    return elem.acf.pronta_consegna == true;
+  })
   var form = await fetchAPI(
     "forms/1",
     {
@@ -35,6 +38,16 @@ export default async function Page({ params }) {
     },
     true,
   );
+  const prodAllCat = {};
+  products.forEach((elem) => {
+    const topLevelCats = elem.category_info.filter((cat) => cat.parent == 0);
+    const key = topLevelCats[0].name;
+    if (!prodAllCat[key]) {
+      prodAllCat[key] = [];
+    }
+    prodAllCat[key].push(elem);
+  });
+  
   return (
     <>
       <Breadcrumbs items={[{ label: page.title.rendered }]} />
@@ -48,7 +61,19 @@ export default async function Page({ params }) {
           </Paragraph>
         </div>
       </section>
-      <ProductLoop products={products} prontaConsegna={true} filters={false} />
+      <section className="flex flex-col items-start mt-8 max-m:mt-4 gap-5 mb-8 max-m:mb-4 gap-10">
+      {Object.keys(prodAllCat).map((catName) => (
+          <ProductLoop
+            key={catName}
+            title={catName}
+            catFilters={null}
+            filters={false}
+            prontaConsegna={true}
+            products={prodAllCat[catName]}
+          />
+        ))}
+      </section>
+      {/* <ProductLoop products={products} prontaConsegna={true} filters={false} /> */}
       <section
         id="form"
         className="mb-10 max-s:mb-6 relative w-full mt-25 max-xl:mt-10 max-s:mt-5 big-boxed flex items-start max-m:flex-col max-m:gap-3"
