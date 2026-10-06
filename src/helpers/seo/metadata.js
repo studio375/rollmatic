@@ -92,8 +92,6 @@ export function buildMetadata({
     height: img.height,
   }));
 
-  console.log(languages);
-
   return {
     title: yoast.title,
     description: yoast.description,
