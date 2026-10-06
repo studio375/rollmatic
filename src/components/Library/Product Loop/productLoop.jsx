@@ -32,12 +32,14 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
         });
     }
     var cols = (mainCat.main_cat_italian_id!==284)?4:3;
+    if(window.innerWidth<=1500) cols = 3;
     if(activeProducts.length%cols!==0){
         const missing = (cols - (activeProducts.length % cols)) % cols;
         for (let i = 0; i < missing; i++) {
             activeProducts.push(null);
         }
     }
+    console.log(activeProducts);
     const filterCommonClass = `py-1 px-2 [&_span]:text-[var(--color-primary)] cursor-pointer [&:not(:last-child)]:border-b-[1px] [&:not(:last-child)]:border-b-[var(--color-primary)] [&:hover,&.current]:bg-[var(--color-primary)] [&:hover_span,&.current_span]:text-[var(--background)] [&,&_span]:transition-all [&,&_span]:duration-500 [&,&_span]:ease`;
     
     useEffect(() => {
@@ -54,7 +56,7 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
         setFilterOpen(false);
     }
 
-    return <div className="flex flex-col">
+    return <div className="flex flex-col relative w-full">
         {title && <div className="px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] flex s:-mb-5 justify-center"><BigText Tag="h2" className="font-semibold text-[var(--color-primary)] h2 text-center">{title}</BigText></div>}
         {filters && <section className="relative mt-5 boxed flex items-center gap-2 z-[100] max-l:flex-col max-l:items-start">
             <BigText Tag="span" className="no-animation font-semibold text-[var(--color-primary)] h3">{t('Categorie macchinari')}</BigText>

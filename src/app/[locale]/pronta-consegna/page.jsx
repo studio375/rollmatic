@@ -23,6 +23,7 @@ export default async function Page({ params }) {
 
   var products = await fetchAPI("prodotto", {
     acf_format: "standard",
+    status: 'publish, draft',
     per_page: 100,
     lang: locale,
     _fields:
