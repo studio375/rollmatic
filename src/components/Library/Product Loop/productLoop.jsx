@@ -31,15 +31,29 @@ export default function ProductLoop({catFilters, products, title=null, filters=t
             return active;
         });
     }
-    var cols = (mainCat.main_cat_italian_id!==284)?4:3;
-    if(window.innerWidth<=1500) cols = 3;
+    const [cols, setCols] = useState((mainCat.main_cat_italian_id!==284)?4:3);
+    useEffect(() => {
+        const onWindowResize = () => {
+            if(window.innerWidth<=1920) setCols(3);
+            else setCols((mainCat.main_cat_italian_id!==284)?4:3);
+
+            if(prontaConsegna && window.innerWidth <= 1250) setCols(2);
+            if(!prontaConsegna && window.innerWidth <= 1025) setCols(2);
+            if(prontaConsegna && window.innerWidth <= 768) setCols(1);
+        }
+        onWindowResize();
+        window.addEventListener('resize', onWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', onWindowResize);
+        }
+    })
     if(activeProducts.length%cols!==0){
         const missing = (cols - (activeProducts.length % cols)) % cols;
         for (let i = 0; i < missing; i++) {
             activeProducts.push(null);
         }
     }
-    console.log(activeProducts);
     const filterCommonClass = `py-1 px-2 [&_span]:text-[var(--color-primary)] cursor-pointer [&:not(:last-child)]:border-b-[1px] [&:not(:last-child)]:border-b-[var(--color-primary)] [&:hover,&.current]:bg-[var(--color-primary)] [&:hover_span,&.current_span]:text-[var(--background)] [&,&_span]:transition-all [&,&_span]:duration-500 [&,&_span]:ease`;
     
     useEffect(() => {
