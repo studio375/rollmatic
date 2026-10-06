@@ -3,7 +3,7 @@ export default {
     defaultLocale: 'it',
     localePrefix: "as-needed",
     localeDetection: false,
-    alternateLinks: true,
+    alternateLinks: false,
     pathnames: {
         "/": "/",
         "/[product_cat]":{

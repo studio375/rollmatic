@@ -85,13 +85,14 @@ export function buildMetadata({
       locale: l,
     })}`;
   }
+  languages['x-default'] = languages['it'];
   const images = (yoast.og_image || []).map((img) => ({
     url: img.url,
     width: img.width,
     height: img.height,
   }));
 
-  console.log(yoast.robots);
+  console.log(languages);
 
   return {
     title: yoast.title,
