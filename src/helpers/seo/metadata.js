@@ -91,6 +91,8 @@ export function buildMetadata({
     height: img.height,
   }));
 
+  console.log(yoast.robots);
+
   return {
     title: yoast.title,
     description: yoast.description,
