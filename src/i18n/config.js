@@ -59,7 +59,7 @@ export default {
             en:'/company',
             fr:'/agence',
             es:'/agencia',
-            de:'/agentur',
+            de:'/unternehmen',
             ru:'/агентство'
         },
         '/pronta-consegna':{

@@ -1549,7 +1549,7 @@ const nextConfig = {
       },
       {
         source: "/de/unternehmensprofil",
-        destination: "/de/agentur",
+        destination: "/de/unternehmen",
         permanent: true,
         locale: false,
       },
