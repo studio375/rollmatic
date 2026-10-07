@@ -98,7 +98,7 @@ export default async function Home({params}) {
             {
               settori.map(elem => {
                 const img = elem._embedded['wp:featuredmedia'][0];
-                return <Link key={elem.id} className="w-full min-w-full s:h-screen relative" data-slide-id={elem.id} href={`${t('Slug settori')}/${elem.slug}`}>
+                return <Link key={elem.id} className="w-full min-w-full s:h-screen relative" data-slide-id={elem.id} href={`/${t('Settori').toLowerCase()}/${elem.slug}`}>
                   <Image preload={true} className="w-full h-full object-cover max-xs:aspect-2/1.5" src={img.source_url} width={img.media_details.width} height={img.media_details.height} alt={elem.title.rendered} />
                   <div className="s:!hidden absolute flex flex-col items-end right-[35px] bottom-[35px] max-l:items-end max-s:bottom-3 max-s:right-3">
                       <BigText tag="span" className="no-animation font-bold text-[30px] s:text-[40px] text-[var(--color-background)] text-right">{elem.title.rendered}</BigText>

@@ -32,7 +32,7 @@ export default async function Page({params}){
     if(!prodotto) notFound();
     const cat = prodotto.category_info;
     var mainCat = cat.filter(elem => elem.parent == 0)[0];
-    if(product_cat != mainCat.slug)
+    if(decodeURIComponent(product_cat) != decodeURIComponent(mainCat.slug))
         permanentRedirect(`${locale!=='it'?`/${locale}`:''}/${mainCat.slug}/${product}`, 'push');
     
     var form = await fetchAPI('forms/1', {

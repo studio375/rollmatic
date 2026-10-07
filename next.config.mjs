@@ -2107,12 +2107,6 @@ const nextConfig = {
         locale: false,
       },
       {
-        source: "/es/noticias/host-2025",
-        destination: "/es/host-2025",
-        permanent: true,
-        locale: false,
-      },
-      {
         source: "/es/legal-notes",
         destination: "/es",
         permanent: true,
