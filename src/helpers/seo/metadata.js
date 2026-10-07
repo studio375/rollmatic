@@ -8,13 +8,14 @@ function translatedSlug(translations, locale) {
   const match = Object.values(translations || {}).find((t) =>
     t?.locale?.startsWith(locale),
   );
-  return match?.slug || null;
+  return decodeURIComponent(match?.slug) || null;
 }
 
 // Trovo le translations di un termine tassonomia dentro wpml_translations_tax cercando per slug corrente
 function taxTranslations(translationsTax, taxonomy, slug) {
   const terms = translationsTax?.[taxonomy] || {};
-  const term = Object.values(terms).find((t) => t?.slug.toLowerCase() === slug.toLowerCase());
+  const target = decodeURIComponent(slug);
+  const term = Object.values(terms).find((t) => decodeURIComponent(t?.slug) === target);
   return term?.translations || null;
 }
 
