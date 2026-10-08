@@ -4,6 +4,7 @@ export async function GET(request) {
     const searchParams = request.nextUrl.searchParams;
     const form_id = searchParams.get('form_id');
     const form_data = searchParams.get('form_data');
+    const lang = searchParams.get('lang');
     try {
         const options = {
             method: 'POST',
@@ -13,7 +14,7 @@ export async function GET(request) {
             },
             body: form_data
         };
-        const res = await fetch(`${process.env.GRAVITY_ENDPOINT}/forms/${form_id}/submissions`, options);
+        const res = await fetch(`${process.env.GRAVITY_ENDPOINT}/forms/${form_id}/submissions?lang=${lang}`, options);
 
         const response = await res.json();
         

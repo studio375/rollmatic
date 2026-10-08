@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { sendGTMEvent } from '@next/third-parties/google';
 import Script from 'next/script';
+import { useLocale } from 'next-intl';
 
 export default function GravityForm({formObject, ...props}){
     const router = useRouter();
@@ -14,21 +15,21 @@ export default function GravityForm({formObject, ...props}){
     const [turnstileToken, setTurnstileToken] = useState("");
     const turnstileRef = useRef(null);
     const widgetIdRef = useRef(null);
+    const locale = useLocale();
 
     var fields = formObject.fields;
     var printFields = fields.map(field => {
         return <SingleField key={field.id} fieldObject={field} register={register} errors={errors} />
     })
 
-
     async function onSubmit(data){
         data = {...data, "cf-turnstile-response": turnstileToken};
         var _data = JSON.stringify(data).replace('true', '"1"');
-        var submission = await fetch(`/api/form-submission?form_id=${1}&form_data=${_data}`);
+        var submission = await fetch(`/api/form-submission?form_id=${formObject.id}&form_data=${_data}&lang=${locale}`);
         const response = await submission.json();
         if(response.data.is_valid){
-            sendGTMEvent({ event: 'form_submit_success', form_name: 'contatti' })
-            router.push('/grazie');
+          sendGTMEvent({ event: 'form_submit_success', form_name: 'contatti' })
+          router.push(`${locale!=='it'?`/${locale}`:''}/grazie`);
         }else{
             window.turnstile?.reset(widgetIdRef.current);
             setTurnstileToken("");
