@@ -51,6 +51,14 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
     
     const singleColClass="flex items-start justify-start flex-col";
     const foto_emotional = prodotto?.acf?.foto_emotional || mainCat?.acf?.foto_emotional;
+    const dati = [
+        {title: t("Larghezza tavolo"), acf_key: 'larghezza_tavolo'},
+        {title: t("Lunghezza tavolo"), acf_key: 'lunghezza_tavolo'},
+        {title: t("Litri planetaria"), acf_key: 'litri_planetaria'},
+        {title: t("Numero programmi"), acf_key: 'num_programmi_spazza_arrotondatrice'},
+        {title: t("Passo lame"), acf_key: 'passo_lame'},
+        {title: t("Dimensione massima pane"), acf_key: 'dimensione_max_pane'},
+    ].filter((elem) => prodotto.acf[elem.acf_key] > 0);
     return <>
         <Breadcrumbs items={[{href:mainCat?.slug, label: mainCat?.name}, {label: prodotto.title.rendered}]} />
         <section className="w-full relative h-auto py-8 testata-product flex flex-col items-center max-s:gap-5 max-mobileHeader:pt-13">
@@ -68,40 +76,16 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
                         <span>{parse(prodotto.acf.tensione)}</span>
                     </div>
                     {
-                        prodotto.acf.larghezza_tavolo && <div className={`${singleColClass}`}>
-                            <span>{t("Larghezza tavolo")}</span>
-                            <span>{parse(prodotto.acf.larghezza_tavolo)}</span>
-                        </div>
+                        dati.map((elem, i) => {
+                            if(!prodotto.acf[elem.acf_key]) return null;
+                            return <div key={i} className={`${singleColClass}`}>
+                                <span>{elem.title}</span>
+                                <span>{parse(prodotto.acf[elem.acf_key])}</span>
+                            </div>
+                        })
                     }
                     {
-                        prodotto.acf.lunghezza_tavolo && <div className={`${singleColClass}`}>
-                            <span>{t("Lunghezza tavolo")}</span>
-                            <span>{parse(prodotto.acf.lunghezza_tavolo)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.litri_planetaria && <div className={`${singleColClass}`}>
-                            <span>{t("Litri planetaria")}</span>
-                            <span>{parse(prodotto.acf.litri_planetaria)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.num_programmi_spazza_arrotondatrice && <div className={`${singleColClass}`}>
-                            <span>{t("Numero programmi")}</span>
-                            <span>{parse(prodotto.acf.num_programmi_spazza_arrotondatrice)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.passo_lame && <div className={`${singleColClass}`}>
-                            <span>{t("Passo lame")}</span>
-                            <span>{parse(prodotto.acf.passo_lame)}</span>
-                        </div>
-                    }
-                    {
-                        prodotto.acf.dimensione_max_pane && <div className={`${singleColClass}`}>
-                            <span>{t("Dimensione massima pane")}</span>
-                            <span>{parse(prodotto.acf.dimensione_max_pane)}</span>
-                        </div>
+                        dati.length < 2 && <div className={`${singleColClass} m:w-20 max-xs:hidden`}></div> 
                     }
                 </div>
             </div>
