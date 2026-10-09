@@ -10,7 +10,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { buildMetadata } from "@/helpers/seo/metadata";
-import Object3DScene from "@/components/Library/Scene/object3DScene";
+import Object3DScene from "@/components/Library/Scene/object3DSceneLazy";
 
 
 export default async function Home({params}) {
@@ -57,7 +57,7 @@ export default async function Home({params}) {
     <>
       <section className="w-full h-screen relative">
         <div className="absolute top-0 left-0 w-full h-28 sfumatura-dark z-2 rotate-[180deg]"></div>
-        <VideoHtml className="z-0" videoObj={page.acf.video_testata} />
+        <VideoHtml className="z-0" videoObj={page.acf.video_testata} poster="/video-home-poster.webp" />
         <div className="absolute bottom-9 w-full boxed s:px-4 flex items-end justify-between flex-wrap max-xl:flex-col max-xl:items-start z-3 max-l:flex-col max-l:items-start">
           <BigText Tag="h1" className="no-animation !text-[var(--color-background)] !normal-case xl:w-[60%]">{page.acf.titolo}</BigText>
           <Paragraph className="no-animation xl:text-end !text-[var(--color-background)] max-l:mt-2 xl:w-1/3 max-xl:mt-2">{page.acf.paragrafo}</Paragraph>
