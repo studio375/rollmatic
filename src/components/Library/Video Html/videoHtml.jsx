@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 export default function VideoHtml({
   videoObj,
-  poster,
+  poster=null,
   className = "",
   ...props
 }) {
