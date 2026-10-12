@@ -9,7 +9,7 @@ import Providers from "@/components/providers";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
-// import ClientCaptureTracking from "@/components/Utility/clientCaptureTracking";
+import ClientCaptureTracking from "@/components/Utility/clientCaptureTracking";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -41,7 +41,7 @@ export default async function LocaleLayout({ children, params }) {
           ></Script>
         </head>
         <GoogleTagManager gtmId="GTM-WSDWTWD7" />
-        {/* <ClientCaptureTracking /> */}
+        <ClientCaptureTracking />
         <body className={`${aspekta.variable} antialiased`}>
           <Providers>
             <NextIntlClientProvider locale={locale} messages={messages}>

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { sendGTMEvent } from '@next/third-parties/google';
 import Script from 'next/script';
 import { useLocale } from 'next-intl';
+import { getTracking } from '@/helpers/tracking/tracking';
 
 export default function GravityForm({formObject, ...props}){
     const router = useRouter();
@@ -23,7 +24,12 @@ export default function GravityForm({formObject, ...props}){
     })
 
     async function onSubmit(data){
-        data = {...data, "cf-turnstile-response": turnstileToken};
+        data = {
+          ...data, 
+          ...getTracking(),
+          "cf-turnstile-response": turnstileToken
+        };
+        console.log(data);
         var _data = JSON.stringify(data).replace('true', '"1"');
         var submission = await fetch(`/api/form-submission?form_id=${formObject.id}&form_data=${_data}&lang=${locale}`);
         const response = await submission.json();
