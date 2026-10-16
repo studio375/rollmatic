@@ -8,15 +8,27 @@ import { sendGTMEvent } from '@next/third-parties/google';
 import Script from 'next/script';
 import { useLocale } from 'next-intl';
 import { getTracking } from '@/helpers/tracking/tracking';
+import { fadeAnimation } from '@/helpers/animations';
 
 export default function GravityForm({formObject, ...props}){
     const router = useRouter();
     const {register, handleSubmit, watch, formState: { errors }} = useForm();
     const formRef = useRef(null);
+    const [disableButton, setDisableButton] = useState(false);
+    const submitRef = useRef(null);
     const [turnstileToken, setTurnstileToken] = useState("");
     const turnstileRef = useRef(null);
     const widgetIdRef = useRef(null);
     const locale = useLocale();
+
+    useEffect(() => {
+        var tml = fadeAnimation(submitRef.current, true);
+        return () => {
+            if(tml)
+                tml.scrollTrigger?.kill();
+                tml.kill();
+        }
+    }, []);
 
     var fields = formObject.fields;
     var printFields = fields.map(field => {
@@ -24,6 +36,7 @@ export default function GravityForm({formObject, ...props}){
     })
 
     async function onSubmit(data){
+        setDisableButton(true);
         data = {
           ...data, 
           ...getTracking(),
@@ -39,6 +52,7 @@ export default function GravityForm({formObject, ...props}){
         }else{
             window.turnstile?.reset(widgetIdRef.current);
             setTurnstileToken("");
+            setDisableButton(false);
             console.log(response)
         }
     }
@@ -75,8 +89,11 @@ export default function GravityForm({formObject, ...props}){
                 {printFields}
             </div>
             <div ref={turnstileRef} />
-            <div className={`formSubmit mt-1`}>
-                <CustomButton Tag='button'>{formObject.button.text}</CustomButton>
+            <div ref={submitRef} className={`formSubmit mt-1 relative rounded-[50px] overflow-hidden flex items-center justify-start gap-2 fade-effect`}>
+                {disableButton && <div className='absolute left-0 top-0 w-full h-full bg-[#ecbcbcc4] z-10 flex justify-center items-center'>
+                  <div className='loader'></div>
+                </div>}
+                <CustomButton Tag='button' className={`no-animation ${disableButton && 'pointer-events-none'}`}>{formObject.button.text}</CustomButton>
             </div>
             <Script
                 src="https://challenges.cloudflare.com/turnstile/v0/api.js"
