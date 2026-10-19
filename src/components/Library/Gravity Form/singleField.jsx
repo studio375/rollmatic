@@ -1,12 +1,22 @@
 "use client"
 import { useStore } from '@/store/useStore.js';
 import parse from 'html-react-parser';
-export default function SingleField({fieldObject, register, errors}){
+import { useEffect, useRef } from 'react';
+export default function SingleField({fieldObject, register, setValue, errors}){
     var type = fieldObject.type;
+    var overrideValues = useRef([]);
     const {currentPageTitle, formHtmlValue} = useStore();
     var commonClasses = 'w-full rounded-[50px] bg-[#7D5B5B1A] border-none pl-[15px] text-[var(--color-foreground)] font-aspekta text-[16px] font-light h-[40px]';
     var placeholderClasses = 'placeholder:text-[var(--color-foreground)] placeholder:font-[var(--font-aspekta)] placeholder:text-[16px] placeholder:font-light focus:placeholder:opacity-0';
     
+    useEffect(() => {
+        if(!overrideValues.current || overrideValues.current.length < 1) return;
+        overrideValues.current.forEach(el => {
+            //caso specifico per il tipo html
+            setValue(el, currentPageTitle || formHtmlValue);
+        }); 
+    }, [currentPageTitle, formHtmlValue])
+
     if(type !== 'consent')
         var printInput = <input className={`${commonClasses} ${placeholderClasses}`} name={`input_${fieldObject.id}`} type={type} placeholder={fieldObject.placeholder} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})} />
 
@@ -36,7 +46,7 @@ export default function SingleField({fieldObject, register, errors}){
 
     if(type === 'select'){
         var defaultValue = fieldObject.choices.filter(el => el.isSelected);
-        printInput = <select defaultValue={defaultValue.length?defaultValue[0].value:''} className={`${commonClasses} ${placeholderClasses}`} name={`input_${fieldObject.id}`} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})}>
+        printInput = <select defaultValue={defaultValue.length?defaultValue[0].value:''} className={`${commonClasses} ${placeholderClasses} border-solid border-r-[10px] border-transparent`} name={`input_${fieldObject.id}`} {...register(`input_${fieldObject.id}`, {required: fieldObject.isRequired})}>
             {
                 fieldObject.placeholder && <option value="" disabled >{fieldObject.placeholder}</option>
             }
@@ -55,7 +65,12 @@ export default function SingleField({fieldObject, register, errors}){
 
     if(type == 'html'){
         var value = parse(fieldObject.content.replace('{embed_post:post_title}', currentPageTitle || formHtmlValue));
-        printInput = <div>{value}</div>
+        fieldObject = {...fieldObject, labelPlacement:'hidden_label'}
+        overrideValues.current = [...overrideValues.current, `attr_interested_to`];
+        printInput = <div>
+            <div>{value}</div>
+            <input type="hidden" name={`attr_interested_to`} value={currentPageTitle || formHtmlValue} {...register(`attr_interested_to`, {required: false, value: currentPageTitle || formHtmlValue})}/>
+        </div>
     }
 
     var styleObject = {

@@ -12,7 +12,7 @@ import { fadeAnimation } from '@/helpers/animations';
 
 export default function GravityForm({formObject, ...props}){
     const router = useRouter();
-    const {register, handleSubmit, watch, formState: { errors }} = useForm();
+    const {register, handleSubmit, setValue, watch, formState: { errors }} = useForm();
     const formRef = useRef(null);
     const [disableButton, setDisableButton] = useState(false);
     const submitRef = useRef(null);
@@ -32,17 +32,21 @@ export default function GravityForm({formObject, ...props}){
 
     var fields = formObject.fields;
     var printFields = fields.map(field => {
-        return <SingleField key={field.id} fieldObject={field} register={register} errors={errors} />
+        return <SingleField key={field.id} fieldObject={field} register={register} setValue={setValue} errors={errors} />
     })
 
     async function onSubmit(data){
         setDisableButton(true);
+        const email = (data.input_7 || "").trim();
+        const atIndex = email.lastIndexOf("@");
+        const website = atIndex !== -1 ? email.slice(atIndex + 1).toLowerCase() : "";
         data = {
           ...data, 
           ...getTracking(),
+          "attr_lingua": locale,
+          "attr_website": website ? `https://${website}` : "",
           "cf-turnstile-response": turnstileToken
         };
-        console.log(data);
         var _data = JSON.stringify(data).replace('true', '"1"');
         var submission = await fetch(`/api/form-submission?form_id=${formObject.id}&form_data=${_data}&lang=${locale}`);
         const response = await submission.json();

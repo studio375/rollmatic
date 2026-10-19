@@ -4,6 +4,6 @@ import { useEffect } from 'react';
 
 
 export default function ClientCaptureTracking() {
-  useEffect(() => { captureTracking(); console.log(getTracking()); }, []);
+  useEffect(() => { captureTracking(); }, []);
   return null;
 }

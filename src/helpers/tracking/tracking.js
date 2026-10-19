@@ -6,7 +6,6 @@ export function captureTracking() {
     const found = {};
     KEYS.forEach(k => { if (params.get(k)) found['attr_'+k] = params.get(k); });
 
-    console.log(found);
     // first-touch: salva solo se ci sono UTM nuovi
     if (Object.keys(found).length) {
       sessionStorage.setItem('tracking', JSON.stringify(found));
