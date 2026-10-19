@@ -10,6 +10,7 @@ import { useLocale } from 'next-intl';
 import { getTracking } from '@/helpers/tracking/tracking';
 import { fadeAnimation } from '@/helpers/animations';
 import { getClientIp } from '@/helpers/getIp';
+import { useStore } from '@/store/useStore';
 
 export default function GravityForm({formObject, ...props}){
     const router = useRouter();
