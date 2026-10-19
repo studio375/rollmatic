@@ -9,6 +9,7 @@ import Script from 'next/script';
 import { useLocale } from 'next-intl';
 import { getTracking } from '@/helpers/tracking/tracking';
 import { fadeAnimation } from '@/helpers/animations';
+import { getClientIp } from '@/helpers/getIp';
 
 export default function GravityForm({formObject, ...props}){
     const router = useRouter();
@@ -43,6 +44,7 @@ export default function GravityForm({formObject, ...props}){
         data = {
           ...data, 
           ...getTracking(),
+          "attr_ip": await getClientIp() || "undefined",
           "attr_lingua": locale,
           "attr_website": website ? `https://${website}` : "",
           "cf-turnstile-response": turnstileToken
