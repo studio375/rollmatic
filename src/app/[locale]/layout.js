@@ -17,7 +17,7 @@ export function generateStaticParams() {
 
 const aspekta = localFont({
   src: [{ path: "../../assets/fonts/AspektaVF.woff2", style: "normal" }],
-  variable: "--font-aspekta",
+  variable: "--font-aspekta-local",
   weight: "100 900",
 });
 

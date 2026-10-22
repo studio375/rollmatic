@@ -199,7 +199,7 @@ export default function Object3DScene({ ...props }) {
     <div ref={containerRef} id="scene-container" {...props}>
       <Canvas
         className="w-full !h-screen !pointer-events-none"
-        shadows
+        shadows="percentage"
         dpr={[1, 1.3]}
         gl={glConfig}
       >
