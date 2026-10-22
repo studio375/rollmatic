@@ -104,6 +104,9 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
             {prodotto.acf.immagine_full? <div className="w-full product-image big-boxed mt-5">
                  <Image className='w-full h-auto top-0 left-0' src={prodotto.acf.immagine_full.url} width={prodotto.acf.immagine_full.width} height={prodotto.acf.immagine_full.height} alt={prodotto.acf.immagine_full.alt || prodotto.title.rendered}/>
             </div>:<div className="h-10 max-m:h-5 w-full"></div>}
+            {videoIds && <section className="big-boxed pt-10 max-s:pt-5 bg-white">
+                <VideoCarousel videoIds={videoIds} />
+            </section>}
             <div className={`big-boxed relative flex flex-col items-center gap-[77px] max-s:gap-4 w-full pt-10 max-s:pt-5 pb-[30px] gradient-before`}>
                 <CustomButton href={prodotto.acf.scheda_tecnica.url || ''} className={``}>{t("Scheda tecnica")}</CustomButton>
                 {prodotto.acf.disegni_tecnici && <div className={`${open?'open':''} line w-full relative flex items-start flex-col border-y-[1px] border-[var(--color-foreground)] transition-all duration-500 hover:border-[var(--color-primary)]`}>
@@ -163,10 +166,6 @@ export default function ProductPage({prodotto, cat=[...cat], formObject = null})
             </div>
         </section>
 
-        
-        {videoIds && <section className="big-boxed mb-[178px] max-s:mb-10">
-            <VideoCarousel videoIds={videoIds} />
-        </section>}
 
         {prodotto.faq && prodotto.faq.length > 0 && (
             <section className="my-10 max-m:my-5 px-[75px] max-xl:px-3 min-[1920px]:!px-[3vw] relative flex flex-col items-start gap-5">
