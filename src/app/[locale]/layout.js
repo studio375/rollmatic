@@ -31,10 +31,10 @@ export default async function LocaleLayout({ children, params }) {
     <>
       <html lang={locale} suppressHydrationWarning>
         <head>
-          <Script
+          {/* <Script
             src="https://chat.daliatechnologies.ai/embed.min.js?chatbotId=698d0c4bfaab1933e7aba0c2"
             strategy="lazyOnload"
-          ></Script>
+          ></Script> */}
           <Script
             type="text/javascript"
             src="https://embeds.iubenda.com/widgets/1aef3992-45bd-4c6d-9afc-e26e2bec9dde.js"

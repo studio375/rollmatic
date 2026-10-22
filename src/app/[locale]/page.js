@@ -87,12 +87,13 @@ export default async function Home({params}) {
         <BigText Tag="span" className="h3 text-center m:!text-[40px]/[50px] font-semibold [&_strong]:text-[var(--color-primary)] !mx-auto w-100 max-w-[90vw]">{page.acf.paragrafo_azienda}</BigText>
         <CustomButton href={page.acf.cta.url}>{page.acf.cta.title}</CustomButton>
       </section>
-      {/* <Object3DScene /> */}
+      <div className="h-20"></div>
+      {/* <Object3DScene />
       {
         productLink && <div className="mb-10 flex justify-center boxed">
           <CustomButton className="text-center" href={`/${mainProductLinkCat.slug}/${productLink.post_name}`}>{t('testo_pulsante_home')}</CustomButton>
         </div>
-      }
+      } */}
       <section className="mt-0 w-full relative max-w-full overflow-hidden">
           <FullpageScrollGallery elements={settori}>
             {

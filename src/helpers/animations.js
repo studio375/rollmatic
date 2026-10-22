@@ -29,6 +29,7 @@ export function titleAnimation(target = '.title-animation'){
     const split = SplitText.create(target, {
         type: "chars, words", 
         charsClass: "single-char",
+        aria: "none",
     });
     var tml = gsap.timeline({
         scrollTrigger: {
