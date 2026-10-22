@@ -49,9 +49,11 @@ export default function FullpageScrollGallery({elements,children}){
                 },
             }
         });
+
+        const slidesWidths = slidesArray.map(element => element.offsetWidth);
         slidesArray.forEach((element, index) => {
             if(index == (slidesArray.length - 1)) return;
-            tml.to(element, {marginLeft: `-${element.offsetWidth}px`, ease: 'none'});
+            tml.to(element, {marginLeft: `-${slidesWidths[index]}px`, ease: 'none'});
         });
 
         const onScroll = () => handleScroll(startPx.current, slidesArray.length);
