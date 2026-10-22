@@ -8,5 +8,7 @@ export const useStore = create((set) => ({
   currentPageTitle: null,
   setCurrentPageTitle: (currentPageTitle) => set({currentPageTitle}),
   formHtmlValue: ' - ',
-  setFormHtmlValue: (formHtmlValue) => set({formHtmlValue})
+  setFormHtmlValue: (formHtmlValue) => set({formHtmlValue}),
+  pageIsReady:false,
+  setPageIsReady: (pageIsReady) => set({pageIsReady})
 }));

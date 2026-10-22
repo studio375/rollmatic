@@ -10,6 +10,7 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
 import ClientCaptureTracking from "@/components/Utility/clientCaptureTracking";
+import Loader from "@/components/Library/Loader/loader";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -48,6 +49,7 @@ export default async function LocaleLayout({ children, params }) {
               <Header />
               <SmoothScroll>{children}</SmoothScroll>
               <Footer />
+              <Loader />
             </NextIntlClientProvider>
           </Providers>
         </body>

@@ -32,6 +32,7 @@ export default function Object3DScene({ ...props }) {
         start: "top 0px",
         end: `+=${distance}px`,
         pin: true,
+        onUpdate: () => invalidateRef.current?.(),
       });
       const tl = gsap.timeline({
         defaults: { duration: 1.1, ease: "power3.out" },
@@ -42,6 +43,7 @@ export default function Object3DScene({ ...props }) {
           scrub: true,
           invalidateOnRefresh: true,
           refreshPriority: 1,
+          onUpdate: () => invalidateRef.current?.(),
         },
       });
       const degToRad = (deg) => deg * (Math.PI / 180);
@@ -173,7 +175,10 @@ export default function Object3DScene({ ...props }) {
           zoom: isMobile ? 1.2 : 1.8,
           ease: "none",
           duration: 3,
-          onUpdate: () => cameraRef?.current?.updateProjectionMatrix(),
+          onUpdate: () => {
+            cameraRef?.current?.updateProjectionMatrix();
+            invalidateRef.current?.();
+          },
         },
         "0.8",
       );
@@ -195,6 +200,8 @@ export default function Object3DScene({ ...props }) {
   //       step: 0.001,
   //     },
   // });
+
+  const invalidateRef = useRef(null);
   return (
     <div ref={containerRef} id="scene-container" {...props}>
       <Canvas
@@ -202,6 +209,11 @@ export default function Object3DScene({ ...props }) {
         shadows="percentage"
         dpr={[1, 1.3]}
         gl={glConfig}
+        frameloop="demand"
+        onCreated={({ invalidate }) => {
+          invalidateRef.current = invalidate;
+          invalidate();
+        }}
       >
         <PerspectiveCamera
           ref={cameraRef}
@@ -211,12 +223,14 @@ export default function Object3DScene({ ...props }) {
           fov={50}
           zoom={1.2}
         />
+
         <OrbitControls
           enableZoom={false}
           enableRotate={false}
           enablePan={false}
           target={[0, 0, 0]}
         />
+
         {/* il Suspense va dentro la Canvas: fuori, la sospensione di Model/Environment
             smonterebbe il renderer (react-three-fiber.esm.js:58) */}
         <Suspense fallback={null}>
@@ -239,8 +253,8 @@ export default function Object3DScene({ ...props }) {
           position={[5, 10, 5]}
           intensity={1}
           castShadow
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
+          shadow-mapSize-width={512}
+          shadow-mapSize-height={512}
           shadow-camera-near={0.1}
           shadow-camera-far={50}
           shadow-radius={8}

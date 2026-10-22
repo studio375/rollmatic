@@ -1,14 +1,34 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { useStore } from "@/store/useStore";
 
 export default function VideoHtml({
   videoObj,
   poster=null,
   className = "",
+  setsPageReady = false,
   ...props
 }) {
   const videoRef = useRef(null);
   const loadedUrl = useRef(videoObj.url);
+  const setPageIsReady = useStore((state) => state.setPageIsReady);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!setsPageReady || !video) return;
+
+    const markReady = () => setPageIsReady(true);
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      markReady();
+      return;
+    }
+    video.addEventListener("canplay", markReady, { once: true });
+    video.addEventListener("error", markReady, { once: true });
+    return () => {
+      video.removeEventListener("canplay", markReady);
+      video.removeEventListener("error", markReady);
+    };
+  }, [setsPageReady, setPageIsReady, videoObj.url]);
 
   useEffect(() => {
     const video = videoRef.current;
