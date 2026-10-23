@@ -2,13 +2,15 @@
 import { useStore } from '@/store/useStore.js';
 import parse from 'html-react-parser';
 import { useEffect, useRef } from 'react';
+import {useTranslations} from 'next-intl';
+
 export default function SingleField({fieldObject, register, setValue, errors}){
     var type = fieldObject.type;
     var overrideValues = useRef([]);
+    const t = useTranslations("strings");
     const {currentPageTitle, formHtmlValue} = useStore();
     var commonClasses = 'w-full rounded-[50px] bg-[#7D5B5B1A] border-none pl-[15px] text-[var(--color-foreground)] font-aspekta text-[16px] font-light h-[40px]';
     var placeholderClasses = 'placeholder:text-[var(--color-foreground)] placeholder:font-[var(--font-aspekta)] placeholder:text-[16px] placeholder:font-light focus:placeholder:opacity-0';
-    
     useEffect(() => {
         if(!overrideValues.current || overrideValues.current.length < 1) return;
         overrideValues.current.forEach(el => {
@@ -29,11 +31,27 @@ export default function SingleField({fieldObject, register, setValue, errors}){
                                 required: fieldObject.isRequired,
                                 pattern: {
                                     value: /\S+@\S+\.\S+/,
-                                    message: "L'indirizzo email non è valido"
+                                    message: t("L'indirizzo email non è valido")
                                 }
                             })} 
                         />
 
+    }
+
+    if(type == 'website'){
+        var printInput = <input 
+                            className={`${commonClasses} ${placeholderClasses}`}
+                            name={`input_${fieldObject.id}`} 
+                            type="text" inputMode="url" placeholder={fieldObject.placeholder} 
+                            {...register(`input_${fieldObject.id}`, {
+                                required: fieldObject.isRequired,
+                                setValueAs: value => value.trim(),
+                                pattern: {
+                                    value: /^(https?:\/\/)?([\w\d-]+\.)+[\w\d-]+(\/[\w\d-._~:/?#[\]@!$&'()*+,;=]*)?$/,
+                                    message: t("L'URL non è valido")    
+                                }
+                            })} 
+                        />
     }
 
     if(type === 'consent'){
@@ -85,7 +103,7 @@ export default function SingleField({fieldObject, register, setValue, errors}){
         <div className={`inputContainer w-full relative`}>
             {printInput}
             {field_errors && <span className={`errorLabel`}>
-                    {(field_errors.type==="required")?'Questo campo è obbligatorio':field_errors.message}
+                    {(field_errors.type==="required")?t("Questo campo è obbligatorio"):field_errors.message}
                 </span>
             }
         </div>

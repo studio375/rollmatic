@@ -24,6 +24,9 @@
     "capacita":"Capacidad (kilogramos)",
     "capacita_oraria":"Capacidad por hora (número de bolas)",
     "testo_pulsante_home":"Descubre nuestra cortadora con grosor ajustable.",
-    "Torna alla home":"Volver al inicio"
+    "Torna alla home":"Volver al inicio",
+    "L'indirizzo email non è valido": "La dirección de correo electrónico no es válida",
+    "L'URL non è valido": "La URL no es válida",
+    "Questo campo è obbligatorio": "Este campo es obligatorio"
   }
 }

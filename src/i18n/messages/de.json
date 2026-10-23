@@ -24,6 +24,9 @@
       "capacita": "Kapazität (Kilogramm)",
       "capacita_oraria": "Stundenleistung (Anzahl Teigkugeln)",
       "testo_pulsante_home": "Entdecken Sie unsere Schneidemaschine mit einstellbarer Schnittstärke",
-      "Torna alla home":"Zur Startseite"
+      "Torna alla home":"Zur Startseite",
+      "L'indirizzo email non è valido": "Die E-Mail-Adresse ist ungültig",
+      "L'URL non è valido": "Die URL ist ungültig",
+      "Questo campo è obbligatorio": "Dieses Feld ist erforderlich"
     }
 }

@@ -24,6 +24,9 @@
     "capacita":"Capacity (kilograms)",
     "capacita_oraria":"Hourly capacity (number of dough balls)",
     "testo_pulsante_home":"Discover our adjustable-thickness slicer",
-    "Torna alla home":"Volver al inicio"
+    "Torna alla home":"Return to home",
+    "L'indirizzo email non è valido": "The email address is not valid",
+    "L'URL non è valido": "The URL is not valid",
+    "Questo campo è obbligatorio": "This field is required"
   }
 }

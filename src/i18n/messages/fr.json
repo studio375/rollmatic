@@ -24,6 +24,9 @@
     "capacita":"Capacité (kilogrammes)",
     "capacita_oraria":"Capacité horaire (nombre de pâtons)",
     "testo_pulsante_home":"Découvrez notre coupe-légumes à épaisseur réglable",
-    "Torna alla home":"Retour à l’accueil"
+    "Torna alla home":"Retour à l’accueil",
+    "L'indirizzo email non è valido": "L'adresse e-mail n'est pas valide",
+    "L'URL non è valido": "L'URL n'est pas valide",
+    "Questo campo è obbligatorio": "Ce champ est obligatoire"
   }
 }

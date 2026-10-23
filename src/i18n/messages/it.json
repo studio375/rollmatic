@@ -24,6 +24,9 @@
     "capacita":"Capacità (chilogrammi)",
     "capacita_oraria":"Capacità oraria (numero di palline)",
     "testo_pulsante_home":"Scopri la nostra taglierina con spessore regolabile",
-    "Torna alla home":"Torna alla home"
+    "Torna alla home":"Torna alla home",
+    "L'indirizzo email non è valido": "L'indirizzo email non è valido",
+    "L'URL non è valido": "L'URL non è valido",
+    "Questo campo è obbligatorio": "Questo campo è obbligatorio"
   }
 }

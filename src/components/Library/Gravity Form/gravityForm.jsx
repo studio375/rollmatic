@@ -23,15 +23,6 @@ export default function GravityForm({formObject, ...props}){
     const widgetIdRef = useRef(null);
     const locale = useLocale();
 
-    useEffect(() => {
-        var tml = fadeAnimation(submitRef.current, true);
-        return () => {
-            if(tml)
-                tml.scrollTrigger?.kill();
-                tml.kill();
-        }
-    }, []);
-
     var fields = formObject.fields;
     var printFields = fields.map(field => {
         return <SingleField key={field.id} fieldObject={field} register={register} setValue={setValue} errors={errors} />
@@ -39,15 +30,19 @@ export default function GravityForm({formObject, ...props}){
 
     async function onSubmit(data){
         setDisableButton(true);
-        const email = (data.input_7 || "").trim();
-        const atIndex = email.lastIndexOf("@");
-        const website = atIndex !== -1 ? email.slice(atIndex + 1).toLowerCase() : "";
+        formObject.fields.forEach(field => {
+          if(field.type !== 'website') return;
+          const fieldName = `input_${field.id}`;
+          const value = data[fieldName]?.trim();
+          if(value && !/^https?:\/\//i.test(value)){
+            data[fieldName] = `https://${value}`;
+          }
+        });
         data = {
           ...data, 
           ...getTracking(),
           "attr_ip": await getClientIp() || "undefined",
           "attr_lingua": locale,
-          "attr_website": website ? `https://${website}` : "",
           "cf-turnstile-response": turnstileToken
         };
         var _data = JSON.stringify(data).replace('true', '"1"');
@@ -96,7 +91,7 @@ export default function GravityForm({formObject, ...props}){
                 {printFields}
             </div>
             <div ref={turnstileRef} />
-            <div ref={submitRef} className={`formSubmit mt-1 relative rounded-[50px] overflow-hidden flex items-center justify-start gap-2 fade-effect`}>
+            <div ref={submitRef} className={`formSubmit mt-1 relative rounded-[50px] overflow-hidden flex items-center justify-start gap-2`}>
                 {disableButton && <div className='absolute left-0 top-0 w-full h-full bg-[#ecbcbcc4] z-10 flex justify-center items-center'>
                   <div className='loader'></div>
                 </div>}
