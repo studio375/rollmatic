@@ -30,7 +30,7 @@ export default async function Page({params}){
             <div className={textSectionClass}>
                 <div className="flex-1 relative flex flex-col items-start justify-start gap-[25px]">
                     <BigText Tag="h3" className={`!text-[15px] !uppercase relative font-bold pb-[7px] ${beforeClass}`}>{page.acf.produzione_e_metodo.titolo_piccolo}</BigText>
-                    <BigText Tag="h2" className={'classic-title'}>{page.acf.produzione_e_metodo.titolo_grande}</BigText>
+                    <BigText Tag="h1" className={'classic-title h2'}>{page.acf.produzione_e_metodo.titolo_grande}</BigText>
                 </div>
                 <Paragraph className="flex-1">{page.acf.produzione_e_metodo.paragrafo}</Paragraph>
             </div>
