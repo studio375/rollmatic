@@ -6,6 +6,7 @@ import { Environment, Preload } from "@react-three/drei";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
+import { useStore } from "@/store/useStore";
 // import { useControls } from "leva";
 
 const glConfig = { antialias: true, powerPreference: "high-performance" };
@@ -182,6 +183,9 @@ export default function Object3DScene({ ...props }) {
         },
         "0.8",
       );
+
+      useStore.getState().lenis?.resize();
+      ScrollTrigger.refresh();
     },
     {
       dependencies: [modelRefs, isMobile],

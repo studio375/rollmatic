@@ -1,9 +1,8 @@
 "use client";
-import {useRef } from "react";
+import { useRef } from "react";
 import { TransitionRouter } from "next-transition-router";
 import { gsap } from "@/lib/gsap";
 import Image from "next/image";
-
 
 export default function Providers({ children }) {
   const firstLayer = useRef(null);
@@ -15,35 +14,73 @@ export default function Providers({ children }) {
     <TransitionRouter
       auto={true}
       leave={(next, from, to) => {
-        gsap.set([firstLayer.current, secondLayer.current], {y:"100%"});
+        gsap.set([firstLayer.current, secondLayer.current], { y: "100%" });
         var tml = gsap.timeline({
-            onComplete: next,
+          onComplete: next,
         });
-        tml.to(firstLayer.current, {y:0, duration:0.7, ease:'power4.inOut'})
-           .to(secondLayer.current, {y:0, duration: 0.6, ease:'power4.inOut'}, '<70%')
-           .fromTo(imageWall.current,{x:"-50%"}, {x:"100%", duration: 1});
+        tml
+          .to(firstLayer.current, { y: 0, duration: 0.7, ease: "power4.inOut" })
+          .to(
+            secondLayer.current,
+            { y: 0, duration: 0.6, ease: "power4.inOut" },
+            "<70%",
+          )
+          .fromTo(imageWall.current, { x: "-50%" }, { x: "100%", duration: 1 });
         return () => {
           tml.kill();
         };
       }}
       enter={(next) => {
         var tml = gsap.timeline({
-            onComplete: next,
+          paused: true,
+          onComplete: next,
         });
-        tml.to(firstLayer.current, {y:"-100%", duration:0.7, ease: 'power4.inOut'})
-           .to(secondLayer.current, {y:"-100%", duration:0.7, ease: 'power4.inOut'}, '<');
+        tml
+          .to(firstLayer.current, {
+            y: "-100%",
+            duration: 0.7,
+            ease: "power4.inOut",
+          })
+          .to(
+            secondLayer.current,
+            { y: "-100%", duration: 0.7, ease: "power4.inOut" },
+            "<",
+          );
+
+        var secondFrame = 0;
+        var firstFrame = requestAnimationFrame(() => {
+          secondFrame = requestAnimationFrame(() => tml.play());
+        });
         return () => {
+          cancelAnimationFrame(firstFrame);
+          cancelAnimationFrame(secondFrame);
           tml.kill();
         };
       }}
     >
       {children}
 
-    <div ref={firstLayer} className="fixed top-0 left-0 w-screen h-[100dvh] translate-y-full bg-[var(--background)] z-99999" />
-    <div ref={secondLayer} className="fixed top-0 left-0 w-screen h-[100dvh] translate-y-full bg-[var(--color-primary)] z-99999">
-        <div ref={imageWall} className="w-35 h-35 absolute left-1/2 top-1/2 -translate-y-1/2 bg-[var(--color-primary)] z-1" />
-        <Image ref={logo} src={'/logo_light.svg'} width="200" height="100" alt="logo" className="w-30 h-auto absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2" />
-    </div>
+      <div
+        ref={firstLayer}
+        className="fixed top-0 left-0 w-screen h-[100dvh] translate-y-full bg-[var(--background)] z-99999"
+      />
+      <div
+        ref={secondLayer}
+        className="fixed top-0 left-0 w-screen h-[100dvh] translate-y-full bg-[var(--color-primary)] z-99999"
+      >
+        <div
+          ref={imageWall}
+          className="w-35 h-35 absolute left-1/2 top-1/2 -translate-y-1/2 bg-[var(--color-primary)] z-1"
+        />
+        <Image
+          ref={logo}
+          src={"/logo_light.svg"}
+          width="200"
+          height="100"
+          alt="logo"
+          className="w-30 h-auto absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2"
+        />
+      </div>
     </TransitionRouter>
   );
 }
