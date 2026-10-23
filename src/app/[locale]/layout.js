@@ -11,6 +11,7 @@ import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
 import ClientCaptureTracking from "@/components/Utility/clientCaptureTracking";
 import Loader from "@/components/Library/Loader/loader";
+import PageReadyChatScript from "@/components/Utility/pageReadyChatScript";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -33,10 +34,6 @@ export default async function LocaleLayout({ children, params }) {
       <html lang={locale} suppressHydrationWarning>
         <head>
           <Script
-            src="https://chat.daliatechnologies.ai/embed.min.js?chatbotId=698d0c4bfaab1933e7aba0c2"
-            strategy="lazyOnload"
-          ></Script>
-          <Script
             type="text/javascript"
             src="https://embeds.iubenda.com/widgets/1aef3992-45bd-4c6d-9afc-e26e2bec9dde.js"
           ></Script>
@@ -50,6 +47,7 @@ export default async function LocaleLayout({ children, params }) {
               <SmoothScroll>{children}</SmoothScroll>
               <Footer />
               <Loader />
+              <PageReadyChatScript />
             </NextIntlClientProvider>
           </Providers>
         </body>

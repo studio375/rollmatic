@@ -56,14 +56,14 @@ export default async function Home({params}) {
   return (
     <>
       <section className="w-full h-screen relative">
-        <div className="absolute top-0 left-0 w-full h-28 sfumatura-dark z-2 rotate-[180deg]"></div>
+        {/* <div className="absolute top-0 left-0 w-full h-28 sfumatura-dark z-2 rotate-[180deg]"></div> */}
         <VideoHtml className="z-0" videoObj={page.acf.video_testata} poster="/video-home-poster.webp" setsPageReady />
         <div className="absolute bottom-9 w-full boxed s:px-4 flex items-end justify-between flex-wrap max-xl:flex-col max-xl:items-start z-3 max-l:flex-col max-l:items-start">
           <BigText Tag="h1" className="no-animation !text-[var(--color-background)] !normal-case xl:w-[60%]">{page.acf.titolo}</BigText>
           <Paragraph className="no-animation xl:text-end !text-[var(--color-background)] max-l:mt-2 xl:w-1/3 max-xl:mt-2">{page.acf.paragrafo}</Paragraph>
           <div className="relative bottom-0 left-0 w-full h-px bg-[var(--color-primary)] mt-4"></div>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-28 sfumatura-dark z-2"></div>
+        {/* <div className="absolute bottom-0 left-0 w-full h-28 sfumatura-dark z-2"></div> */}
       </section>
       <section className="w-full pt-10 flex flex-col items-center">
         <BigText className="font-semibold text-center boxed">{page.acf.titolo_categorie}</BigText>
