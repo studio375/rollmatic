@@ -16,7 +16,7 @@ function AnimatedSubmenu({children, commonClasses}) {
                 return hasChildren ? <div key={elem2.id} className={`${`flex flex-col items-center menu-item has-children`}`}>
                     <Link key={elem2.id} className={`${commonClasses} text-[15px] whitespace-nowrap hover:!underline menu-item has-children main-item relative`} href={elem2.url}>{elem2.title.rendered}<ExpandIcon /></Link>
                     <AnimatedSubmenu children={elem2.children} commonClasses={commonClasses} />
-                </div> : <Link key={elem2.id} className={`${commonClasses} text-[15px] [.submenu_.submenu_>_&]:text-[12px] whitespace-nowrap hover:!underline`} href={elem2.url}>{elem2.title.rendered}</Link>
+                </div> : <Link key={elem2.id} className={`${commonClasses} text-[15px] [.submenu_.submenu_>_&]:!normal-case whitespace-nowrap hover:!underline`} href={elem2.url}>{elem2.title.rendered}</Link>
             })
         }
     </div>;
@@ -89,39 +89,11 @@ export default function MobileHeader({menu_items, isTransparent}){
                         return <div className={`menu-item relative py-[15px] flex flex-col items-center ${hasChildren && 'has-children'}`} key={elem.object_id}>
                                 {
                                     (elem.classes.indexOf('btn')>=0)?<CustomButton href={elem.url} Tag={Link} className="no-animation">{elem.title.rendered}</CustomButton> 
-                                    : <Link className={`${commonClasses} [.menu-item:hover_&]:!underline relative main-item ${hasChildren && 'has-children'}`} href={elem.url}>{elem.title.rendered}{hasChildren && <ExpandIcon />}</Link>
+                                    : <Link className={`${commonClasses} [.menu-item:hover_&]:!underline relative main-item ${hasChildren && 'has-children'} text-[18px]`} href={elem.url}>{elem.title.rendered}{hasChildren && <ExpandIcon />}</Link>
                                 }
                                 {
                                     hasChildren && <AnimatedSubmenu commonClasses={commonClasses} children={children} /> 
                                 }
-                                {/* {
-                                    hasChildren && <AnimatedSubmenu isOpen={isSubmenuOpen}>
-                                        <div className="relative flex flex-col items-center pt-3 submenu gap-3">
-                                            {children.map(category => {
-                                                const hasSubcategories = category.children.length > 0;
-                                                const isCategoryOpen = Boolean(openMenus[category.id]);
-
-                                                return <div key={category.id} className="flex flex-col items-center gap-1">
-                                                    <div className="flex items-center justify-center gap-2">
-                                                        <Link className={`${commonClasses} text-[15px] whitespace-nowrap hover:!underline`} href={category.url}>{category.title.rendered}</Link>
-                                                        {hasSubcategories && <button
-                                                            type="button"
-                                                            className="text-[18px] leading-none"
-                                                            aria-label={`${isCategoryOpen ? 'Chiudi' : 'Apri'} ${category.title.rendered}`}
-                                                            aria-expanded={isCategoryOpen}
-                                                            onClick={() => setOpenMenus(current => ({ ...current, [category.id]: !current[category.id] }))}
-                                                        >{isCategoryOpen ? '-' : '+'}</button>}
-                                                    </div>
-                                                    {hasSubcategories && <AnimatedSubmenu isOpen={isCategoryOpen}>
-                                                        <div className="flex flex-col items-center gap-1 pt-1">
-                                                            {category.children.map(subCategory => <Link key={subCategory.id} className="text-[13px] normal-case opacity-80 hover:underline" href={subCategory.url}>{subCategory.title.rendered}</Link>)}
-                                                        </div>
-                                                    </AnimatedSubmenu>}
-                                                </div>;
-                                            })}
-                                        </div>
-                                    </AnimatedSubmenu>
-                                } */}
                             </div>;
                     })
                 }
