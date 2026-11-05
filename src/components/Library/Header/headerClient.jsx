@@ -42,17 +42,21 @@ export default function HeaderClient({menu_items}){
     }
     const positionMegaMenu = (event) => {
         const panel = event.currentTarget.querySelector(".mega-menu-panel");
-        if (!panel || window.innerWidth > 1700) return;
+        if (!panel) return;
 
         const itemRect = event.currentTarget.getBoundingClientRect();
-        const panelWidth = Math.min(1400, window.innerWidth - 32);
+        panel.style.width = "max-content";
+        panel.style.maxWidth = `${Math.min(1400, window.innerWidth - 32)}px`;
+        panel.style.left = "50%";
+        panel.style.transform = "translateX(-50%)";
+        panel.style.translate = "none";
+
+        const panelWidth = panel.getBoundingClientRect().width;
         const desiredLeft = itemRect.left + itemRect.width / 2 - panelWidth / 2;
         const left = Math.max(16, Math.min(desiredLeft, window.innerWidth - panelWidth - 16));
 
-        panel.style.width = `${panelWidth}px`;
         panel.style.left = `${left - itemRect.left}px`;
         panel.style.transform = "none";
-        panel.style.translate = "none";
     }
     useEffect(() => {
         setIsMobile(window.innerWidth <= 1100);
@@ -77,9 +81,9 @@ export default function HeaderClient({menu_items}){
                     return <div className="menu-item relative py-[15px]" key={elem.object_id} onMouseEnter={hasNestedChildren ? positionMegaMenu : undefined}>
                             {(elem.classes.indexOf('btn')>=0)?<CustomButton href={elem.url} Tag={Link} className="no-animation max-l:text-[15px]">{elem.title.rendered}</CustomButton>:<Link className={`${commonClasses} [.menu-item:hover_&]:!underline`} href={elem.url}>{elem.title.rendered}</Link>}
                             {
-                                children.length > 0 && (hasNestedChildren ? <div className="mega-menu-panel absolute top-full left-1/2 hidden w-[1400px] max-w-[calc(100vw-32px)] -translate-x-1/2 rounded-[5px] bg-[var(--color-primary)] px-3 py-[25px] [.menu-item:hover_&]:!block">
-                                    <div className="grid grid-cols-4 items-start gap-8">
-                                        {children.map(category => <div className="flex min-w-0 flex-col items-start" key={category.id}>
+                                children.length > 0 && (hasNestedChildren ? <div className="mega-menu-panel absolute top-full left-1/2 hidden w-max max-w-[min(1400px,calc(100vw-32px))] -translate-x-1/2 rounded-[5px] bg-[var(--color-primary)] px-3 py-[25px] [.menu-item:hover_&]:!block">
+                                    <div className="flex items-start gap-8">
+                                        {children.map(category => <div className="flex min-w-0 max-w-[320px] flex-col items-start" key={category.id}>
                                             <Link className="mb-[17px] text-[15px] font-medium uppercase text-[var(--background)] hover:!underline whitespace-normal break-words" href={category.url}>{category.title.rendered}</Link>
                                             {category.children.map(subCategory => <Link key={subCategory.id} className="text-[14px]/[14px] mt-1 font-normal text-[var(--background)] hover:!underline whitespace-normal break-words [&:last-child]:hidden" href={subCategory.url}>{subCategory.title.rendered}</Link>)}
                                         </div>)}
