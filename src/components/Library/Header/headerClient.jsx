@@ -77,11 +77,11 @@ export default function HeaderClient({menu_items}){
                     return <div className="menu-item relative py-[15px]" key={elem.object_id} onMouseEnter={hasNestedChildren ? positionMegaMenu : undefined}>
                             {(elem.classes.indexOf('btn')>=0)?<CustomButton href={elem.url} Tag={Link} className="no-animation max-l:text-[15px]">{elem.title.rendered}</CustomButton>:<Link className={`${commonClasses} [.menu-item:hover_&]:!underline`} href={elem.url}>{elem.title.rendered}</Link>}
                             {
-                                children.length > 0 && (hasNestedChildren ? <div className="mega-menu-panel absolute top-full left-1/2 hidden w-auto max-w-[1400px] -translate-x-1/2 rounded-[5px] bg-[var(--color-primary)] px-3 py-[25px] [.menu-item:hover_&]:!block">
+                                children.length > 0 && (hasNestedChildren ? <div className="mega-menu-panel absolute top-full left-1/2 hidden w-[1400px] max-w-[calc(100vw-32px)] -translate-x-1/2 rounded-[5px] bg-[var(--color-primary)] px-3 py-[25px] [.menu-item:hover_&]:!block">
                                     <div className="grid grid-cols-4 items-start gap-8">
                                         {children.map(category => <div className="flex min-w-0 flex-col items-start" key={category.id}>
-                                            <Link className="mb-[17px] text-[15px] font-medium uppercase text-[var(--background)] hover:!underline whitespace-nowrap max-[1700px]:whitespace-normal max-[1700px]:break-words" href={category.url}>{category.title.rendered}</Link>
-                                            {category.children.map(subCategory => <Link key={subCategory.id} className="text-[14px]/[14px] mt-1 font-normal text-[var(--background)] hover:!underline whitespace-nowrap max-[1700px]:whitespace-normal max-[1700px]:break-words [&:last-child]:hidden" href={subCategory.url}>{subCategory.title.rendered}</Link>)}
+                                            <Link className="mb-[17px] text-[15px] font-medium uppercase text-[var(--background)] hover:!underline whitespace-normal break-words" href={category.url}>{category.title.rendered}</Link>
+                                            {category.children.map(subCategory => <Link key={subCategory.id} className="text-[14px]/[14px] mt-1 font-normal text-[var(--background)] hover:!underline whitespace-normal break-words [&:last-child]:hidden" href={subCategory.url}>{subCategory.title.rendered}</Link>)}
                                         </div>)}
                                     </div>
                                 </div> : <div className="absolute top-[calc(100%)] left-[50%] translate-x-[-50%] bg-[var(--color-primary)] flex-col items-center px-[15px] py-3 rounded-[5px] gap-2 hidden [.menu-item:hover_&]:!flex">
